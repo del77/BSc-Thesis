@@ -8,8 +8,6 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
         <TextView
             android:text="jeden"
             android:layout_gravity="left|center_vertical"
@@ -20,15 +18,24 @@
             android:minWidth="25px"
             android:minHeight="25px"
             android:id="@+id/routeName" />
-
         <Button
             android:id="@+id/removeCurrentRouteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
             android:text="X" />
-
     </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <fragment
+            android:id="@+id/googleMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+
 
 
 </LinearLayout>

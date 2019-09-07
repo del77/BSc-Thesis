@@ -1,6 +1,10 @@
-﻿using Android.Content;
+﻿using Android;
+using Android.Content;
+using Android.Content.PM;
+using Android.Gms.Maps;
 using Android.OS;
 using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using Core.Model;
@@ -8,13 +12,35 @@ using MobileAndroid.Adapters;
 
 namespace MobileAndroid.Fragments
 {
-    public class ActivityFragment : Fragment
+    public class ActivityFragment : Fragment, IOnMapReadyCallback
     {
         private TextView _routeName;
         private Button _removeCurrentRouteButton;
 
+        private GoogleMap _googleMap;
+
         private View _view;
         public static Route CurrentRoute { get; set; }
+
+        public void OnMapReady(GoogleMap googleMap)
+        {
+            if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.AccessFineLocation)
+                == Permission.Granted)
+            {
+                _googleMap = googleMap;
+
+                _googleMap.UiSettings.MyLocationButtonEnabled = true;
+                _googleMap.MyLocationEnabled = true;
+            }
+            else
+            {
+                var permissions = new[] { Manifest.Permission.AccessFineLocation };
+                ActivityCompat.RequestPermissions(Activity, permissions, 1);
+                OnMapReady(googleMap);
+            }
+
+
+        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -23,6 +49,9 @@ namespace MobileAndroid.Fragments
             FindViews();
             BindData();
             LinkEventHandlers();
+
+            var mapFragment = (SupportMapFragment)ChildFragmentManager.FindFragmentById(Resource.Id.googleMap);
+            mapFragment.GetMapAsync(this);
 
             return _view;
         }
@@ -62,7 +91,8 @@ namespace MobileAndroid.Fragments
             BindData();
         }
 
+
     }
 
-    
+
 }
