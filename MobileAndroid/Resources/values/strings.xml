@@ -3,4 +3,6 @@
   <string name="action_settings">Settings</string>
   <string name="training_tab">Training</string>
   <string name="routes_tab">Browse routes</string>
+  <string name="routes">Routes</string>
+
 </resources>

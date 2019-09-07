@@ -60,11 +60,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\MainPagerAdapter.cs" />
+    <Compile Include="Adapters\RoutesAdapter.cs" />
     <Compile Include="Fragments\ActivityFragment.cs" />
     <Compile Include="Fragments\RoutesBrowserFragment.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewHolders\RouteViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -116,6 +118,17 @@
   <ItemGroup>
     <AndroidResource Include="Resources\values-pl\strings.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{6856F983-BCF8-45CB-8CD4-A23802E37F82}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\route_viewholder.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
