@@ -29,11 +29,14 @@ namespace MobileAndroid.Fragments
 
             _routeLayoutManager = new LinearLayoutManager(inflater.Context);
             _routesRecyclerView.SetLayoutManager(_routeLayoutManager);
-            _routesAdapter = new RoutesAdapter();
+            _routesAdapter = new RoutesAdapter() {};
+            _routesAdapter.RouteClick += _routesAdapter_RouteClick;
             _routesRecyclerView.SetAdapter(_routesAdapter);
 
             return _singleRouteView;
         }
+
+
 
         private void FindViews()
         {
@@ -54,12 +57,18 @@ namespace MobileAndroid.Fragments
             _filterButton.Click += Button_Click;
         }
 
-        private void Button_Click(object sender, System.EventArgs e)
+
+
+        private void _routesAdapter_RouteClick(object sender, Route e)
         {
-            Route xd = new Route() { Name = "XD" };
-            _trainingFragment.SetRoute(xd);
+            _trainingFragment.SetRoute(e);
 
             _viewPager.SetCurrentItem(0, true);
+        }
+
+        private void Button_Click(object sender, System.EventArgs e)
+        {
+            _routesAdapter.UpdateData();
         }
     }
 }

@@ -3454,8 +3454,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0049
 			public const int SYM = 2131558473;
 			
-			// aapt resource value: 0x7f0d00bf
-			public const int action0 = 2131558591;
+			// aapt resource value: 0x7f0d00c1
+			public const int action0 = 2131558593;
 			
 			// aapt resource value: 0x7f0d0097
 			public const int action_bar = 2131558551;
@@ -3478,17 +3478,17 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0073
 			public const int action_bar_title = 2131558515;
 			
-			// aapt resource value: 0x7f0d00bc
-			public const int action_container = 2131558588;
+			// aapt resource value: 0x7f0d00be
+			public const int action_container = 2131558590;
 			
 			// aapt resource value: 0x7f0d0098
 			public const int action_context_bar = 2131558552;
 			
-			// aapt resource value: 0x7f0d00c3
-			public const int action_divider = 2131558595;
+			// aapt resource value: 0x7f0d00c5
+			public const int action_divider = 2131558597;
 			
-			// aapt resource value: 0x7f0d00bd
-			public const int action_image = 2131558589;
+			// aapt resource value: 0x7f0d00bf
+			public const int action_image = 2131558591;
 			
 			// aapt resource value: 0x7f0d0003
 			public const int action_menu_divider = 2131558403;
@@ -3505,11 +3505,11 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0075
 			public const int action_mode_close_button = 2131558517;
 			
-			// aapt resource value: 0x7f0d00be
-			public const int action_text = 2131558590;
+			// aapt resource value: 0x7f0d00c0
+			public const int action_text = 2131558592;
 			
-			// aapt resource value: 0x7f0d00cc
-			public const int actions = 2131558604;
+			// aapt resource value: 0x7f0d00ce
+			public const int actions = 2131558606;
 			
 			// aapt resource value: 0x7f0d0076
 			public const int activity_chooser_view_content = 2131558518;
@@ -3547,32 +3547,32 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d004f
 			public const int bottom = 2131558479;
 			
-			// aapt resource value: 0x7f0d00ac
-			public const int browser_actions_header_text = 2131558572;
-			
 			// aapt resource value: 0x7f0d00ae
-			public const int browser_actions_menu_item_icon = 2131558574;
+			public const int browser_actions_header_text = 2131558574;
+			
+			// aapt resource value: 0x7f0d00b0
+			public const int browser_actions_menu_item_icon = 2131558576;
+			
+			// aapt resource value: 0x7f0d00b1
+			public const int browser_actions_menu_item_text = 2131558577;
 			
 			// aapt resource value: 0x7f0d00af
-			public const int browser_actions_menu_item_text = 2131558575;
+			public const int browser_actions_menu_items = 2131558575;
 			
 			// aapt resource value: 0x7f0d00ad
-			public const int browser_actions_menu_items = 2131558573;
+			public const int browser_actions_menu_view = 2131558573;
 			
-			// aapt resource value: 0x7f0d00ab
-			public const int browser_actions_menu_view = 2131558571;
-			
-			// aapt resource value: 0x7f0d00d3
-			public const int button1 = 2131558611;
+			// aapt resource value: 0x7f0d00d5
+			public const int button1 = 2131558613;
 			
 			// aapt resource value: 0x7f0d007c
 			public const int buttonPanel = 2131558524;
 			
-			// aapt resource value: 0x7f0d00c0
-			public const int cancel_action = 2131558592;
+			// aapt resource value: 0x7f0d00c2
+			public const int cancel_action = 2131558594;
 			
-			// aapt resource value: 0x7f0d00d1
-			public const int categoryTextView = 2131558609;
+			// aapt resource value: 0x7f0d00d3
+			public const int categoryTextView = 2131558611;
 			
 			// aapt resource value: 0x7f0d0057
 			public const int center = 2131558487;
@@ -3586,8 +3586,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0090
 			public const int checkbox = 2131558544;
 			
-			// aapt resource value: 0x7f0d00c8
-			public const int chronometer = 2131558600;
+			// aapt resource value: 0x7f0d00ca
+			public const int chronometer = 2131558602;
 			
 			// aapt resource value: 0x7f0d006b
 			public const int clip_horizontal = 2131558507;
@@ -3598,8 +3598,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d004b
 			public const int collapseActionView = 2131558475;
 			
-			// aapt resource value: 0x7f0d00b2
-			public const int container = 2131558578;
+			// aapt resource value: 0x7f0d00b4
+			public const int container = 2131558580;
 			
 			// aapt resource value: 0x7f0d008c
 			public const int content = 2131558540;
@@ -3607,8 +3607,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d007f
 			public const int contentPanel = 2131558527;
 			
-			// aapt resource value: 0x7f0d00b3
-			public const int coordinator = 2131558579;
+			// aapt resource value: 0x7f0d00b5
+			public const int coordinator = 2131558581;
 			
 			// aapt resource value: 0x7f0d0086
 			public const int custom = 2131558534;
@@ -3625,20 +3625,20 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0079
 			public const int default_activity_button = 2131558521;
 			
-			// aapt resource value: 0x7f0d00b5
-			public const int design_bottom_sheet = 2131558581;
+			// aapt resource value: 0x7f0d00b7
+			public const int design_bottom_sheet = 2131558583;
+			
+			// aapt resource value: 0x7f0d00bc
+			public const int design_menu_item_action_area = 2131558588;
+			
+			// aapt resource value: 0x7f0d00bb
+			public const int design_menu_item_action_area_stub = 2131558587;
 			
 			// aapt resource value: 0x7f0d00ba
-			public const int design_menu_item_action_area = 2131558586;
+			public const int design_menu_item_text = 2131558586;
 			
 			// aapt resource value: 0x7f0d00b9
-			public const int design_menu_item_action_area_stub = 2131558585;
-			
-			// aapt resource value: 0x7f0d00b8
-			public const int design_menu_item_text = 2131558584;
-			
-			// aapt resource value: 0x7f0d00b7
-			public const int design_navigation_view = 2131558583;
+			public const int design_navigation_view = 2131558585;
 			
 			// aapt resource value: 0x7f0d0033
 			public const int disableHome = 2131558451;
@@ -3649,8 +3649,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0042
 			public const int end = 2131558466;
 			
-			// aapt resource value: 0x7f0d00ce
-			public const int end_padder = 2131558606;
+			// aapt resource value: 0x7f0d00d0
+			public const int end_padder = 2131558608;
 			
 			// aapt resource value: 0x7f0d0051
 			public const int enterAlways = 2131558481;
@@ -3706,8 +3706,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d007b
 			public const int icon = 2131558523;
 			
-			// aapt resource value: 0x7f0d00cd
-			public const int icon_group = 2131558605;
+			// aapt resource value: 0x7f0d00cf
+			public const int icon_group = 2131558607;
 			
 			// aapt resource value: 0x7f0d002b
 			public const int icon_only = 2131558443;
@@ -3718,8 +3718,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0078
 			public const int image = 2131558520;
 			
-			// aapt resource value: 0x7f0d00c9
-			public const int info = 2131558601;
+			// aapt resource value: 0x7f0d00cb
+			public const int info = 2131558603;
 			
 			// aapt resource value: 0x7f0d0072
 			public const int italic = 2131558514;
@@ -3730,8 +3730,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0058
 			public const int labeled = 2131558488;
 			
-			// aapt resource value: 0x7f0d00b1
-			public const int largeLabel = 2131558577;
+			// aapt resource value: 0x7f0d00b3
+			public const int largeLabel = 2131558579;
 			
 			// aapt resource value: 0x7f0d005e
 			public const int left = 2131558494;
@@ -3751,20 +3751,20 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d007a
 			public const int list_item = 2131558522;
 			
-			// aapt resource value: 0x7f0d00d0
-			public const int list_route_distance = 2131558608;
+			// aapt resource value: 0x7f0d00d2
+			public const int list_route_distance = 2131558610;
 			
-			// aapt resource value: 0x7f0d00cf
-			public const int list_route_name = 2131558607;
+			// aapt resource value: 0x7f0d00d1
+			public const int list_route_name = 2131558609;
 			
-			// aapt resource value: 0x7f0d00aa
-			public const int mainPager = 2131558570;
+			// aapt resource value: 0x7f0d00ac
+			public const int mainPager = 2131558572;
 			
-			// aapt resource value: 0x7f0d00d5
-			public const int masked = 2131558613;
+			// aapt resource value: 0x7f0d00d7
+			public const int masked = 2131558615;
 			
-			// aapt resource value: 0x7f0d00c2
-			public const int media_actions = 2131558594;
+			// aapt resource value: 0x7f0d00c4
+			public const int media_actions = 2131558596;
 			
 			// aapt resource value: 0x7f0d00a6
 			public const int message = 2131558566;
@@ -3784,8 +3784,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d003a
 			public const int multiply = 2131558458;
 			
-			// aapt resource value: 0x7f0d00b6
-			public const int navigation_header_container = 2131558582;
+			// aapt resource value: 0x7f0d00b8
+			public const int navigation_header_container = 2131558584;
 			
 			// aapt resource value: 0x7f0d004d
 			public const int never = 2131558477;
@@ -3796,14 +3796,14 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0026
 			public const int normal = 2131558438;
 			
-			// aapt resource value: 0x7f0d00cb
-			public const int notification_background = 2131558603;
+			// aapt resource value: 0x7f0d00cd
+			public const int notification_background = 2131558605;
 			
-			// aapt resource value: 0x7f0d00c5
-			public const int notification_main_column = 2131558597;
+			// aapt resource value: 0x7f0d00c7
+			public const int notification_main_column = 2131558599;
 			
-			// aapt resource value: 0x7f0d00c4
-			public const int notification_main_column_container = 2131558596;
+			// aapt resource value: 0x7f0d00c6
+			public const int notification_main_column_container = 2131558598;
 			
 			// aapt resource value: 0x7f0d006a
 			public const int outline = 2131558506;
@@ -3835,17 +3835,17 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d005f
 			public const int right = 2131558495;
 			
-			// aapt resource value: 0x7f0d00ca
-			public const int right_icon = 2131558602;
+			// aapt resource value: 0x7f0d00cc
+			public const int right_icon = 2131558604;
 			
-			// aapt resource value: 0x7f0d00c6
-			public const int right_side = 2131558598;
+			// aapt resource value: 0x7f0d00c8
+			public const int right_side = 2131558600;
 			
 			// aapt resource value: 0x7f0d00a7
 			public const int routeName = 2131558567;
 			
-			// aapt resource value: 0x7f0d00d2
-			public const int routesRecycler = 2131558610;
+			// aapt resource value: 0x7f0d00d4
+			public const int routesRecycler = 2131558612;
 			
 			// aapt resource value: 0x7f0d0027
 			public const int satellite = 2131558439;
@@ -3925,8 +3925,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0037
 			public const int showTitle = 2131558455;
 			
-			// aapt resource value: 0x7f0d00b0
-			public const int smallLabel = 2131558576;
+			// aapt resource value: 0x7f0d00b2
+			public const int smallLabel = 2131558578;
 			
 			// aapt resource value: 0x7f0d0016
 			public const int snackbar_action = 2131558422;
@@ -3961,8 +3961,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0060
 			public const int start = 2131558496;
 			
-			// aapt resource value: 0x7f0d00c1
-			public const int status_bar_latest_event_content = 2131558593;
+			// aapt resource value: 0x7f0d00c3
+			public const int status_bar_latest_event_content = 2131558595;
 			
 			// aapt resource value: 0x7f0d0065
 			public const int stretch = 2131558501;
@@ -4003,8 +4003,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0064
 			public const int textStart = 2131558500;
 			
-			// aapt resource value: 0x7f0d00bb
-			public const int text_input_password_toggle = 2131558587;
+			// aapt resource value: 0x7f0d00bd
+			public const int text_input_password_toggle = 2131558589;
 			
 			// aapt resource value: 0x7f0d0018
 			public const int textinput_counter = 2131558424;
@@ -4015,8 +4015,14 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d001a
 			public const int textinput_helper_text = 2131558426;
 			
-			// aapt resource value: 0x7f0d00c7
-			public const int time = 2131558599;
+			// aapt resource value: 0x7f0d00c9
+			public const int time = 2131558601;
+			
+			// aapt resource value: 0x7f0d00ab
+			public const int timer = 2131558571;
+			
+			// aapt resource value: 0x7f0d00aa
+			public const int timerButton = 2131558570;
 			
 			// aapt resource value: 0x7f0d0023
 			public const int title = 2131558435;
@@ -4033,8 +4039,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d0087
 			public const int topPanel = 2131558535;
 			
-			// aapt resource value: 0x7f0d00b4
-			public const int touch_outside = 2131558580;
+			// aapt resource value: 0x7f0d00b6
+			public const int touch_outside = 2131558582;
 			
 			// aapt resource value: 0x7f0d000f
 			public const int transition_current_scene = 2131558415;
@@ -4066,8 +4072,8 @@ namespace MobileAndroid
 			// aapt resource value: 0x7f0d001b
 			public const int view_offset_helper = 2131558427;
 			
-			// aapt resource value: 0x7f0d00d4
-			public const int visible = 2131558612;
+			// aapt resource value: 0x7f0d00d6
+			public const int visible = 2131558614;
 			
 			// aapt resource value: 0x7f0d002d
 			public const int wide = 2131558445;

@@ -15,11 +15,12 @@ namespace MobileAndroid.ViewHolders
         {
         }
 
-        public RouteViewHolder(View itemView) : base(itemView)
+        public RouteViewHolder(View itemView, Action<int> listener) : base(itemView)
         {
             RouteName = itemView.FindViewById<TextView>(Resource.Id.list_route_name);
             RouteDistance = itemView.FindViewById<TextView>(Resource.Id.list_route_distance);
 
+            itemView.Click += (sender, e) => listener(base.LayoutPosition);
         }
     }
 }
