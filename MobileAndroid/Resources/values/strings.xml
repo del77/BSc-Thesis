@@ -4,5 +4,8 @@
   <string name="training_tab">Training</string>
   <string name="routes_tab">Browse routes</string>
   <string name="routes">Routes</string>
-
+  <string name="route_name">Route name</string>
+  <string name="create">Create</string>
+  <string name="cancel">Cancel</string>
+  <string name="route_created">Route has been created</string>
 </resources>

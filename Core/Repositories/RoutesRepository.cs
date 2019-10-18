@@ -9,7 +9,13 @@ namespace Core.Repositories
         {
             new Route()
             {
-                Name = "xd",Distance = 123,
+                Name = "xd",
+                Properties =
+                {
+                    Distance = 2.69d,
+                    HeightAboveSeaLevel = HeightAboveSeaLevel.Increasing,
+                    PavedPercentage = 75,
+                },
                 Checkpoints = new List<Point>
                 {
                     new Point(51.949004, 19.205046, 1),

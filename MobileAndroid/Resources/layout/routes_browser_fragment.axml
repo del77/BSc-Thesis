@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:text="@string/routeLength"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Xamarin.RangeSlider.RangeSliderControl
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        local:absoluteMinValue="0"
+        local:absoluteMaxValue="42"
+        local:showRangeLabels="true"
+        local:stepValue="1"
+        local:valuesAboveThumbs="true"
+        local:textAboveThumbsColor="#FF0000"
+        />
+    <TextView
+        android:text="@string/surfaceType"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Xamarin.RangeSlider.RangeSliderControl
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        local:absoluteMinValue="0"
+        local:absoluteMaxValue="100"
+        local:showRangeLabels="true"
+        local:stepValue="10"
+        local:valuesAboveThumbs="true"
+        local:textAboveThumbsColor="#FF0000"
+        />
+    <!--<TextView
+        android:text="@string/terrainLevel"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Spinner
+        android:id="@+id/terrainLevelSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+    <TextView
+        android:text="@string/searchRange"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:min="0"
+        android:max="10"
+        android:id="@+id/seekBar1" />-->
+
     <TextView
         android:text="@string/routes"
         android:id="@+id/categoryTextView"
@@ -13,6 +65,7 @@
         android:layout_gravity="center"
         android:layout_margin="10dp"
         />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/routesRecycler"
         android:scrollbars="vertical"
@@ -25,4 +78,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button1" />
+
 </LinearLayout>

@@ -1,0 +1,49 @@
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="Distance"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1" />
+
+    <Xamarin.RangeSlider.RangeSliderControl
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        local:absoluteMinValue="0"
+        local:absoluteMaxValue="100"
+        local:showRangeLabels="true"
+        local:stepValue="10"
+        local:valuesAboveThumbs="true"
+        local:textAboveThumbsColor="#FF0000"
+        />
+
+    <TextView
+        android:text="@string/routes"
+        android:id="@+id/categoryTextView"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/routesRecycler"
+        android:scrollbars="vertical"
+        android:layout_margin="5dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"/>
+    <Button
+        android:text="Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button1" />
+
+</LinearLayout>

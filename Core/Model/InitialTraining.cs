@@ -7,42 +7,39 @@ using Core.Repositories;
 
 namespace Core.Model
 {
-    public class Training
+    public class InitialTraining : TrainingBase
     {
-        private Timer _timer;
-        private Action _uiUpdate;
-        private Func<Task<Tuple<double, double>>> _getLocation;
 
-        public bool IsStarted { get; set; }
-        public int Seconds { get; set; }
-        public List<Point> Points { get; set; }
-        private readonly Route _route;
-
-        private readonly RoutesRepository _routesRepository;
-
-        public Training(Route route)
+        public InitialTraining(Route route, Action uiUpdate, Func<Task<Tuple<double, double, double?>>> currentLocationDelegate) : base(route, uiUpdate, currentLocationDelegate)
         {
-            Points = new List<Point>();
-            _route = route;
-            _routesRepository = new RoutesRepository();
         }
 
-        public void Start(Action uiUpdate, Func<Task<Tuple<double, double>>> getCurrentLocation)
+        public override void Start()
         {
             IsStarted = true;
-            _uiUpdate = uiUpdate;
-            _getLocation = getCurrentLocation;
 
-            _timer = new Timer(1000);
-            _timer.Elapsed += _timer_Elapsed;
-            _timer.Start();
+            Timer = new Timer(1000);
+            Timer.Elapsed += _timer_Elapsed;
 
+            AddPoint();
+            Timer.Start();
+
+        }
+
+        public override void Stop()
+        {
+            Timer.Stop();
+            IsStarted = false;
+            Seconds = 0;
+
+            Route.Checkpoints = RetrieveCheckpoints();
+            Route.Ranking.Add(new KeyValuePair<string, List<Point>>("Anon", Points));
         }
 
         private List<Point> RetrieveCheckpoints()
         {
             var lastPointToCheckIndex = Points.Count - 2;
-            var distanceBetweenCheckpoints = 10; //meters
+            var distanceBetweenCheckpoints = 0.01; //kilometers
             var retrievedCheckpoints = new List<Point>();
 
             retrievedCheckpoints.Add(Points.First()); //starting point
@@ -51,10 +48,10 @@ namespace Core.Model
             {
                 for (int j = i + 1; j <= lastPointToCheckIndex; j++)
                 {
-                    if (GetDistanceBetweenPoints(Points[i], Points[j]) > distanceBetweenCheckpoints)
+                    if (Point.Distance(Points[i], Points[j], 'K') > distanceBetweenCheckpoints)
                     {
                         i = j;
-                        retrievedCheckpoints.Add(retrievedCheckpoints[j]);
+                        retrievedCheckpoints.Add(Points[j]);
                         break;
                     }
 
@@ -67,41 +64,24 @@ namespace Core.Model
             return retrievedCheckpoints;
         }
 
-        private async void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Seconds++;
-            var location = await _getLocation();
-            Points.Add(new Point(location.Item1, location.Item2, Seconds));
+            AddPoint();
 
-            _uiUpdate();
+            UiUpdate();
         }
 
-        public void Stop()
+        protected override async void AddPoint()
         {
-            IsStarted = false;
-            _timer.Stop();
-            Seconds = 0;
-
-            _route.Distance = GetTrainingDistance();
-            _route.Checkpoints = RetrieveCheckpoints();
-            _route.Ranking.Add(new KeyValuePair<string, List<Point>>("Anon", Points));
-
-            _routesRepository.CreateRoute(_route);
+            var location = await GetLocation();
+            Points.Add(new Point(location.Item1, location.Item2, location.Item3, Seconds));
         }
 
-        private double GetTrainingDistance()
-        {
-            var totalDistance = 0d;
-            for (int i = 0; i < Points.Count - 1; i++)
-            {
-                totalDistance += GetDistanceBetweenPoints(Points[i], Points[i + 1]);
-            }
-
-            return totalDistance;
-        }
 
         private double GetDistanceBetweenPoints(Point point1, Point point2)
         {
+            //http://www.consultsarath.com/contents/articles/KB000012-distance-between-two-points-on-globe--calculation-using-cSharp.aspx
             //Haversine formula
             double lat1 = point1.Latitude;
             double long1 = point1.Longitude;
@@ -131,7 +111,9 @@ namespace Core.Model
 
             //Calaculate distance in metres.
             distance = radius * c;
-            return distance / 1000;
+            return distance;
         }
+
+        
     }
 }

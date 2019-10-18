@@ -44,7 +44,7 @@ namespace MobileAndroid.Adapters
             if (holder is RouteViewHolder routeViewHolder)
             {
                 routeViewHolder.RouteName.Text = _routes[position].Name;
-                routeViewHolder.RouteDistance.Text = _routes[position].Distance.ToString();
+                routeViewHolder.RouteDistance.Text = _routes[position].Properties.Distance.ToString();
             }
         }
 

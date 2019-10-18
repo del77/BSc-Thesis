@@ -3,4 +3,9 @@
   <string name="action_settings">Ustawienia</string>
   <string name="training_tab">Trening</string>
   <string name="routes_tab">Przeglądaj trasy</string>
+  <string name="route_name">Nazwa trasy</string>
+  <string name="create">Dodaj</string>
+  <string name="cancel">Anuluj</string>
+  <string name="route_created">Trasa została stworzona</string>
+
 </resources>
