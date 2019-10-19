@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:text="@string/routeLength"
+        android:text="@string/route_length"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -21,7 +21,7 @@
         local:textAboveThumbsColor="#FF0000"
         />
     <TextView
-        android:text="@string/surfaceType"
+        android:text="@string/surface_type"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -35,26 +35,33 @@
         local:valuesAboveThumbs="true"
         local:textAboveThumbsColor="#FF0000"
         />
-    <!--<TextView
-        android:text="@string/terrainLevel"
+    <TextView
+        android:text="@string/terrain_level"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Spinner
         android:id="@+id/terrainLevelSelect"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        
+        />
     <TextView
-        android:text="@string/searchRange"
+        android:text="@string/search_range"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <SeekBar
+    <Xamarin.RangeSlider.RangeSliderControl
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:min="0"
-        android:max="10"
-        android:id="@+id/seekBar1" />-->
+        android:layout_height="match_parent"
+        local:absoluteMinValue="0"
+        local:absoluteMaxValue="10"
+        local:showRangeLabels="true"
+        local:stepValue="1"
+        local:minThumbHidden="true"
+        local:valuesAboveThumbs="true"
+        local:textAboveThumbsColor="#FF0000"
+        />
 
     <TextView
         android:text="@string/routes"
@@ -74,9 +81,9 @@
         android:layout_height="fill_parent"
         android:layout_weight="1"/>
     <Button
-        android:text="Button"
+        android:text="@string/search_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button1" />
+        android:id="@+id/refreshRoutesButton" />
 
 </LinearLayout>

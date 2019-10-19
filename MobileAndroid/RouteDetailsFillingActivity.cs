@@ -22,7 +22,6 @@ namespace MobileAndroid
         private EditText _routeNameTextBox;
         private Button _addRouteButton;
         private Button _cancelRouteButton;
-
         private RoutesRepository _routesRepository;
         private Route _route;
 

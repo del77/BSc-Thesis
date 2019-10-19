@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Extensions;
 
 namespace Core.Model
 {
@@ -21,9 +22,11 @@ namespace Core.Model
             Time = time;
         }
 
+        protected Point() { }
+
         public override string ToString()
         {
-            return $"{Latitude}, {Longitude}";
+            return $"{Latitude.ToStringWithDot()}, {Longitude.ToStringWithDot()}";
         }
 
         public static double Distance(Point point1, Point point2, char unit)

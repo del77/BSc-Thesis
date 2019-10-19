@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using SQLite;
 
 namespace Core.Model
 {
+    [Table("Routes")]
     public class Route
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public string Name { get; set; }
         public RouteProperties Properties { get; set; }
         public List<Point> Checkpoints { get; set; }

@@ -8,5 +8,10 @@ namespace Core.Extensions
         {
             return (int)(Math.Round(value / 10) * 10);
         }
+
+        public static string ToStringWithDot(this double value)
+        {
+            return value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+        }
     }
 }

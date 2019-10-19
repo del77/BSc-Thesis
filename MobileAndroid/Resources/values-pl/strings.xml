@@ -7,5 +7,15 @@
   <string name="create">Dodaj</string>
   <string name="cancel">Anuluj</string>
   <string name="route_created">Trasa została stworzona</string>
-
+  <string name="route_length">Długość trasy</string>
+  <string name="surface_type">Typ nawierzchni</string>
+  <string name="terrain_level">Poziom terenu</string>
+  <string name="search_range">Obszar wyszukiwania [km]</string>
+  <string-array name="terrain_options">
+    <item>Każdy</item>
+    <item>Wyrównany</item>
+    <item>Rosnący</item>
+    <item>Malejący</item>
+  </string-array>
+  <string name="search_button">Szukaj</string>
 </resources>

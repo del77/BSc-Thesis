@@ -8,6 +8,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Graphics;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
@@ -20,6 +21,8 @@ using Core.Repositories;
 using MobileAndroid.Adapters;
 using MobileAndroid.Extensions;
 using Xamarin.Essentials;
+using Bitmap = Android.Graphics.Bitmap;
+using Color = Android.Graphics.Color;
 
 namespace MobileAndroid.Fragments
 {
@@ -213,15 +216,26 @@ namespace MobileAndroid.Fragments
             _removeCurrentRouteButton.Visibility = ViewStates.Visible;
             BindData();
 
+            Bitmap.Config conf = Bitmap.Config.Argb8888;
+            var bmp = BitmapFactory.DecodeResource(Resources, Resource.Drawable.checkpoint);
+            Canvas canvas1 = new Canvas();
+            canvas1.DrawBitmap(bmp, 0, 0, null);
+
+
             foreach (var routeCheckpoint in route.Checkpoints)
             {
-                var circle = _googleMap.AddCircle(new CircleOptions()
-                    .InvokeCenter(new LatLng(routeCheckpoint.Latitude, routeCheckpoint.Longitude))
-                    .InvokeRadius(3)
-                    .InvokeStrokeWidth(1f)
-                    .InvokeFillColor(0X66FF0000)
-                );
-                _checkpointsCircles.Add(circle);
+                _googleMap.AddMarker(new MarkerOptions()
+                    .SetPosition(new LatLng(routeCheckpoint.Latitude, routeCheckpoint.Longitude))
+                    .SetIcon(BitmapDescriptorFactory.FromBitmap(bmp))
+                    .Anchor(0.5f, 0.5f));
+                //.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.checkpoint));
+                //var circle = _googleMap.AddCircle(new CircleOptions()
+                //    .InvokeCenter(new LatLng(routeCheckpoint.Latitude, routeCheckpoint.Longitude))
+                //    .InvokeRadius(3)
+                //    .InvokeStrokeWidth(1f)
+                //    .InvokeFillColor(0X66FF0000)
+                //);
+                //_checkpointsCircles.Add(circle);
             }
         }
 

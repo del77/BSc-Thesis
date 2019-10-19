@@ -14,6 +14,7 @@ namespace MobileAndroid.Fragments
         private View _singleRouteView;
         private RecyclerView _routesRecyclerView;
         private Button _filterButton;
+        private Spinner _terrainLevelSelect;
         private ActivityFragment _trainingFragment;
         private ViewPager _viewPager;
         private RecyclerView.LayoutManager _routeLayoutManager;
@@ -40,16 +41,18 @@ namespace MobileAndroid.Fragments
 
         private void FindViews()
         {
-            _filterButton = _singleRouteView.FindViewById<Button>(Resource.Id.button1);
+            _filterButton = _singleRouteView.FindViewById<Button>(Resource.Id.search_button);
+            _terrainLevelSelect = _singleRouteView.FindViewById<Spinner>(Resource.Id.terrainLevelSelect);
             _trainingFragment = (ActivityFragment)FragmentManager.FindFragmentByTag(MainPagerAdapter.GetFragmentTag(0));
             _viewPager = Activity.FindViewById<ViewPager>(Resource.Id.mainPager);
             _routesRecyclerView = _singleRouteView.FindViewById<RecyclerView>(Resource.Id.routesRecycler);
-            
         }
 
         private void BindData()
         {
-            
+            var terrainSelectAdapter = ArrayAdapter.CreateFromResource(Activity.ApplicationContext, Resource.Array.terrain_options, Android.Resource.Layout.SimpleSpinnerItem);
+            terrainSelectAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            _terrainLevelSelect.Adapter = terrainSelectAdapter;
         }
 
         private void LinkEventHandlers()
