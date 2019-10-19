@@ -113,7 +113,7 @@ namespace MobileAndroid.Fragments
 
         private void BindData()
         {
-            _routeName.Text = CurrentRoute.Name;
+            _routeName.Text = CurrentRoute.Properties.Name;
             if (!CurrentRoute.Checkpoints.Any())
                 Training = new InitialTraining(CurrentRoute, UpdateUi, GetCurrentLocation);
             else

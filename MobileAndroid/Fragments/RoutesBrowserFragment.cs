@@ -30,7 +30,7 @@ namespace MobileAndroid.Fragments
 
             _routeLayoutManager = new LinearLayoutManager(inflater.Context);
             _routesRecyclerView.SetLayoutManager(_routeLayoutManager);
-            _routesAdapter = new RoutesAdapter() {};
+            _routesAdapter = new RoutesAdapter(inflater.Context) {};
             _routesAdapter.RouteClick += _routesAdapter_RouteClick;
             _routesRecyclerView.SetAdapter(_routesAdapter);
 
@@ -41,7 +41,7 @@ namespace MobileAndroid.Fragments
 
         private void FindViews()
         {
-            _filterButton = _singleRouteView.FindViewById<Button>(Resource.Id.search_button);
+            _filterButton = _singleRouteView.FindViewById<Button>(Resource.Id.refreshRoutesButton);
             _terrainLevelSelect = _singleRouteView.FindViewById<Spinner>(Resource.Id.terrainLevelSelect);
             _trainingFragment = (ActivityFragment)FragmentManager.FindFragmentByTag(MainPagerAdapter.GetFragmentTag(0));
             _viewPager = Activity.FindViewById<ViewPager>(Resource.Id.mainPager);

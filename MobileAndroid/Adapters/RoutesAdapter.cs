@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Core.Model;
@@ -11,11 +12,13 @@ namespace MobileAndroid.Adapters
 {
     public class RoutesAdapter : RecyclerView.Adapter
     {
+        private readonly Context _context;
         public event EventHandler<Route> RouteClick;
         private List<Route> _routes;
         private readonly RoutesRepository _routesRepository;
-        public RoutesAdapter()
+        public RoutesAdapter(Context context)
         {
+            _context = context;
             //_routes = new List<Route>
             //{
             //    new Route { Name = "pierwsza"},
@@ -43,8 +46,14 @@ namespace MobileAndroid.Adapters
         {
             if (holder is RouteViewHolder routeViewHolder)
             {
-                routeViewHolder.RouteName.Text = _routes[position].Name;
-                routeViewHolder.RouteDistance.Text = _routes[position].Properties.Distance.ToString();
+                var routeProperties = _routes[position].Properties;
+                routeViewHolder.RouteName.Text = routeProperties.Name;
+                routeViewHolder.RouteDistance.Text = _context.GetString(Resource.String.list_route_distance) +
+                                                     routeProperties.Distance.ToString() + "km";
+                routeViewHolder.RouteTerrainLevel.Text = _context.GetString(Resource.String.list_route_terrain) +
+                                                         routeProperties.HeightAboveSeaLevel;
+                routeViewHolder.RouteSurface.Text = _context.GetString(Resource.String.list_route_surface) +
+                                                    routeProperties.PavedPercentage + "%";
             }
         }
 

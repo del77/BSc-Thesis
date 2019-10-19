@@ -19,6 +19,9 @@
     <item>Decreasing</item>
   </string-array>
   <string name="search_button">Search</string>
+  <string name="list_route_distance">Distance: </string>
+  <string name="list_route_surface">Pavement hardness: </string>
+  <string name="list_route_terrain">Terrain level: </string>
 
 
 </resources>

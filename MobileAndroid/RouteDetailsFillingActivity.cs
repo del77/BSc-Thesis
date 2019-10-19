@@ -96,7 +96,7 @@ namespace MobileAndroid
 
         private void _addRouteButton_Click(object sender, EventArgs e)
         {
-            _route.Name = _routeNameTextBox.Text;
+            _route.Properties.Name = _routeNameTextBox.Text;
             _routesRepository.CreateRoute(_route);
             Toast.MakeText(Application.Context, Resources.GetText(Resource.String.route_created), ToastLength.Long).Show();
 
