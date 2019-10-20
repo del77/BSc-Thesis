@@ -9,7 +9,7 @@
   <string name="cancel">Cancel</string>
   <string name="route_created">Route has been created</string>
   <string name="route_length">Route length</string>
-  <string name="surface_type">Surface type</string>
+  <string name="surface_type">Pavement hardness</string>
   <string name="terrain_level">Terrain level</string>
   <string name="search_range">Search range [km]</string>
   <string-array name="terrain_options">

@@ -8,7 +8,7 @@
   <string name="cancel">Anuluj</string>
   <string name="route_created">Trasa została stworzona</string>
   <string name="route_length">Długość trasy</string>
-  <string name="surface_type">Typ nawierzchni</string>
+  <string name="surface_type">Twardość nawierzchni</string>
   <string name="terrain_level">Poziom terenu</string>
   <string name="search_range">Obszar wyszukiwania [km]</string>
   <string-array name="terrain_options">

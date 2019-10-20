@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using SQLite;
-using SQLiteNetExtensions.Attributes;
 
 namespace Core.Model
 {
-    [Table("Routes")]
     public class Route
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [OneToOne]
+        [Indexed]
+        public int PropertiesId { get; set; }
+        [Ignore]
         public RouteProperties Properties { get; set; }
-        [OneToMany]
+        [Ignore]
         public List<Point> Checkpoints { get; set; }
-        [OneToMany]
+        [Ignore]
         public List<KeyValuePair<string, List<Point>>> Ranking { get; set; }
 
         public Route()

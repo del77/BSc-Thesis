@@ -2,9 +2,9 @@
 
 namespace Core.Model
 {
-    [Table("RouteProperties")]
     public class RouteProperties
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Name { get; set; }
         public int PavedPercentage { get; set; }

@@ -1,10 +1,15 @@
 ﻿using System;
 using Core.Extensions;
+using SQLite;
 
 namespace Core.Model
 {
     public class Point
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        [Indexed]
+        public int RouteId { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public double? Altitude { get; set; }
@@ -22,7 +27,7 @@ namespace Core.Model
             Time = time;
         }
 
-        protected Point() { }
+        public Point() { }
 
         public override string ToString()
         {
