@@ -15,12 +15,15 @@ namespace Core.Model
         public List<Point> Checkpoints { get; set; }
         [Ignore]
         public List<KeyValuePair<string, List<Point>>> Ranking { get; set; }
+        [Ignore]
+        public List<RankingRecord> Rankingg { get; set; }
 
         public Route()
         {
             //todo make this ctr protected
             Checkpoints = new List<Point>();
             Ranking = new List<KeyValuePair<string, List<Point>>>();
+            Rankingg = new List<RankingRecord>();
             Properties = new RouteProperties();
         }
 
@@ -34,7 +37,7 @@ namespace Core.Model
             {
                 Properties = properties,
                 Checkpoints = new List<Point>(),
-                Ranking = new List<KeyValuePair<string, List<Point>>>()
+                Ranking = new List<KeyValuePair<string, List<Point>>>(),
             };
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using Core.Services;
 
 namespace Core.Model
 {
@@ -12,9 +13,11 @@ namespace Core.Model
         private readonly Action _stopTrainingUi;
         public int NextCheckpointIndex = 0;
         private List<Point> checkpoints;
+        private readonly RoutesService _routesService;
 
         public RaceTraining(Route route, Action uiUpdate, Action checkpointReached, Func<Task<Tuple<double, double, double?>>> currentLocationDelegate, Action stopTrainingUi) : base(route, uiUpdate, currentLocationDelegate)
         {
+            _routesService = new RoutesService();
             _checkpointReached = checkpointReached;
             _stopTrainingUi = stopTrainingUi;
         }
@@ -24,7 +27,7 @@ namespace Core.Model
             checkpoints = new List<Point>();
             IsStarted = true;
 
-            Timer = new Timer(750);
+            Timer = new Timer(1000);
             Timer.Elapsed += _timer_Elapsed;
 
             AddPoint();
@@ -43,13 +46,10 @@ namespace Core.Model
         {
             Timer.Stop();
             IsStarted = false;
+
+            _routesService.UpdateRanking(Route, _routeTimes.ToString(), Seconds).GetAwaiter().GetResult();
             Seconds = 0;
 
-            int firstWorseTryIndex = Route.Ranking.FindIndex(r => r.Value.Last().Time >= checkpoints.Last().Time);
-            if(firstWorseTryIndex == -1)
-                Route.Ranking.Add(new KeyValuePair<string, List<Point>>("Anon2", checkpoints));
-            else
-                Route.Ranking.Insert(firstWorseTryIndex, new KeyValuePair<string, List<Point>>("Anon2", checkpoints));
         }
 
         protected override async void AddPoint()

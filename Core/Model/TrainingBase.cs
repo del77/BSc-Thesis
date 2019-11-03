@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -15,7 +16,7 @@ namespace Core.Model
         protected Timer Timer;
         protected Action UiUpdate;
         protected Func<Task<Tuple<double, double, double?>>> GetLocation;
-
+        protected StringBuilder _routeTimes;
 
 
         protected TrainingBase(Route route, Action uiUpdate, Func<Task<Tuple<double, double, double?>>> currentLocationDelegate)
@@ -24,7 +25,12 @@ namespace Core.Model
             UiUpdate = uiUpdate;
             GetLocation = currentLocationDelegate;
             Points = new List<Point>();
+            _routeTimes = new StringBuilder();
+        }
 
+        protected void SaveCheckpointTime()
+        {
+            _routeTimes.Append($"{Seconds} ");
         }
 
         public abstract void Start();

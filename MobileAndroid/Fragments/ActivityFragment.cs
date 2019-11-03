@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Android;
@@ -10,19 +9,15 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
 using Android.OS;
-using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using Core.Model;
 using Core.OpenStreetMap;
-using Core.Repositories;
-using MobileAndroid.Adapters;
 using MobileAndroid.Extensions;
 using Xamarin.Essentials;
 using Bitmap = Android.Graphics.Bitmap;
-using Color = Android.Graphics.Color;
 
 namespace MobileAndroid.Fragments
 {
@@ -36,7 +31,7 @@ namespace MobileAndroid.Fragments
         private GoogleMap _googleMap;
         private PolylineOptions _polylineOptions;
         private Polyline _routePolyline;
-        private readonly List<Circle> _checkpointsCircles = new List<Circle>();
+        private readonly List<Marker> _checkpointMarkers = new List<Marker>();
 
         private View _view;
         public static Route CurrentRoute { get; set; }
@@ -81,10 +76,15 @@ namespace MobileAndroid.Fragments
 
         public async Task<Tuple<double, double, double?>> GetCurrentLocation()
         {
-            var location = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Best));
+            var location = await Geolocation.GetLastKnownLocationAsync();
+            //var location = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Best));
+            Activity.RunOnUiThread(() =>
+            {
+                AddToPolyline(location.Latitude, location.Longitude);
+            });
+
             return Tuple.Create(location.Latitude, location.Longitude, location.Altitude);
         }
-
 
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -128,7 +128,7 @@ namespace MobileAndroid.Fragments
             _timerButton.Click += _timerButton_Click;
         }
 
-        private void _timerButton_Click(object sender, System.EventArgs e)
+        private async void _timerButton_Click(object sender, System.EventArgs e)
         {
             if (!Training.IsStarted)
             {
@@ -143,9 +143,12 @@ namespace MobileAndroid.Fragments
                 _timer.Text = "0:0";
                 RemovePolyline();
 
-                var routeDetailsIntent = new Intent(Context, typeof(RouteDetailsFillingActivity));
-                routeDetailsIntent.PutExtra("route", CurrentRoute);
-                StartActivity(routeDetailsIntent);
+                if (Training is InitialTraining)
+                {
+                    var routeDetailsIntent = new Intent(Context, typeof(RouteDetailsFillingActivity));
+                    routeDetailsIntent.PutExtra("route", CurrentRoute);
+                    StartActivity(routeDetailsIntent);
+                }
             }
         }
 
@@ -178,8 +181,8 @@ namespace MobileAndroid.Fragments
             Activity.RunOnUiThread(() =>
             {
                 _timer.Text = $"{Training.Seconds / 60}:{Training.Seconds % 60}";
-                var lastPoint = Training.Points.Last();
-                AddToPolyline(lastPoint.Latitude, lastPoint.Longitude);
+                //var lastPoint = Training.Points.Last();
+                //AddToPolyline(lastPoint.Latitude, lastPoint.Longitude);
             });
         }
 
@@ -187,8 +190,8 @@ namespace MobileAndroid.Fragments
         {
             Activity.RunOnUiThread(() =>
             {
-                _checkpointsCircles[0].Remove();
-                _checkpointsCircles.RemoveAt(0);
+                _checkpointMarkers[0].Remove();
+                _checkpointMarkers.RemoveAt(0);
             });
         }
 
@@ -202,7 +205,14 @@ namespace MobileAndroid.Fragments
 
         private void RemoveAllCheckPoints()
         {
-            _checkpointsCircles.ForEach(cp => cp.Remove());
+            try
+            {
+                _checkpointMarkers.ForEach(cp => cp.Remove());
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         private void SetNewRoute()
@@ -224,18 +234,11 @@ namespace MobileAndroid.Fragments
 
             foreach (var routeCheckpoint in route.Checkpoints)
             {
-                _googleMap.AddMarker(new MarkerOptions()
+                var marker = _googleMap.AddMarker(new MarkerOptions()
                     .SetPosition(new LatLng(routeCheckpoint.Latitude, routeCheckpoint.Longitude))
                     .SetIcon(BitmapDescriptorFactory.FromBitmap(bmp))
                     .Anchor(0.5f, 0.5f));
-                //.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.checkpoint));
-                //var circle = _googleMap.AddCircle(new CircleOptions()
-                //    .InvokeCenter(new LatLng(routeCheckpoint.Latitude, routeCheckpoint.Longitude))
-                //    .InvokeRadius(3)
-                //    .InvokeStrokeWidth(1f)
-                //    .InvokeFillColor(0X66FF0000)
-                //);
-                //_checkpointsCircles.Add(circle);
+                _checkpointMarkers.Add(marker);
             }
         }
 

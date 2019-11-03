@@ -12,6 +12,7 @@ using Android.Widget;
 using Core.Model;
 using Core.OpenStreetMap;
 using Core.Repositories;
+using Core.Services;
 using MobileAndroid.Extensions;
 
 namespace MobileAndroid
@@ -22,7 +23,7 @@ namespace MobileAndroid
         private EditText _routeNameTextBox;
         private Button _addRouteButton;
         private Button _cancelRouteButton;
-        private RoutesRepository _routesRepository;
+        private RoutesService _routesService;
         private Route _route;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -30,7 +31,7 @@ namespace MobileAndroid
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.route_details_filling_view);
 
-            _routesRepository = new RoutesRepository();
+            _routesService = new RoutesService();
             _route = Intent.GetExtra<Route>("route");
 
             FindViews();
@@ -67,7 +68,7 @@ namespace MobileAndroid
         private async void ResolveSurface()
         {
             var osmService = new OsmService();
-            await osmService.ResolveRouteSurfaceTypeAsync(_route);
+            _route.Properties.PavedPercentage = await osmService.ResolveRouteSurfaceTypeAsync(_route);
         }
 
         private void CalculateDistance()
@@ -94,10 +95,10 @@ namespace MobileAndroid
             _cancelRouteButton.Click += _cancelRouteButton_Click;
         }
 
-        private void _addRouteButton_Click(object sender, EventArgs e)
+        private async void _addRouteButton_Click(object sender, EventArgs e)
         {
             _route.Properties.Name = _routeNameTextBox.Text;
-            _routesRepository.CreateRoute(_route);
+            await _routesService.CreateRoute(_route);
             Toast.MakeText(Application.Context, Resources.GetText(Resource.String.route_created), ToastLength.Long).Show();
 
             Finish();

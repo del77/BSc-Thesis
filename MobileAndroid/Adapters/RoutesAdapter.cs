@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Android.Content;
+using Android.Content.Res;
+using Android.Gms.Maps;
+using Android.Gms.Maps.Model;
+using Android.Graphics;
+using Android.Support.V4.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Core.Model;
@@ -13,12 +18,14 @@ namespace MobileAndroid.Adapters
     public class RoutesAdapter : RecyclerView.Adapter
     {
         private readonly Context _context;
+        private readonly FragmentManager _childFragmentManager;
         public event EventHandler<Route> RouteClick;
         private List<Route> _routes;
         private readonly RoutesRepository _routesRepository;
-        public RoutesAdapter(Context context)
+        public RoutesAdapter(Context context, FragmentManager childFragmentManager)
         {
             _context = context;
+            _childFragmentManager = childFragmentManager;
             //_routes = new List<Route>
             //{
             //    new Route { Name = "pierwsza"},
@@ -48,12 +55,12 @@ namespace MobileAndroid.Adapters
             {
                 var routeProperties = _routes[position].Properties;
                 routeViewHolder.RouteName.Text = routeProperties.Name;
-                routeViewHolder.RouteDistance.Text = _context.GetString(Resource.String.list_route_distance) +
-                                                     routeProperties.Distance.ToString() + "km";
-                routeViewHolder.RouteTerrainLevel.Text = _context.GetString(Resource.String.list_route_terrain) +
-                                                         routeProperties.HeightAboveSeaLevel;
-                routeViewHolder.RouteSurface.Text = _context.GetString(Resource.String.list_route_surface) +
-                                                    routeProperties.PavedPercentage + "%";
+                routeViewHolder.RouteDistance.Text = routeProperties.Distance + "km";
+                //routeViewHolder.RouteTerrainLevel.Text = routeProperties.HeightAboveSeaLevel.ToString();
+                routeViewHolder.RouteTerrainLevel.Text = "Wyrównany";
+                //routeViewHolder.RouteSurface.Text = routeProperties.PavedPercentage + "%";
+                routeViewHolder.RouteSurface.Text = "37%";
+                routeViewHolder.Route = _routes[position];
             }
         }
 
@@ -62,7 +69,7 @@ namespace MobileAndroid.Adapters
             View itemView =
                 LayoutInflater.From(parent.Context).Inflate(Resource.Layout.route_viewholder, parent, false);
 
-            var routeViewHolder = new RouteViewHolder(itemView, OnClick);
+            var routeViewHolder = new RouteViewHolder(itemView, OnClick, _context);
             return routeViewHolder;
         }
 

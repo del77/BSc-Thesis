@@ -1,27 +1,25 @@
 <resources>
   <string name="app_name">MobileAndroid</string>
-  <string name="action_settings">Settings</string>
-  <string name="training_tab">Training</string>
-  <string name="routes_tab">Browse routes</string>
-  <string name="routes">Routes</string>
-  <string name="route_name">Route name</string>
-  <string name="create">Create</string>
-  <string name="cancel">Cancel</string>
-  <string name="route_created">Route has been created</string>
-  <string name="route_length">Route length</string>
-  <string name="surface_type">Pavement hardness</string>
-  <string name="terrain_level">Terrain level</string>
-  <string name="search_range">Search range [km]</string>
+  <string name="action_settings">Ustawienia</string>
+  <string name="training_tab">Trening</string>
+  <string name="routes">Trasy</string>
+  <string name="routes_tab">Przeglądaj trasy</string>
+  <string name="route_name">Nazwa trasy</string>
+  <string name="create">Dodaj</string>
+  <string name="cancel">Anuluj</string>
+  <string name="route_created">Trasa została stworzona</string>
+  <string name="route_length">Długość trasy</string>
+  <string name="surface_type">Twardość nawierzchni</string>
+  <string name="terrain_level">Poziom terenu</string>
+  <string name="search_range">Obszar wyszukiwania [km]</string>
   <string-array name="terrain_options">
-    <item>Any</item>
-    <item>Flat</item>
-    <item>Increasing</item>
-    <item>Decreasing</item>
+    <item>Każdy</item>
+    <item>Wyrównany</item>
+    <item>Rosnący</item>
+    <item>Malejący</item>
   </string-array>
-  <string name="search_button">Search</string>
-  <string name="list_route_distance">Distance: </string>
-  <string name="list_route_surface">Pavement hardness: </string>
-  <string name="list_route_terrain">Terrain level: </string>
-
-
+  <string name="search_button">Szukaj</string>
+  <string name="list_route_distance">Dystans: </string>
+  <string name="list_route_surface">twardość nawierzchni: </string>
+  <string name="list_route_terrain">Poziom terenu: </string>
 </resources>

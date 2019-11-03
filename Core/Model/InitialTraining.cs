@@ -9,14 +9,17 @@ namespace Core.Model
 {
     public class InitialTraining : TrainingBase
     {
+        double distanceBetweenCheckpoints = 0.01; //kilometers
 
         public InitialTraining(Route route, Action uiUpdate, Func<Task<Tuple<double, double, double?>>> currentLocationDelegate) : base(route, uiUpdate, currentLocationDelegate)
         {
         }
 
-        public override void Start()
+        public override async void Start()
         {
             IsStarted = true;
+            var location = await GetLocation();
+            Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3));
 
             Timer = new Timer(1000);
             Timer.Elapsed += _timer_Elapsed;
@@ -26,20 +29,24 @@ namespace Core.Model
 
         }
 
-        public override void Stop()
+        public override async void Stop()
         {
             Timer.Stop();
             IsStarted = false;
-            Seconds = 0;
 
-            Route.Checkpoints = RetrieveCheckpoints();
-            Route.Ranking.Add(new KeyValuePair<string, List<Point>>("Anon", Points));
+            //Route.Checkpoints = RetrieveCheckpoints();
+            var location = GetLocation().GetAwaiter().GetResult();
+            Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3));
+            SaveCheckpointTime();
+
+            Route.Ranking.Add(new KeyValuePair<string, List<Point>>("Anon", Route.Checkpoints));
+            Route.Rankingg.Add(new RankingRecord(_routeTimes.ToString(), Seconds));
+            Seconds = 0;
         }
 
         private List<Point> RetrieveCheckpoints()
         {
             var lastPointToCheckIndex = Points.Count - 2;
-            var distanceBetweenCheckpoints = 0.01; //kilometers
             var retrievedCheckpoints = new List<Point>();
 
             retrievedCheckpoints.Add(Points.First()); //starting point
@@ -51,6 +58,7 @@ namespace Core.Model
                     if (Point.Distance(Points[i], Points[j], 'K') > distanceBetweenCheckpoints)
                     {
                         i = j;
+
                         retrievedCheckpoints.Add(Points[j]);
                         break;
                     }
@@ -75,7 +83,13 @@ namespace Core.Model
         protected override async void AddPoint()
         {
             var location = await GetLocation();
-            Points.Add(new Point(location.Item1, location.Item2, location.Item3, Seconds));
+            var currentPosition = new Point(location.Item1, location.Item2, location.Item3, Seconds);
+            var distanceSinceLastPoint = Point.Distance(Route.Checkpoints.Last(), currentPosition, 'K');
+            if (distanceSinceLastPoint > distanceBetweenCheckpoints)
+            {
+                Route.Checkpoints.Add(currentPosition);
+                SaveCheckpointTime();
+            }
         }
 
 

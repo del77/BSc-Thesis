@@ -1,5 +1,7 @@
-﻿using Android.OS;
+﻿using Android.Gms.Maps;
+using Android.OS;
 using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Android.Support.V4.View;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -28,11 +30,20 @@ namespace MobileAndroid.Fragments
             BindData();
             LinkEventHandlers();
 
+            
+
             _routeLayoutManager = new LinearLayoutManager(inflater.Context);
+            var orientation = ((LinearLayoutManager) _routeLayoutManager).Orientation;
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(_routesRecyclerView.Context, orientation);
+            dividerItemDecoration.SetDrawable(ContextCompat.GetDrawable(Context, Resource.Drawable.RecyclerViewDivider));
+
+            _routesRecyclerView.AddItemDecoration(dividerItemDecoration);
             _routesRecyclerView.SetLayoutManager(_routeLayoutManager);
-            _routesAdapter = new RoutesAdapter(inflater.Context) {};
+            _routesAdapter = new RoutesAdapter(inflater.Context, ChildFragmentManager) {};
             _routesAdapter.RouteClick += _routesAdapter_RouteClick;
             _routesRecyclerView.SetAdapter(_routesAdapter);
+
+
 
             return _singleRouteView;
         }
