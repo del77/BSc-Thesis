@@ -24,6 +24,9 @@ namespace Core.Model
 
         public override void Start()
         {
+            CurrentTry = new List<int>();
+            Route.Rankingg.Add(new RankingRecord(CurrentTry));
+
             checkpoints = new List<Point>();
             IsStarted = true;
 
@@ -47,7 +50,7 @@ namespace Core.Model
             Timer.Stop();
             IsStarted = false;
 
-            _routesService.UpdateRanking(Route, _routeTimes.ToString(), Seconds).GetAwaiter().GetResult();
+            _routesService.UpdateRanking(Route).GetAwaiter().GetResult();
             Seconds = 0;
 
         }
@@ -62,10 +65,10 @@ namespace Core.Model
 
             if (distance < 0.005)
             {
+                SaveCheckpointTime();
                 _checkpointReached.Invoke();
-                checkpoints.Add(currentLocation);
                 NextCheckpointIndex++;
-                if (checkpoints.Count == Route.Checkpoints.Count)
+                if (NextCheckpointIndex == Route.Checkpoints.Count)
                 {
                     Stop();
                     _stopTrainingUi.Invoke();

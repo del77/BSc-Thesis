@@ -6,7 +6,6 @@ using Android.Content.Res;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
-using Android.Support.V4.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Core.Model;
@@ -18,14 +17,12 @@ namespace MobileAndroid.Adapters
     public class RoutesAdapter : RecyclerView.Adapter
     {
         private readonly Context _context;
-        private readonly FragmentManager _childFragmentManager;
         public event EventHandler<Route> RouteClick;
         private List<Route> _routes;
         private readonly RoutesRepository _routesRepository;
-        public RoutesAdapter(Context context, FragmentManager childFragmentManager)
+        public RoutesAdapter(Context context)
         {
             _context = context;
-            _childFragmentManager = childFragmentManager;
             //_routes = new List<Route>
             //{
             //    new Route { Name = "pierwsza"},
@@ -76,6 +73,7 @@ namespace MobileAndroid.Adapters
         private void OnClick(int position)
         {
             var route = _routes[position];
+
             RouteClick?.Invoke(this, route);
         }
 

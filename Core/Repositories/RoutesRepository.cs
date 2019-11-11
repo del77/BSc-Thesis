@@ -39,10 +39,10 @@ namespace Core.Repositories
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "database.db");
             _db = new SQLiteConnection(databasePath);
 
-            _db.DropTable<Route>();
-            _db.DropTable<RouteProperties>();
-            _db.DropTable<Point>();
-            _db.DropTable<RankingRecord>();
+            //_db.DropTable<Route>();
+            //_db.DropTable<RouteProperties>();
+            //_db.DropTable<Point>();
+            //_db.DropTable<RankingRecord>();
 
             _db.CreateTable<Route>();
             _db.CreateTable<RouteProperties>();
@@ -63,18 +63,18 @@ namespace Core.Repositories
             routeCreatorRankingRecord.RouteId = route.Id;
             _db.Insert(routeCreatorRankingRecord);
 
-            var values = new Dictionary<string, string>();
-            int i = 0;
-            foreach (var routeCheckpoint in route.Checkpoints)
-            {
-                values[i.ToString()] = routeCheckpoint.Latitude.ToStringWithDot() + ", " +
-                                       routeCheckpoint.Longitude.ToStringWithDot();
-                i++;
-            }
+            //var values = new Dictionary<string, string>();
+            //int i = 0;
+            //foreach (var routeCheckpoint in route.Checkpoints)
+            //{
+            //    values[i.ToString()] = routeCheckpoint.Latitude.ToStringWithDot() + ", " +
+            //                           routeCheckpoint.Longitude.ToStringWithDot();
+            //    i++;
+            //}
 
-            var content = new FormUrlEncodedContent(values);
-            var client = new HttpClient();
-            var response = client.PostAsync("https://webhook.site/e7fa5c80-0a06-4726-a0eb-a0f4a53fbb55", content);
+            //var content = new FormUrlEncodedContent(values);
+            //var client = new HttpClient();
+            //var response = client.PostAsync("https://webhook.site/e7fa5c80-0a06-4726-a0eb-a0f4a53fbb55", content);
 
 
             return route.Id;

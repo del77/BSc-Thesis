@@ -16,7 +16,7 @@ namespace Core.Model
         protected Timer Timer;
         protected Action UiUpdate;
         protected Func<Task<Tuple<double, double, double?>>> GetLocation;
-        protected StringBuilder _routeTimes;
+        protected List<int> CurrentTry { get; set; }
 
 
         protected TrainingBase(Route route, Action uiUpdate, Func<Task<Tuple<double, double, double?>>> currentLocationDelegate)
@@ -25,12 +25,12 @@ namespace Core.Model
             UiUpdate = uiUpdate;
             GetLocation = currentLocationDelegate;
             Points = new List<Point>();
-            _routeTimes = new StringBuilder();
+            CurrentTry = new List<int>();
         }
 
         protected void SaveCheckpointTime()
         {
-            _routeTimes.Append($"{Seconds} ");
+            CurrentTry.Add(Seconds);
         }
 
         public abstract void Start();

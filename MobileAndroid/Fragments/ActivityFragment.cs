@@ -5,19 +5,24 @@ using System.Threading.Tasks;
 using Android;
 using Android.Content;
 using Android.Content.PM;
+using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
+using Android.Locations;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Core.Model;
 using Core.OpenStreetMap;
+using MobileAndroid.Adapters;
 using MobileAndroid.Extensions;
 using Xamarin.Essentials;
 using Bitmap = Android.Graphics.Bitmap;
+using Location = Android.Locations.Location;
 
 namespace MobileAndroid.Fragments
 {
@@ -27,6 +32,7 @@ namespace MobileAndroid.Fragments
         private TextView _timer;
         private Button _removeCurrentRouteButton;
         private Button _timerButton;
+        private RecyclerView _rankingRecyclerView;
 
         private GoogleMap _googleMap;
         private PolylineOptions _polylineOptions;
@@ -34,6 +40,9 @@ namespace MobileAndroid.Fragments
         private readonly List<Marker> _checkpointMarkers = new List<Marker>();
 
         private View _view;
+        private RankingAdapter _rankingAdapter;
+        private RecyclerView.LayoutManager _rankingLayoutManager;
+        private FusedLocationProviderClient _locationProvider;
         public static Route CurrentRoute { get; set; }
         public TrainingBase Training { get; set; }
 
@@ -77,26 +86,39 @@ namespace MobileAndroid.Fragments
         public async Task<Tuple<double, double, double?>> GetCurrentLocation()
         {
             var location = await Geolocation.GetLastKnownLocationAsync();
+            //var location = await _locationProvider.GetLastLocationAsync();
+            //var location = await _locationProvider.GetLastLocationAsync();
+
+
             //var location = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Best));
             Activity.RunOnUiThread(() =>
             {
                 AddToPolyline(location.Latitude, location.Longitude);
             });
 
+            //var altitude = location.HasAltitude ? location.Altitude : (double?) null;
             return Tuple.Create(location.Latitude, location.Longitude, location.Altitude);
         }
 
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            SetNewRoute();
+            _locationProvider = LocationServices.GetFusedLocationProviderClient(inflater.Context);
             _view = inflater.Inflate(Resource.Layout.activity_fragment, container, false);
             FindViews();
-            BindData();
             LinkEventHandlers();
 
             var mapFragment = (SupportMapFragment)ChildFragmentManager.FindFragmentById(Resource.Id.googleMap);
             mapFragment.GetMapAsync(this);
+
+            //_rankingAdapter = new RankingAdapter(inflater.Context, ChildFragmentManager) { };
+            _rankingLayoutManager = new LinearLayoutManager(inflater.Context);
+
+            _rankingAdapter = new RankingAdapter();
+            _rankingRecyclerView.SetLayoutManager(_rankingLayoutManager);
+            _rankingRecyclerView.SetAdapter(_rankingAdapter);
+            SetNewRoute();
+            BindData();
 
             return _view;
         }
@@ -109,6 +131,8 @@ namespace MobileAndroid.Fragments
             _timer = _view.FindViewById<TextView>(Resource.Id.timer);
             _removeCurrentRouteButton = _view.FindViewById<Button>(Resource.Id.removeCurrentRouteButton);
             _timerButton = _view.FindViewById<Button>(Resource.Id.timerButton);
+            _rankingRecyclerView = _view.FindViewById<RecyclerView>(Resource.Id.rankingRecycler);
+
         }
 
         private void BindData()
@@ -118,7 +142,7 @@ namespace MobileAndroid.Fragments
                 Training = new InitialTraining(CurrentRoute, UpdateUi, GetCurrentLocation);
             else
             {
-                Training = new RaceTraining(CurrentRoute, UpdateUi, RemoveNextCheckpoint, GetCurrentLocation, StopTraining);
+                Training = new RaceTraining(CurrentRoute, UpdateUi, NextCheckpointReached, GetCurrentLocation, StopTraining);
             }
         }
 
@@ -148,6 +172,7 @@ namespace MobileAndroid.Fragments
                     var routeDetailsIntent = new Intent(Context, typeof(RouteDetailsFillingActivity));
                     routeDetailsIntent.PutExtra("route", CurrentRoute);
                     StartActivity(routeDetailsIntent);
+                    SetNewRoute();
                 }
             }
         }
@@ -186,8 +211,9 @@ namespace MobileAndroid.Fragments
             });
         }
 
-        private void RemoveNextCheckpoint()
+        private void NextCheckpointReached()
         {
+            _rankingAdapter.ShowDataForNextCheckpoint();
             Activity.RunOnUiThread(() =>
             {
                 _checkpointMarkers[0].Remove();
@@ -218,11 +244,13 @@ namespace MobileAndroid.Fragments
         private void SetNewRoute()
         {
             CurrentRoute = Route.GetNewRoute();
+            _rankingAdapter.UpdateRoute(CurrentRoute.Rankingg);
         }
 
         public void SetRoute(Route route)
         {
             CurrentRoute = route;
+            _rankingAdapter.UpdateRoute(CurrentRoute.Rankingg);
             _removeCurrentRouteButton.Visibility = ViewStates.Visible;
             BindData();
 

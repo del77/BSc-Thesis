@@ -19,6 +19,9 @@ namespace Core.Model
         {
             IsStarted = true;
             var location = await GetLocation();
+
+            CurrentTry = new List<int>();
+            Route.Rankingg.Add(new RankingRecord(CurrentTry));
             Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3));
 
             Timer = new Timer(1000);
@@ -40,7 +43,7 @@ namespace Core.Model
             SaveCheckpointTime();
 
             Route.Ranking.Add(new KeyValuePair<string, List<Point>>("Anon", Route.Checkpoints));
-            Route.Rankingg.Add(new RankingRecord(_routeTimes.ToString(), Seconds));
+            //Route.Rankingg.Add(new RankingRecord(_routeTimes.ToString(), Seconds));
             Seconds = 0;
         }
 

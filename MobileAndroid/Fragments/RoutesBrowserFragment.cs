@@ -13,7 +13,7 @@ namespace MobileAndroid.Fragments
 {
     public class RoutesBrowserFragment : Fragment
     {
-        private View _singleRouteView;
+        private View _routeBrowserView;
         private RecyclerView _routesRecyclerView;
         private Button _filterButton;
         private Spinner _terrainLevelSelect;
@@ -24,7 +24,7 @@ namespace MobileAndroid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            _singleRouteView = inflater.Inflate(Resource.Layout.routes_browser_fragment, container, false);
+            _routeBrowserView = inflater.Inflate(Resource.Layout.routes_browser_fragment, container, false);
 
             FindViews();
             BindData();
@@ -39,24 +39,23 @@ namespace MobileAndroid.Fragments
 
             _routesRecyclerView.AddItemDecoration(dividerItemDecoration);
             _routesRecyclerView.SetLayoutManager(_routeLayoutManager);
-            _routesAdapter = new RoutesAdapter(inflater.Context, ChildFragmentManager) {};
+            _routesAdapter = new RoutesAdapter(inflater.Context) {};
             _routesAdapter.RouteClick += _routesAdapter_RouteClick;
             _routesRecyclerView.SetAdapter(_routesAdapter);
 
 
-
-            return _singleRouteView;
+            return _routeBrowserView;
         }
 
 
 
         private void FindViews()
         {
-            _filterButton = _singleRouteView.FindViewById<Button>(Resource.Id.refreshRoutesButton);
-            _terrainLevelSelect = _singleRouteView.FindViewById<Spinner>(Resource.Id.terrainLevelSelect);
+            _filterButton = _routeBrowserView.FindViewById<Button>(Resource.Id.refreshRoutesButton);
+            _terrainLevelSelect = _routeBrowserView.FindViewById<Spinner>(Resource.Id.terrainLevelSelect);
             _trainingFragment = (ActivityFragment)FragmentManager.FindFragmentByTag(MainPagerAdapter.GetFragmentTag(0));
             _viewPager = Activity.FindViewById<ViewPager>(Resource.Id.mainPager);
-            _routesRecyclerView = _singleRouteView.FindViewById<RecyclerView>(Resource.Id.routesRecycler);
+            _routesRecyclerView = _routeBrowserView.FindViewById<RecyclerView>(Resource.Id.routesRecycler);
         }
 
         private void BindData()
