@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Api.Entities
 {
     public class Route
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public RouteProperties Properties { get; set; }
         public IEnumerable<Point> Checkpoints { get; set; }
-        public IEnumerable<RankingRecord> Rankingg { get; set; }
+        public IEnumerable<RankingRecord> Ranking { get; set; }
     }
 }

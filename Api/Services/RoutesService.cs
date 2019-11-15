@@ -29,7 +29,7 @@ namespace Api.Services
 
         public async Task CreateRoute(Route route, string userId)
         {
-            route.Rankingg.First().UserId = Guid.Parse(userId);
+            route.Ranking.First().UserId = Guid.Parse(userId);
 
             await _routesRepository.CreateRoute(route);
         }
