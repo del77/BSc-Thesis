@@ -2,13 +2,13 @@
 {
     public class UserData
     {
-        public string PhoneNumber { get; set; }
-        public string Nickname { get; set; }
+        public string Username { get; set; }
+        public string Token { get; set; }
 
-        public UserData(string phoneNumber, string nickname)
+        public UserData(string username, string token)
         {
-            PhoneNumber = phoneNumber;
-            Nickname = nickname;
+            Username = username;
+            Token = token;
         }
 
         public UserData()

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Core.Model;
 using Core.Repositories;
@@ -21,7 +23,6 @@ namespace Core.Services
 
         public async Task CreateRoute(Route route)
         {
-            route.Rankingg.First().User = _userData;
             _routesRepository.CreateRoute(route);
 
             await Task.CompletedTask;
@@ -43,10 +44,10 @@ namespace Core.Services
 
         public async Task<IEnumerable<Route>> GetAllRoutes()
         {
-            var routes = _routesRepository.GetAll().ToList();
+            var routes = (await _routesRepository.GetAll()).ToList();
             foreach (var route in routes)
             {
-                var mineRankingRecord = route.Rankingg.FirstOrDefault(r => r.User.PhoneNumber == _userData.PhoneNumber);
+                var mineRankingRecord = route.Rankingg.FirstOrDefault(r => r.User == _userData.Username);
                 if (mineRankingRecord != null)
                     mineRankingRecord.IsMine = true;
             }

@@ -18,7 +18,7 @@ namespace MobileAndroid.Adapters
     {
         private readonly Context _context;
         public event EventHandler<Route> RouteClick;
-        private List<Route> _routes;
+        private List<Route> _routes = new List<Route>();
         private readonly RoutesRepository _routesRepository;
         public RoutesAdapter(Context context)
         {
@@ -40,9 +40,9 @@ namespace MobileAndroid.Adapters
             UpdateData();
         }
 
-        public void UpdateData()
+        public async void UpdateData()
         {
-            _routes = _routesRepository.GetAll().ToList();
+            _routes = (await _routesRepository.GetAll()).ToList();
             NotifyDataSetChanged();
         }
 

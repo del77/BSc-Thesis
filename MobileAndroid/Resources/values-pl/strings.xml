@@ -22,4 +22,14 @@
   <string name="list_route_distance">Dystans: </string>
   <string name="list_route_surface">twardość nawierzchni: </string>
   <string name="list_route_terrain">Poziom terenu: </string>
+  <string name="username">Nazwa użytkownika</string>
+  <string name="password">Hasło</string>
+  <string name="register">Zarejestruj</string>
+  <string name="login">Zaloguj</string>
+  <string name="Registering">Rejestrowanie...</string>
+  <string name="Logging">Logowanie...</string>
+  <string name="ConnectionProblem">Nie można połączyć się z serwerem</string>
+  <string name="WrongLoginOrPassword">Nieprawidłowy login lub hasło</string>
+  <string name="UsernameTaken">Ten login jest zajęty</string>
+  <string name="AccountCreated">Twoje konto zostało utworzone</string>
 </resources>

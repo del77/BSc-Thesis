@@ -12,7 +12,8 @@ namespace Core.Model
         public int Id { get; set; }
         [Indexed]
         public int RouteId { get; set; }
-        public UserData User { get; set; }
+        [Ignore]
+        public string User { get; set; }
         public string CheckpointsTimes { get; set; }
         public int FinalResult { get; set; }
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Core.Extensions;
 using Core.Model;
 using SQLite;
@@ -80,8 +82,24 @@ namespace Core.Repositories
             return route.Id;
         }
 
-        public IEnumerable<Route> GetAll()
+        public async Task<IEnumerable<Route>> GetAll()
         {
+            var handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = (message, certificate2, arg3, arg4) => true
+            };
+            HttpClient httpClient = new HttpClient(handler);
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            try
+            {
+
+                var responseMessage = await httpClient.GetStringAsync("http://10.0.75.1:5000/routes");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
             var xd = _db.Table<RouteProperties>();
             var routes = _db.Table<Route>().ToList();
             foreach (var route in routes)

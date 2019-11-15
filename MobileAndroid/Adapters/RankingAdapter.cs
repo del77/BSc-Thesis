@@ -39,7 +39,7 @@ namespace MobileAndroid.Adapters
             if (holder is RankingViewHolder rankingViewHolder)
             {
                 var rankingRecord = _rankingRecords.ElementAt(position);
-                rankingViewHolder.Nickname.Text = rankingRecord.User.Nickname;
+                rankingViewHolder.Nickname.Text = rankingRecord.User;
                 if(rankingRecord.IsMine)
                     rankingViewHolder.Nickname.SetTextColor(Color.Red);
                 else
