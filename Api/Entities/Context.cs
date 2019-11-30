@@ -15,6 +15,9 @@ namespace Api.Entities
                 .HasForeignKey(rr => rr.RouteId);
 
             modelBuilder.Entity<RankingRecord>().HasOne(rr => rr.User);
+            modelBuilder.Entity<RankingRecord>().HasKey(rr => new { rr.RouteId, rr.UserId });
+
+            modelBuilder.Entity<RouteProperties>().HasKey(rp => rp.RouteId);
 
             base.OnModelCreating(modelBuilder);
         }

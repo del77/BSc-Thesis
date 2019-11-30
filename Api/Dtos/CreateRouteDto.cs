@@ -28,6 +28,6 @@ namespace Api.Dtos
     public class RankingRecordDto
     {
         public IEnumerable<int> CheckpointsTimes { get; set; }
-        public int FinalResult { get; set; }
+        public string User { get; set; }
     }
 }

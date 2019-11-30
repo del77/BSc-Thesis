@@ -24,7 +24,7 @@ namespace Api.Services
 
         public async Task<IEnumerable<Route>> GetRoutes(RoutesQuery query)
         {
-            throw new System.NotImplementedException();
+            return await _routesRepository.GetRoutes(query);
         }
 
         public async Task CreateRoute(Route route, string userId)

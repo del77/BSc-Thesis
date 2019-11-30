@@ -13,6 +13,9 @@ namespace MobileAndroid.Adapters
     {
         private IEnumerable<RankingRecord> _rankingRecords;
         private int _checkpointIndexToDisplay;
+        private int _nextCheckpointIndexToDisplay;
+
+
         public RankingAdapter()
         {
         }
@@ -20,18 +23,21 @@ namespace MobileAndroid.Adapters
         public void UpdateRoute(ICollection<RankingRecord> rankingRecords)
         {
             _rankingRecords = rankingRecords;
-            _checkpointIndexToDisplay = rankingRecords.Count() - 1;
+
+            if(rankingRecords.Any())
+                _checkpointIndexToDisplay = rankingRecords.First().CheckpointsTimes.Count() - 1;
 
             NotifyDataSetChanged();
 
-            _checkpointIndexToDisplay = 0;
+            _nextCheckpointIndexToDisplay = 0;
         }
 
         public void ShowDataForNextCheckpoint()
         {
-            _rankingRecords = _rankingRecords.OrderBy(x => x.CheckpointsTimesList[_checkpointIndexToDisplay]);
+            _checkpointIndexToDisplay = _nextCheckpointIndexToDisplay;
+            _rankingRecords = _rankingRecords.OrderBy(x => x.CheckpointsTimes[_checkpointIndexToDisplay]);
             NotifyDataSetChanged();
-            _checkpointIndexToDisplay++;
+            _nextCheckpointIndexToDisplay++;
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)

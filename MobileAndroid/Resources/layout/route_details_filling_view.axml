@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ProgressBar
+        android:id="@+id/resolve_parameters_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:max="100"
+        android:visibility="invisible"
+        android:backgroundTint="@android:color/white"
+        android:indeterminateTint="#1a09d6"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,28 +22,73 @@
         android:minHeight="25px"
         android:hint="@string/route_name"
         android:id="@+id/routeNameText" />
-    <LinearLayout
-        android:orientation="horizontal"
+    <TextView
+        android:text="@string/surface_type"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Xamarin.RangeSlider.RangeSliderControl
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        local:absoluteMinValue="0"
+        local:absoluteMaxValue="100"
+        local:activateOnDefaultValues="true"
+        local:showRangeLabels="true"
+        local:minThumbHidden="true"
+        local:stepValue="1"
+        local:valuesAboveThumbs="true"
+        local:textAboveThumbsColor="#FF0000"
+        android:id="@+id/surface_type_slider_filling_view"
+        />
+    <TextView
+        android:text="@string/terrain_level"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Spinner
+        android:id="@+id/terrainLevelSelect_filling_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:text="@string/route_length"
+        android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/route_length_filling_view"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_weight="1"
         android:gravity="bottom">
+        <Button
+            android:id="@+id/resolve_parameters_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/resolve_parameters_automatically"/>
 
-        <Button
-            android:id="@+id/addRouteButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/create" />
-        <SeekBar
-            android:layout_width="163.0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/seekBar1" />
-        <Button
-            android:id="@+id/cancelRouteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancel" />
+            android:layout_weight="0"
+            >
+            <Button
+                android:id="@+id/addRouteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/create" />
+
+            <Button
+                android:id="@+id/cancelRouteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cancel" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

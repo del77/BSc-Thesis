@@ -10,7 +10,6 @@ namespace Core.OpenStreetMap
 
     public class Element
     {
-        public string Type { get; set; }
         public Tags Tags { get; set; }
     }
 

@@ -14,11 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         local:absoluteMinValue="0"
-        local:absoluteMaxValue="42"
+        local:absoluteMaxValue="21"
         local:showRangeLabels="true"
+        local:activateOnDefaultValues="true"
         local:stepValue="1"
         local:valuesAboveThumbs="true"
         local:textAboveThumbsColor="#FF0000"
+        android:id="@+id/route_length_slider"
         />
     <TextView
         android:text="@string/surface_type"
@@ -30,10 +32,12 @@
         android:layout_height="match_parent"
         local:absoluteMinValue="0"
         local:absoluteMaxValue="100"
+        local:activateOnDefaultValues="true"
         local:showRangeLabels="true"
         local:stepValue="10"
         local:valuesAboveThumbs="true"
         local:textAboveThumbsColor="#FF0000"
+        android:id="@+id/surface_type_slider"
         />
     <TextView
         android:text="@string/terrain_level"
@@ -58,9 +62,11 @@
         local:absoluteMaxValue="10"
         local:showRangeLabels="true"
         local:stepValue="1"
+        local:activateOnDefaultValues="true"
         local:minThumbHidden="true"
         local:valuesAboveThumbs="true"
         local:textAboveThumbsColor="#FF0000"
+        android:id="@+id/search_range_select"
         />
 
     <TextView

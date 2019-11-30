@@ -1,4 +1,5 @@
 ﻿using System;
+using NetTopologySuite.Geometries;
 
 namespace Api.Entities
 {
@@ -8,9 +9,7 @@ namespace Api.Entities
 
         public Guid RouteId { get; set; }
         public Route Route { get; set; }
-
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public double? Altitude { get; set; }
+        public int Number { get; set; }
+        public NetTopologySuite.Geometries.Point Coordinates { get; set; }
     }
 }

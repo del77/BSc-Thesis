@@ -52,35 +52,35 @@ namespace Core.Repositories
             _db.CreateTable<RankingRecord>();
         }
 
-        public int CreateRoute(Route route)
-        {
-            _db.Insert(route.Properties);
-            route.PropertiesId = route.Properties.Id;
-            _db.Insert(route);
+        //public int CreateRoute(Route route)
+        //{
+        //    _db.Insert(route.Properties);
+        //    route.PropertiesId = route.Properties.Id;
+        //    _db.Insert(route);
 
-            route.Checkpoints.ForEach(cp => cp.RouteId = route.Id);
-            _db.InsertAll(route.Checkpoints);
+        //    route.Checkpoints.ForEach(cp => cp.RouteId = route.Id);
+        //    _db.InsertAll(route.Checkpoints);
 
-            var routeCreatorRankingRecord = route.Rankingg.First();
-            routeCreatorRankingRecord.RouteId = route.Id;
-            _db.Insert(routeCreatorRankingRecord);
+        //    var routeCreatorRankingRecord = route.Ranking.First();
+        //    routeCreatorRankingRecord.RouteId = route.Id;
+        //    _db.Insert(routeCreatorRankingRecord);
 
-            //var values = new Dictionary<string, string>();
-            //int i = 0;
-            //foreach (var routeCheckpoint in route.Checkpoints)
-            //{
-            //    values[i.ToString()] = routeCheckpoint.Latitude.ToStringWithDot() + ", " +
-            //                           routeCheckpoint.Longitude.ToStringWithDot();
-            //    i++;
-            //}
+        //    //var values = new Dictionary<string, string>();
+        //    //int i = 0;
+        //    //foreach (var routeCheckpoint in route.Checkpoints)
+        //    //{
+        //    //    values[i.ToString()] = routeCheckpoint.Latitude.ToStringWithDot() + ", " +
+        //    //                           routeCheckpoint.Longitude.ToStringWithDot();
+        //    //    i++;
+        //    //}
 
-            //var content = new FormUrlEncodedContent(values);
-            //var client = new HttpClient();
-            //var response = client.PostAsync("https://webhook.site/e7fa5c80-0a06-4726-a0eb-a0f4a53fbb55", content);
+        //    //var content = new FormUrlEncodedContent(values);
+        //    //var client = new HttpClient();
+        //    //var response = client.PostAsync("https://webhook.site/e7fa5c80-0a06-4726-a0eb-a0f4a53fbb55", content);
 
 
-            return route.Id;
-        }
+        //    return route.Id;
+        //}
 
         public async Task<IEnumerable<Route>> GetAll()
         {
@@ -110,7 +110,7 @@ namespace Core.Repositories
                         route.PropertiesId).SingleOrDefault();
                 route.Checkpoints = _db.Query<Point>($"select * from {nameof(Point)} where {nameof(Point.RouteId)} = ?",
                     route.Id);
-                route.Rankingg = _db.Query<RankingRecord>(
+                route.Ranking = _db.Query<RankingRecord>(
                     $"select * from {nameof(RankingRecord)} where {nameof(RankingRecord.RouteId)} = ?",
                     route.Id);
             }

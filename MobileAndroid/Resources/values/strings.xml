@@ -8,12 +8,17 @@
   <string name="create">Create</string>
   <string name="cancel">Cancel</string>
   <string name="route_created">Route has been created</string>
-  <string name="route_length">Route length</string>
-  <string name="surface_type">Pavement hardness</string>
+  <string name="route_length">Route length [km]</string>
+  <string name="surface_type">Pavement hardness [%]</string>
   <string name="terrain_level">Terrain level</string>
   <string name="search_range">Search range [km]</string>
   <string-array name="terrain_options">
     <item>Any</item>
+    <item>Flat</item>
+    <item>Increasing</item>
+    <item>Decreasing</item>
+  </string-array>
+  <string-array name="terrain_options_filling_view">
     <item>Flat</item>
     <item>Increasing</item>
     <item>Decreasing</item>
@@ -32,4 +37,7 @@
   <string name="WrongLoginOrPassword">Wrong login or password</string>
   <string name="UsernameTaken">Username is already taken</string>
   <string name="AccountCreated">Your account has been created</string>
+  <string name="from">from</string>
+  <string name="resolve_parameters_automatically">Resolve parameters automatically</string>
+  <string name="parameters_resolved">Route parameters has been resolved.</string>
 </resources>

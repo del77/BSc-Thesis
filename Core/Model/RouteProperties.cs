@@ -19,7 +19,7 @@ namespace Core.Model
 
     public enum HeightAboveSeaLevel
     {
-        Close,
+        Close = 1,
         Increasing,
         Decreasing
     }

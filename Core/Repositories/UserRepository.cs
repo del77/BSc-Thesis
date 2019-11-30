@@ -14,8 +14,7 @@ namespace Core.Repositories
             var databasePath =
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "database.db");
             _db = new SQLiteConnection(databasePath);
-
-            _db.DropTable<UserData>();
+            //_db.DropTable<UserData>();
             _db.CreateTable<UserData>();
         }
 

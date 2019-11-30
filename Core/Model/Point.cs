@@ -14,7 +14,7 @@ namespace Core.Model
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public double? Altitude { get; set; }
-        public int Time { get; set; }
+        public int Number { get; set; }
 
         public Point(double latitude, double longitude, double? altitude)
         {
@@ -23,9 +23,9 @@ namespace Core.Model
             Altitude = altitude;
         }
 
-        public Point(double latitude, double longitude, double? altitude, int time) : this(latitude, longitude, altitude)
+        public Point(double latitude, double longitude, double? altitude, int number) : this(latitude, longitude, altitude)
         {
-            Time = time;
+            Number = number;
         }
 
         public Point() { }

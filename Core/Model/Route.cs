@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SQLite;
 
 namespace Core.Model
@@ -6,24 +7,24 @@ namespace Core.Model
     public class Route
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Indexed]
         public int PropertiesId { get; set; }
         [Ignore]
         public RouteProperties Properties { get; set; }
         [Ignore]
         public List<Point> Checkpoints { get; set; }
+
+        //[Ignore]
+        //public List<KeyValuePair<string, List<Point>>> Ranking { get; set; }
         [Ignore]
-        public List<KeyValuePair<string, List<Point>>> Ranking { get; set; }
-        [Ignore]
-        public List<RankingRecord> Rankingg { get; set; }
+        public List<RankingRecord> Ranking { get; set; }
 
         public Route()
         {
             //todo make this ctr protected
             Checkpoints = new List<Point>();
-            Ranking = new List<KeyValuePair<string, List<Point>>>();
-            Rankingg = new List<RankingRecord>();
+            Ranking = new List<RankingRecord>();
             Properties = new RouteProperties();
         }
 
@@ -37,7 +38,7 @@ namespace Core.Model
             {
                 Properties = properties,
                 Checkpoints = new List<Point>(),
-                Ranking = new List<KeyValuePair<string, List<Point>>>(),
+                Ranking = new List<RankingRecord>()
             };
         }
     }

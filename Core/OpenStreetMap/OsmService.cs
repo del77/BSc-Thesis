@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Core.Extensions;
 using Core.Model;
@@ -13,13 +15,13 @@ namespace Core.OpenStreetMap
     {
         private readonly HttpClient _httpClient;
         private const int Offset = 10;
-        private static readonly string[] PavedSurfaces = 
+        private static readonly string[] PavedSurfaces =
         {
             "paved", "asphalt", "concrete", "concrete:lanes", "concrete:plates", "paving_stones", "sett", "unhewn_cobblestone",
             "cobblestone", "metal", "wood", "metal_grid"
         };
 
-        public static readonly string[] UnpavedSurfaces = 
+        public static readonly string[] UnpavedSurfaces =
         {
             "unpaved", "compacted", "fine_gravel", "gravel", "pebblestone", "dirt", "earth", "grass", "grass_paver",
             "ground", "mud", "sand", "woodchips", "snow", "ice", "salt", "clay", "tartan", "artifical_turf", "decoturf", "carpet"
@@ -28,24 +30,27 @@ namespace Core.OpenStreetMap
         public OsmService()
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("http://overpass-api.de/api/interpreter");
+            _httpClient.BaseAddress = new Uri("http://lz4.overpass-api.de/api/interpreter");
+
         }
         public async Task<int> ResolveRouteSurfaceTypeAsync(Route route)
         {
             route = Route.GetNewRoute();
             var tags = (await GetSurfaceTypesAsync(route.Checkpoints)).ToList();
 
-            
-            int pavedCount = tags.Count(t=>PavedSurfaces.Contains(t));
+            int pavedCount = tags.Count(t => PavedSurfaces.Contains(t));
             int unpavedCount = tags.Count(t => UnpavedSurfaces.Contains(t));
 
             var pavedPercent = 1.0 * pavedCount / (pavedCount + unpavedCount) * 100;
 
-            return pavedPercent.RoundToClosest10();
+            return (int)Math.Round(pavedPercent);
         }
-
+        HttpResponseMessage responseMessage;
+        string jsonResult;
+        OsmResponse res;
         private async Task<IEnumerable<string>> GetSurfaceTypesAsync(IEnumerable<Point> points)
         {
+            StringBuilder query = new StringBuilder($"?data=[out:json];");
             var responses = new List<OsmResponse>();
             points = new List<Point>
             {
@@ -70,26 +75,29 @@ namespace Core.OpenStreetMap
                 new Point(51.752230, 19.439626, 0),
                 new Point(51.752190, 19.440430, 0),
                 new Point(51.752217, 19.441374, 0),
+
+                new Point(51.948656, 19.206382, 0)
             };
 
 
             foreach (var point in points)
             {
-                try
-                {
-                    var from = Point.ComputeOffset(point, Offset, 225);
-                var to = Point.ComputeOffset(point, Offset, 45);
-                var responseMessage = await _httpClient.GetAsync($"?data=[out:json];way({from}, {to}); out;");
-                var jsonResult = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var from = Point.ComputeOffset(point, Offset, 225);
+                    var to = Point.ComputeOffset(point, Offset, 45);
+                    query.Append($"way[surface]({from}, {to});convert e surface = t[\"surface\"]; out;");
+            }
 
-                    var res = JsonConvert.DeserializeObject<OsmResponse>(jsonResult);
-                    responses.Add(res);
+            try
+            {
+                responseMessage = await _httpClient.GetAsync(query.ToString());
+                jsonResult = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                }
-                catch (Exception e)
-                {
+                res = JsonConvert.DeserializeObject<OsmResponse>(jsonResult);
+                responses.Add(res);
 
-                }
+            }
+            catch (Exception e)
+            {
 
             }
 

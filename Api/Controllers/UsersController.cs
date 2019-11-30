@@ -35,7 +35,7 @@ namespace Api.Controllers
                 throw new ApplicationException("Wrong username or password", "WrongLoginOrPassword");
 
             var token = _jwtService.GenerateToken(user.Id.ToString(), user.Username);
-            return Ok(new {token});
+            return Ok(token);
         }
     }
 }

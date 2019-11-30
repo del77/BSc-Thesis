@@ -22,10 +22,10 @@ namespace Core.Model
             _stopTrainingUi = stopTrainingUi;
         }
 
-        public override void Start()
+        public override async void Start()
         {
-            CurrentTry = new List<int>();
-            Route.Rankingg.Add(new RankingRecord(CurrentTry));
+            CurrentTry = new RankingRecord();
+            Route.Ranking.Add(CurrentTry);
 
             checkpoints = new List<Point>();
             IsStarted = true;
@@ -50,7 +50,6 @@ namespace Core.Model
             Timer.Stop();
             IsStarted = false;
 
-            _routesService.UpdateRanking(Route).GetAwaiter().GetResult();
             Seconds = 0;
 
         }
@@ -72,6 +71,8 @@ namespace Core.Model
                 {
                     Stop();
                     _stopTrainingUi.Invoke();
+                    _routesService.UpdateRanking(Route, CurrentTry).GetAwaiter().GetResult();
+
                 }
             }
         }

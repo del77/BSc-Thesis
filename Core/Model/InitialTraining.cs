@@ -10,6 +10,7 @@ namespace Core.Model
     public class InitialTraining : TrainingBase
     {
         double distanceBetweenCheckpoints = 0.01; //kilometers
+        private int _checkpointNumber;
 
         public InitialTraining(Route route, Action uiUpdate, Func<Task<Tuple<double, double, double?>>> currentLocationDelegate) : base(route, uiUpdate, currentLocationDelegate)
         {
@@ -18,18 +19,18 @@ namespace Core.Model
         public override async void Start()
         {
             IsStarted = true;
-            var location = await GetLocation();
 
-            CurrentTry = new List<int>();
-            Route.Rankingg.Add(new RankingRecord(CurrentTry));
-            Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3));
+            _checkpointNumber = 0;
+            CurrentTry = new RankingRecord();
+            Route.Ranking.Add(CurrentTry);
+
+            var location = GetLocation().GetAwaiter().GetResult();
+            Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3, _checkpointNumber));
 
             Timer = new Timer(1000);
             Timer.Elapsed += _timer_Elapsed;
 
-            AddPoint();
             Timer.Start();
-
         }
 
         public override async void Stop()
@@ -39,10 +40,10 @@ namespace Core.Model
 
             //Route.Checkpoints = RetrieveCheckpoints();
             var location = GetLocation().GetAwaiter().GetResult();
-            Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3));
+            Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3, _checkpointNumber));
             SaveCheckpointTime();
 
-            Route.Ranking.Add(new KeyValuePair<string, List<Point>>("Anon", Route.Checkpoints));
+            //Route.Ranking.Add(new KeyValuePair<string, List<Point>>("Anon", Route.Checkpoints));
             //Route.Rankingg.Add(new RankingRecord(_routeTimes.ToString(), Seconds));
             Seconds = 0;
         }
@@ -86,10 +87,11 @@ namespace Core.Model
         protected override async void AddPoint()
         {
             var location = await GetLocation();
-            var currentPosition = new Point(location.Item1, location.Item2, location.Item3, Seconds);
+            var currentPosition = new Point(location.Item1, location.Item2, location.Item3, _checkpointNumber);
             var distanceSinceLastPoint = Point.Distance(Route.Checkpoints.Last(), currentPosition, 'K');
             if (distanceSinceLastPoint > distanceBetweenCheckpoints)
             {
+                _checkpointNumber++;
                 Route.Checkpoints.Add(currentPosition);
                 SaveCheckpointTime();
             }

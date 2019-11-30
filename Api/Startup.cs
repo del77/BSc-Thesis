@@ -1,23 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Api.Entities;
 using Api.Framework;
+using Api.Mappers;
 using Api.Repositories;
 using Api.Services;
 using Api.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Api
@@ -36,7 +30,8 @@ namespace Api
         {
             services.AddDbContext<Context>(options =>
             {
-                options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["Default"]);
+                options.UseSqlServer(Configuration.GetSection("ConnectionStrings")["Default"],
+                    x => x.UseNetTopologySuite());
                 options.EnableSensitiveDataLogging();
             });
 
@@ -70,8 +65,11 @@ namespace Api
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRouteService, RoutesService>();
             services.AddScoped<IUsersRepository, UsersesRepository>();
+            services.AddScoped<IRoutesRepository, RoutesRepository>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

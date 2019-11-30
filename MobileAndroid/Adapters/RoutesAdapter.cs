@@ -10,6 +10,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Core.Model;
 using Core.Repositories;
+using Core.Services;
 using MobileAndroid.ViewHolders;
 
 namespace MobileAndroid.Adapters
@@ -19,7 +20,7 @@ namespace MobileAndroid.Adapters
         private readonly Context _context;
         public event EventHandler<Route> RouteClick;
         private List<Route> _routes = new List<Route>();
-        private readonly RoutesRepository _routesRepository;
+        private readonly RoutesService _routesService;
         public RoutesAdapter(Context context)
         {
             _context = context;
@@ -36,13 +37,13 @@ namespace MobileAndroid.Adapters
             //    new Route { Name = "dziewiata"},
             //};
 
-            _routesRepository = new RoutesRepository();
-            UpdateData();
+            _routesService = new RoutesService();
+            //UpdateData();
         }
 
-        public async void UpdateData()
+        public async void UpdateData(RoutesFilterQuery query)
         {
-            _routes = (await _routesRepository.GetAll()).ToList();
+            _routes = (await _routesService.GetRoutes(query)).ToList();
             NotifyDataSetChanged();
         }
 
@@ -53,10 +54,10 @@ namespace MobileAndroid.Adapters
                 var routeProperties = _routes[position].Properties;
                 routeViewHolder.RouteName.Text = routeProperties.Name;
                 routeViewHolder.RouteDistance.Text = routeProperties.Distance + "km";
-                //routeViewHolder.RouteTerrainLevel.Text = routeProperties.HeightAboveSeaLevel.ToString();
-                routeViewHolder.RouteTerrainLevel.Text = "Wyrównany";
-                //routeViewHolder.RouteSurface.Text = routeProperties.PavedPercentage + "%";
-                routeViewHolder.RouteSurface.Text = "37%";
+                routeViewHolder.RouteTerrainLevel.Text =
+                    _context.Resources.GetStringArray(Resource.Array.terrain_options)[(int)routeProperties.HeightAboveSeaLevel];
+                //routeViewHolder.RouteTerrainLevel.Text = "Wyrównany";
+                routeViewHolder.RouteSurface.Text = routeProperties.PavedPercentage + "%";
                 routeViewHolder.Route = _routes[position];
             }
         }

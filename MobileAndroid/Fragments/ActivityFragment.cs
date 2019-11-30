@@ -75,6 +75,7 @@ namespace MobileAndroid.Fragments
         private async void _googleMap_MyLocationChange(object sender, GoogleMap.MyLocationChangeEventArgs e)
         {
             var location = await Geolocation.GetLastKnownLocationAsync();
+
             //if (location != null)
             //{
             //    var latlng = new LatLng(location.Latitude, location.Longitude);
@@ -86,7 +87,6 @@ namespace MobileAndroid.Fragments
         public async Task<Tuple<double, double, double?>> GetCurrentLocation()
         {
             var location = await Geolocation.GetLastKnownLocationAsync();
-            //var location = await _locationProvider.GetLastLocationAsync();
             //var location = await _locationProvider.GetLastLocationAsync();
 
 
@@ -132,7 +132,6 @@ namespace MobileAndroid.Fragments
             _removeCurrentRouteButton = _view.FindViewById<Button>(Resource.Id.removeCurrentRouteButton);
             _timerButton = _view.FindViewById<Button>(Resource.Id.timerButton);
             _rankingRecyclerView = _view.FindViewById<RecyclerView>(Resource.Id.rankingRecycler);
-
         }
 
         private void BindData()
@@ -154,6 +153,8 @@ namespace MobileAndroid.Fragments
 
         private async void _timerButton_Click(object sender, System.EventArgs e)
         {
+            //var xD = new OsmService();
+            //await xD.ResolveRouteSurfaceTypeAsync(null);
             if (!Training.IsStarted)
             {
                 Training.Start();
@@ -185,6 +186,7 @@ namespace MobileAndroid.Fragments
                 _timer.Text = "0:0";
                 RemovePolyline();
                 RemoveAllCheckPoints();
+                _rankingAdapter.UpdateRoute(CurrentRoute.Ranking);
             });
         }
 
@@ -244,13 +246,14 @@ namespace MobileAndroid.Fragments
         private void SetNewRoute()
         {
             CurrentRoute = Route.GetNewRoute();
-            _rankingAdapter.UpdateRoute(CurrentRoute.Rankingg);
+            //_rankingRecyclerView.RemoveAllViewsInLayout();
+            _rankingAdapter.UpdateRoute(CurrentRoute.Ranking);
         }
 
         public void SetRoute(Route route)
         {
             CurrentRoute = route;
-            _rankingAdapter.UpdateRoute(CurrentRoute.Rankingg);
+            _rankingAdapter.UpdateRoute(CurrentRoute.Ranking);
             _removeCurrentRouteButton.Visibility = ViewStates.Visible;
             BindData();
 
