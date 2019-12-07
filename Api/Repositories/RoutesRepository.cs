@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Dtos;
@@ -11,8 +12,10 @@ namespace Api.Repositories
 {
     public interface IRoutesRepository
     {
-        Task CreateRoute(Route route);
-        Task<IEnumerable<Route>> GetRoutes(RoutesQuery query);
+        Task CreateRouteAsync(Route route);
+        Task<IEnumerable<Route>> GetRoutesAsync(RoutesQuery query);
+        Task<Route> GetRouteAsync(Guid routeId);
+        Task UpdateAsync();
     }
     public class RoutesRepository : IRoutesRepository
     {
@@ -23,13 +26,13 @@ namespace Api.Repositories
             _context = context;
         }
 
-        public async Task CreateRoute(Route route)
+        public async Task CreateRouteAsync(Route route)
         {
             await _context.Routes.AddAsync(route);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Route>> GetRoutes(RoutesQuery query)
+        public async Task<IEnumerable<Route>> GetRoutesAsync(RoutesQuery query)
         {
             var currentLocation = new Point(query.CurrentLongitude, query.CurrentLatitude)
             {
@@ -49,6 +52,19 @@ namespace Api.Repositories
                 .Include(r => r.Properties)
                 .Include(r => r.Ranking).ThenInclude(rr => rr.User)
                 .ToListAsync();
+        }
+
+        public async Task<Route> GetRouteAsync(Guid routeId)
+        {
+            return await _context.Routes
+                .Include(r => r.Checkpoints)
+                .Include(r => r.Ranking).ThenInclude(rr => rr.User)
+                .SingleOrDefaultAsync(r => r.Id == routeId);
+        }
+
+        public async Task UpdateAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

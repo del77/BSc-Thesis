@@ -186,7 +186,7 @@ namespace MobileAndroid.Fragments
                 _timer.Text = "0:0";
                 RemovePolyline();
                 RemoveAllCheckPoints();
-                _rankingAdapter.UpdateRoute(CurrentRoute.Ranking);
+                _rankingAdapter.UpdateRoute(CurrentRoute);
             });
         }
 
@@ -215,9 +215,9 @@ namespace MobileAndroid.Fragments
 
         private void NextCheckpointReached()
         {
-            _rankingAdapter.ShowDataForNextCheckpoint();
             Activity.RunOnUiThread(() =>
             {
+                _rankingAdapter.ShowDataForNextCheckpoint();
                 _checkpointMarkers[0].Remove();
                 _checkpointMarkers.RemoveAt(0);
             });
@@ -247,13 +247,13 @@ namespace MobileAndroid.Fragments
         {
             CurrentRoute = Route.GetNewRoute();
             //_rankingRecyclerView.RemoveAllViewsInLayout();
-            _rankingAdapter.UpdateRoute(CurrentRoute.Ranking);
+            _rankingAdapter.UpdateRoute(CurrentRoute);
         }
 
         public void SetRoute(Route route)
         {
             CurrentRoute = route;
-            _rankingAdapter.UpdateRoute(CurrentRoute.Ranking);
+            _rankingAdapter.UpdateRoute(CurrentRoute);
             _removeCurrentRouteButton.Visibility = ViewStates.Visible;
             BindData();
 

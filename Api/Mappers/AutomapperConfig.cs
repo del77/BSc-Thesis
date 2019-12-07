@@ -31,7 +31,8 @@ namespace Api.Mappers
                     cfg.CreateMap<RankingRecordDto, RankingRecord>()
                         .ForMember(dest => dest.CheckpointsTimes,
                             opt => opt.MapFrom(src => string.Join(" ", src.CheckpointsTimes)))
-                        .ForMember(dest => dest.FinalResult, opt => opt.MapFrom(src => src.CheckpointsTimes.Last()));
+                        .ForMember(dest => dest.FinalResult, opt => opt.MapFrom(src => src.CheckpointsTimes.Last()))
+                        .ForMember(dest => dest.User, opt => opt.Ignore());
                     cfg.CreateMap<RoutePropertiesDto, RouteProperties>().ReverseMap();
                 })
                 .CreateMapper();

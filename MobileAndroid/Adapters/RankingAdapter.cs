@@ -12,46 +12,62 @@ namespace MobileAndroid.Adapters
     public class RankingAdapter : RecyclerView.Adapter
     {
         private IEnumerable<RankingRecord> _rankingRecords;
+        private Route _route;
         private int _checkpointIndexToDisplay;
-        private int _nextCheckpointIndexToDisplay;
+        private int _nextCheckpointIndex;
 
 
         public RankingAdapter()
         {
         }
 
-        public void UpdateRoute(ICollection<RankingRecord> rankingRecords)
+        public void UpdateRoute(Route route)
         {
-            _rankingRecords = rankingRecords;
+            _route = route;
 
-            if(rankingRecords.Any())
-                _checkpointIndexToDisplay = rankingRecords.First().CheckpointsTimes.Count() - 1;
+            if (route.Ranking.Any())
+            {
+                _route.Ranking = _route.Ranking.OrderBy(rr => rr.FinalResult).ToList();
+                _checkpointIndexToDisplay = route.Ranking.First().CheckpointsTimes.Count() - 1;
+            }
 
             NotifyDataSetChanged();
 
-            _nextCheckpointIndexToDisplay = 0;
+            _nextCheckpointIndex = 0;
         }
 
         public void ShowDataForNextCheckpoint()
         {
-            _checkpointIndexToDisplay = _nextCheckpointIndexToDisplay;
-            _rankingRecords = _rankingRecords.OrderBy(x => x.CheckpointsTimes[_checkpointIndexToDisplay]);
+            _checkpointIndexToDisplay = _nextCheckpointIndex;
+            if (_nextCheckpointIndex > 0)
+                _route.Ranking = _route.Ranking.OrderBy(x => x.CheckpointsTimes[_nextCheckpointIndex - 1]).ToList();
             NotifyDataSetChanged();
-            _nextCheckpointIndexToDisplay++;
+            _nextCheckpointIndex++;
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             if (holder is RankingViewHolder rankingViewHolder)
             {
-                var rankingRecord = _rankingRecords.ElementAt(position);
-                rankingViewHolder.Nickname.Text = rankingRecord.User;
-                if(rankingRecord.IsMine)
+                var rankingRecord = _route.Ranking.ElementAt(position);
+                if (rankingRecord.IsMine)
+                {
                     rankingViewHolder.Nickname.SetTextColor(Color.Red);
+                    rankingViewHolder.Nickname.Text = rankingRecord.User;
+                }
+                else if (rankingRecord.CurrentTry)
+                {
+                    rankingViewHolder.Nickname.SetTextColor(Color.Blue);
+                    rankingViewHolder.Nickname.Text = "Current try";
+                }
                 else
+                {
                     rankingViewHolder.Nickname.SetTextColor(Color.Black);
+                    rankingViewHolder.Nickname.Text = rankingRecord.User;
+                }
 
-                rankingViewHolder.Time.Text = rankingRecord.CheckpointsTimes[_checkpointIndexToDisplay].ToString();
+                rankingViewHolder.Time.Text = rankingRecord.CurrentTry ? 
+                    "" : rankingRecord.CheckpointsTimes[_checkpointIndexToDisplay].ToString();
             }
         }
 
@@ -59,11 +75,11 @@ namespace MobileAndroid.Adapters
         {
             View itemView =
                 LayoutInflater.From(parent.Context).Inflate(Resource.Layout.ranking_viewholder, parent, false);
-            
+
             var rankingViewHolder = new RankingViewHolder(itemView);
             return rankingViewHolder;
         }
 
-        public override int ItemCount => _rankingRecords.Count();
+        public override int ItemCount => _route.Ranking.Count();
     }
 }

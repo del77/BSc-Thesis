@@ -8,5 +8,12 @@ namespace Api.Entities
         public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+
+        public User(string userId)
+        {
+            Id = Guid.Parse(userId);
+        }
+
+        public User() { }
     }
 }

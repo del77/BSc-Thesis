@@ -53,7 +53,7 @@ namespace Api.Controllers
                         {CheckpointsTimes = "1 2 3 4", FinalResult = 4}
                 }
             };
-            await _routeService.CreateRoute(route, CurrentUserId);
+            await _routeService.CreateRouteAsync(route, CurrentUserId);
 
             return Ok();
         }
@@ -61,7 +61,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRoutes([FromQuery]RoutesQuery query)
         {
-            var routes = await _routeService.GetRoutes(query);
+            var routes = await _routeService.GetRoutesAsync(query);
 
             return Ok(_mapper.Map<IEnumerable<CreateRouteDto>>(routes));
         }
@@ -70,15 +70,15 @@ namespace Api.Controllers
         public async Task<IActionResult> CreateRoute([FromBody] CreateRouteDto routeDto)
         {
             var route = _mapper.Map<Route>(routeDto);
-            await _routeService.CreateRoute(route, CurrentUserId);
+            await _routeService.CreateRouteAsync(route, CurrentUserId);
 
             return Ok();
         }
 
         [HttpPost("{routeId}/ranking-record")]
-        public async Task<IActionResult> CreateRankingRecord(string routeId, RankingRecordDto rankingRecordDto)
+        public async Task<IActionResult> CreateRankingRecord(Guid routeId, RankingRecordDto rankingRecordDto)
         {
-
+            await _routeService.ProcessNewTryAsync(routeId, CurrentUserId, rankingRecordDto);
 
             return Ok();
         }

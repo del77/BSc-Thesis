@@ -7,7 +7,7 @@ namespace Api.Entities
     {
         public Guid Id { get; set; }
         public RouteProperties Properties { get; set; }
-        public IEnumerable<Point> Checkpoints { get; set; }
-        public IEnumerable<RankingRecord> Ranking { get; set; }
+        public ICollection<Point> Checkpoints { get; set; }
+        public ICollection<RankingRecord> Ranking { get; set; }
     }
 }

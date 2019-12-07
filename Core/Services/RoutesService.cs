@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -31,21 +32,24 @@ namespace Core.Services
             await Task.CompletedTask;
         }
 
-        public async Task UpdateRanking(Route route, RankingRecord currentTry)
+        public void ProcessCurrentTry(Route route, RankingRecord currentTry)
         {
             var lastTry = route.Ranking.SingleOrDefault(rr => rr.IsMine);
             if (lastTry != null)
             {
                 if (currentTry.FinalResult < lastTry.FinalResult)
                 {
-                    route.Ranking.Remove(lastTry);
                     currentTry.IsMine = true;
+                    currentTry.CurrentTry = false;
+                    currentTry.User = lastTry.User;
+
+                    route.Ranking.Remove(lastTry);
                 }
                 else
                     route.Ranking.Remove(currentTry);
             }
 
-            await _routesWebRepository.CreateRankingRecordAsync(currentTry, route.Id);
+            //await _routesWebRepository.CreateRankingRecordAsync(currentTry, route.Id);
 
 
             //int firstWorseTryIndex = route.Rankingg.FindIndex(r => r.Points.Last().Time >= rankingRecord.Points.Last().Time);
@@ -57,7 +61,6 @@ namespace Core.Services
             //var record = new RankingRecord("Anon1234", routeTimes);
             //.InsertRankingRecord(route.Id, route.Ranking.Single(r => r.Id == 0));
 
-            await Task.CompletedTask;
         }
 
         public async Task<IEnumerable<Route>> GetRoutes(RoutesFilterQuery query)
@@ -73,5 +76,9 @@ namespace Core.Services
             return routes;
         }
 
+        public async Task UpdateRankingAsync(Guid routeId, RankingRecord currentTry)
+        {
+            await _routesWebRepository.CreateRankingRecordAsync(currentTry, routeId);
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Core.Services;
@@ -24,7 +23,9 @@ namespace Core.Model
 
         public override async void Start()
         {
-            CurrentTry = new RankingRecord();
+            NextCheckpointIndex = 0;
+
+            CurrentTry = new RankingRecord(true);
             Route.Ranking.Add(CurrentTry);
 
             checkpoints = new List<Point>();
@@ -54,8 +55,13 @@ namespace Core.Model
 
         }
 
+        private bool xd = true;
         protected override async void AddPoint()
         {
+            //if (!xd)
+           //    return;
+            //xd = false;
+
             var location = await GetLocation();
             var currentLocation = (new Point(location.Item1, location.Item2, Seconds));
             var distance = Point.Distance(currentLocation, Route.Checkpoints[NextCheckpointIndex], 'K');
@@ -64,17 +70,25 @@ namespace Core.Model
 
             if (distance < 0.005)
             {
-                SaveCheckpointTime();
-                _checkpointReached.Invoke();
-                NextCheckpointIndex++;
+                if (NextCheckpointIndex++ > 0)
+                    SaveCheckpointTime();
+
                 if (NextCheckpointIndex == Route.Checkpoints.Count)
                 {
                     Stop();
+                    //CurrentTry.CheckpointsTimes[CurrentTry.CheckpointsTimes.Count-1] = 13;
+                    _routesService.ProcessCurrentTry(Route, CurrentTry);
+                    await _routesService.UpdateRankingAsync(Route.Id, CurrentTry);
                     _stopTrainingUi.Invoke();
-                    _routesService.UpdateRanking(Route, CurrentTry).GetAwaiter().GetResult();
 
                 }
+                else
+                {
+                    _checkpointReached.Invoke();
+                }
             }
+
+            // xd = true;
         }
     }
 }

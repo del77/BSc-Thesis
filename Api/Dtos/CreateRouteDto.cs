@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Api.Entities;
 
 namespace Api.Dtos
 {
     public class CreateRouteDto
     {
+        public Guid Id { get; set; }
         public RoutePropertiesDto Properties { get; set; }
         public IEnumerable<PointDto> Checkpoints { get; set; }
         public IEnumerable<RankingRecordDto> Ranking { get; set; }

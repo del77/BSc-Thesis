@@ -118,7 +118,7 @@ namespace Core.Repositories
             return routes;
         }
 
-        public void InsertRankingRecord(int routeId, RankingRecord rankingRecord)
+        public void InsertRankingRecord(Guid routeId, RankingRecord rankingRecord)
         {
             rankingRecord.RouteId = routeId;
             _db.Insert(rankingRecord);

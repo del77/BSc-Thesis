@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SQLite;
 
@@ -7,14 +8,16 @@ namespace Core.Model
     public class RankingRecord
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Indexed]
-        public int RouteId { get; set; }
+        public Guid RouteId { get; set; }
         [Ignore]
         public string User { get; set; }
 
         [Ignore]
         public bool IsMine { get; set; }
+        [Ignore]
+        public bool CurrentTry { get; set; }
 
         [Ignore]
         public List<int> CheckpointsTimes { get; set; }
@@ -28,6 +31,12 @@ namespace Core.Model
 
         public RankingRecord()
         {
+            CheckpointsTimes = new List<int>();
+        }
+
+        public RankingRecord(bool currentTry)
+        {
+            CurrentTry = currentTry;
             CheckpointsTimes = new List<int>();
         }
     }
