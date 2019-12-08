@@ -24,8 +24,7 @@ namespace Core.Model
             CurrentTry = new RankingRecord();
             Route.Ranking.Add(CurrentTry);
 
-            var location = GetLocation().GetAwaiter().GetResult();
-            Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3, _checkpointNumber));
+            AddPoint();
 
             Timer = new Timer(1000);
             Timer.Elapsed += _timer_Elapsed;
@@ -84,12 +83,16 @@ namespace Core.Model
             UiUpdate();
         }
 
+
+
         protected override async void AddPoint()
         {
             var location = await GetLocation();
             var currentPosition = new Point(location.Item1, location.Item2, location.Item3, _checkpointNumber);
-            var distanceSinceLastPoint = Point.Distance(Route.Checkpoints.Last(), currentPosition, 'K');
-            if (distanceSinceLastPoint > distanceBetweenCheckpoints)
+            var distanceFromLastPoint = Route.Checkpoints.Any()
+                ? Point.Distance(Route.Checkpoints.Last(), currentPosition, 'K')
+                : distanceBetweenCheckpoints;
+            if (distanceFromLastPoint >= distanceBetweenCheckpoints)
             {
                 _checkpointNumber++;
                 Route.Checkpoints.Add(currentPosition);

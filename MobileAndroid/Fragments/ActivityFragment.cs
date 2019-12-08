@@ -138,10 +138,10 @@ namespace MobileAndroid.Fragments
         {
             _routeName.Text = CurrentRoute.Properties.Name;
             if (!CurrentRoute.Checkpoints.Any())
-                Training = new InitialTraining(CurrentRoute, UpdateUi, GetCurrentLocation);
+                Training = new InitialTraining(CurrentRoute, UpdateTimer, GetCurrentLocation);
             else
             {
-                Training = new RaceTraining(CurrentRoute, UpdateUi, NextCheckpointReached, GetCurrentLocation, StopTraining);
+                Training = new RaceTraining(CurrentRoute, UpdateTimer, NextCheckpointReached, GetCurrentLocation, StopTraining);
             }
         }
 
@@ -167,6 +167,7 @@ namespace MobileAndroid.Fragments
                 _timerButton.Text = "Start";
                 _timer.Text = "0:0";
                 RemovePolyline();
+                RemoveAllCheckPoints();
 
                 if (Training is InitialTraining)
                 {
@@ -174,6 +175,10 @@ namespace MobileAndroid.Fragments
                     routeDetailsIntent.PutExtra("route", CurrentRoute);
                     StartActivity(routeDetailsIntent);
                     SetNewRoute();
+                }
+                else
+                {
+                    SetRoute(CurrentRoute);
                 }
             }
         }
@@ -184,9 +189,9 @@ namespace MobileAndroid.Fragments
             {
                 _timerButton.Text = "Start";
                 _timer.Text = "0:0";
-                RemovePolyline();
-                RemoveAllCheckPoints();
-                _rankingAdapter.UpdateRoute(CurrentRoute);
+
+
+                SetRoute(CurrentRoute);
             });
         }
 
@@ -203,13 +208,11 @@ namespace MobileAndroid.Fragments
             _routePolyline.Points = _polylineOptions.Points;
         }
 
-        private void UpdateUi()
+        private void UpdateTimer()
         {
             Activity.RunOnUiThread(() =>
             {
                 _timer.Text = $"{Training.Seconds / 60}:{Training.Seconds % 60}";
-                //var lastPoint = Training.Points.Last();
-                //AddToPolyline(lastPoint.Latitude, lastPoint.Longitude);
             });
         }
 
@@ -262,7 +265,8 @@ namespace MobileAndroid.Fragments
             Canvas canvas1 = new Canvas();
             canvas1.DrawBitmap(bmp, 0, 0, null);
 
-
+            RemovePolyline();
+            RemoveAllCheckPoints();
             foreach (var routeCheckpoint in route.Checkpoints)
             {
                 var marker = _googleMap.AddMarker(new MarkerOptions()

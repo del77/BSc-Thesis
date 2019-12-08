@@ -15,7 +15,7 @@ namespace MobileAndroid.Adapters
         private Route _route;
         private int _checkpointIndexToDisplay;
         private int _nextCheckpointIndex;
-
+        private int _nextCheckpointIndex2;
 
         public RankingAdapter()
         {
@@ -29,6 +29,7 @@ namespace MobileAndroid.Adapters
             {
                 _route.Ranking = _route.Ranking.OrderBy(rr => rr.FinalResult).ToList();
                 _checkpointIndexToDisplay = route.Ranking.First().CheckpointsTimes.Count() - 1;
+                _nextCheckpointIndex2 = route.Ranking.First().CheckpointsTimes.Count() - 1;
             }
 
             NotifyDataSetChanged();
@@ -38,9 +39,11 @@ namespace MobileAndroid.Adapters
 
         public void ShowDataForNextCheckpoint()
         {
+            _nextCheckpointIndex2 = _route.Ranking.First(rr => rr.CurrentTry).CheckpointsTimes.Count;
+
             _checkpointIndexToDisplay = _nextCheckpointIndex;
-            if (_nextCheckpointIndex > 0)
-                _route.Ranking = _route.Ranking.OrderBy(x => x.CheckpointsTimes[_nextCheckpointIndex - 1]).ToList();
+            //if (_nextCheckpointIndex > 0)
+            //     _route.Ranking = _route.Ranking.OrderBy(x => x.CheckpointsTimes[_nextCheckpointIndex - 1]).ToList();
             NotifyDataSetChanged();
             _nextCheckpointIndex++;
         }
@@ -67,7 +70,7 @@ namespace MobileAndroid.Adapters
                 }
 
                 rankingViewHolder.Time.Text = rankingRecord.CurrentTry ? 
-                    "" : rankingRecord.CheckpointsTimes[_checkpointIndexToDisplay].ToString();
+                    "" : rankingRecord.CheckpointsTimes[_nextCheckpointIndex2].ToString();
             }
         }
 

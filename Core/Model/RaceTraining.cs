@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Core.Services;
@@ -50,7 +51,8 @@ namespace Core.Model
         {
             Timer.Stop();
             IsStarted = false;
-
+            if (NextCheckpointIndex != Route.Checkpoints.Count)
+                Route.Ranking.Remove(CurrentTry);
             Seconds = 0;
 
         }
@@ -59,7 +61,7 @@ namespace Core.Model
         protected override async void AddPoint()
         {
             //if (!xd)
-           //    return;
+            //    return;
             //xd = false;
 
             var location = await GetLocation();
@@ -70,9 +72,9 @@ namespace Core.Model
 
             if (distance < 0.005)
             {
-                if (NextCheckpointIndex++ > 0)
-                    SaveCheckpointTime();
+                NextCheckpointIndex++;
 
+                SaveCheckpointTime();
                 if (NextCheckpointIndex == Route.Checkpoints.Count)
                 {
                     Stop();
@@ -84,11 +86,17 @@ namespace Core.Model
                 }
                 else
                 {
+                    UpdateRankingToShowPositionsForCheckpoint(NextCheckpointIndex - 1);
                     _checkpointReached.Invoke();
                 }
             }
 
             // xd = true;
+        }
+
+        private void UpdateRankingToShowPositionsForCheckpoint(int checkpointIndex)
+        {
+            Route.Ranking = Route.Ranking.OrderBy(x => x.CheckpointsTimes[checkpointIndex]).ToList();
         }
     }
 }
