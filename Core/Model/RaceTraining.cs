@@ -11,15 +11,27 @@ namespace Core.Model
     {
         private readonly Action _checkpointReached;
         private readonly Action _stopTrainingUi;
+        private readonly Action<int> _playCurrentPosition;
+        private readonly Action<int> _playPositionsLost;
+        private readonly Action<int> _playPositionsEarned;
         public int NextCheckpointIndex = 0;
         private List<Point> checkpoints;
         private readonly RoutesService _routesService;
 
-        public RaceTraining(Route route, Action uiUpdate, Action checkpointReached, Func<Task<Tuple<double, double, double?>>> currentLocationDelegate, Action stopTrainingUi) : base(route, uiUpdate, currentLocationDelegate)
+        private int _rankingPositionOnPreviousCheckpoint;
+
+        public RaceTraining(Route route, Action uiUpdate, Action checkpointReached,
+            Func<Task<Tuple<double, double, double?>>> currentLocationDelegate,
+            Action stopTrainingUi, Action<int> playCurrentPosition,
+            Action<int> playPositionsLost, Action<int> playPositionsEarned) 
+            : base(route, uiUpdate, currentLocationDelegate)
         {
             _routesService = new RoutesService();
             _checkpointReached = checkpointReached;
             _stopTrainingUi = stopTrainingUi;
+            _playCurrentPosition = playCurrentPosition;
+            _playPositionsLost = playPositionsLost;
+            _playPositionsEarned = playPositionsEarned;
         }
 
         public override async void Start()
@@ -58,6 +70,7 @@ namespace Core.Model
         }
 
         private bool xd = true;
+
         protected override async void AddPoint()
         {
             //if (!xd)
@@ -87,11 +100,32 @@ namespace Core.Model
                 else
                 {
                     UpdateRankingToShowPositionsForCheckpoint(NextCheckpointIndex - 1);
+
+                    var currentPosition = GetCurrentPositionInRanking();
+                    if (currentPosition == _rankingPositionOnPreviousCheckpoint || _rankingPositionOnPreviousCheckpoint == 0)
+                    {
+                        _playCurrentPosition.Invoke(currentPosition);
+                    }
+                    else
+                    {
+                        if (currentPosition < _rankingPositionOnPreviousCheckpoint)
+                            _playPositionsEarned(_rankingPositionOnPreviousCheckpoint - currentPosition);
+                        else
+                            _playPositionsLost(currentPosition - _rankingPositionOnPreviousCheckpoint);
+                    }
+
+                    _rankingPositionOnPreviousCheckpoint = currentPosition;
+
                     _checkpointReached.Invoke();
                 }
             }
 
             // xd = true;
+        }
+
+        private int GetCurrentPositionInRanking()
+        {
+            return Route.Ranking.FindIndex(rr => rr.CurrentTry) + 1;
         }
 
         private void UpdateRankingToShowPositionsForCheckpoint(int checkpointIndex)

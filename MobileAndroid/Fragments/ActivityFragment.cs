@@ -43,6 +43,7 @@ namespace MobileAndroid.Fragments
         private RankingAdapter _rankingAdapter;
         private RecyclerView.LayoutManager _rankingLayoutManager;
         private FusedLocationProviderClient _locationProvider;
+        private Context _context;
         public static Route CurrentRoute { get; set; }
         public TrainingBase Training { get; set; }
 
@@ -103,6 +104,7 @@ namespace MobileAndroid.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            _context = inflater.Context;
             _locationProvider = LocationServices.GetFusedLocationProviderClient(inflater.Context);
             _view = inflater.Inflate(Resource.Layout.activity_fragment, container, false);
             FindViews();
@@ -123,6 +125,20 @@ namespace MobileAndroid.Fragments
             return _view;
         }
 
+        private void PlayCurrentPosition(int position)
+        {
+            TextToSpeech.SpeakAsync($"{Resources.GetString(Resource.String.your_position, position)}");
+        }
+
+        private void PlayPositionsEarned(int positions)
+        {
+            TextToSpeech.SpeakAsync($"{Resources.GetString(Resource.String.positions_earned, positions)}");
+        }
+
+        private void PlayPositionsLost(int positions)
+        {
+            TextToSpeech.SpeakAsync($"{Resources.GetString(Resource.String.positions_lost, positions)}");
+        }
 
 
         private void FindViews()
@@ -141,7 +157,7 @@ namespace MobileAndroid.Fragments
                 Training = new InitialTraining(CurrentRoute, UpdateTimer, GetCurrentLocation);
             else
             {
-                Training = new RaceTraining(CurrentRoute, UpdateTimer, NextCheckpointReached, GetCurrentLocation, StopTraining);
+                Training = new RaceTraining(CurrentRoute, UpdateTimer, NextCheckpointReached, GetCurrentLocation, StopTraining, PlayCurrentPosition, PlayPositionsLost, PlayPositionsEarned);
             }
         }
 
@@ -155,6 +171,10 @@ namespace MobileAndroid.Fragments
         {
             //var xD = new OsmService();
             //await xD.ResolveRouteSurfaceTypeAsync(null);
+            //await TextToSpeech.SpeakAsync("1");
+
+            //await TextToSpeech.SpeakAsync("1.");
+
             if (!Training.IsStarted)
             {
                 Training.Start();

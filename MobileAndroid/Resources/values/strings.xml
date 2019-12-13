@@ -40,4 +40,7 @@
   <string name="from">from</string>
   <string name="resolve_parameters_automatically">Resolve parameters automatically</string>
   <string name="parameters_resolved">Route parameters has been resolved.</string>
+  <string name="your_position">Your position: %1$d</string>
+  <string name="positions_earned">You have been overtaken %1$d athletes.</string>
+  <string name="positions_lost">You have been overtaken by %1$d athletes.</string>
 </resources>

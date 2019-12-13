@@ -4901,58 +4901,67 @@ namespace MobileAndroid
 			public const int path_password_strike_through = 2131624024;
 			
 			// aapt resource value: 0x7F0E0059
-			public const int register = 2131624025;
+			public const int positions_earned = 2131624025;
+			
+			// aapt resource value: 0x7F0E005A
+			public const int positions_lost = 2131624026;
+			
+			// aapt resource value: 0x7F0E005B
+			public const int register = 2131624027;
 			
 			// aapt resource value: 0x7F0E0003
 			public const int Registering = 2131623939;
 			
-			// aapt resource value: 0x7F0E005A
-			public const int resolve_parameters_automatically = 2131624026;
-			
-			// aapt resource value: 0x7F0E005E
-			public const int routes = 2131624030;
-			
-			// aapt resource value: 0x7F0E005F
-			public const int routes_tab = 2131624031;
-			
-			// aapt resource value: 0x7F0E005B
-			public const int route_created = 2131624027;
-			
 			// aapt resource value: 0x7F0E005C
-			public const int route_length = 2131624028;
-			
-			// aapt resource value: 0x7F0E005D
-			public const int route_name = 2131624029;
+			public const int resolve_parameters_automatically = 2131624028;
 			
 			// aapt resource value: 0x7F0E0060
-			public const int search_button = 2131624032;
+			public const int routes = 2131624032;
 			
 			// aapt resource value: 0x7F0E0061
-			public const int search_menu_title = 2131624033;
+			public const int routes_tab = 2131624033;
+			
+			// aapt resource value: 0x7F0E005D
+			public const int route_created = 2131624029;
+			
+			// aapt resource value: 0x7F0E005E
+			public const int route_length = 2131624030;
+			
+			// aapt resource value: 0x7F0E005F
+			public const int route_name = 2131624031;
 			
 			// aapt resource value: 0x7F0E0062
-			public const int search_range = 2131624034;
+			public const int search_button = 2131624034;
 			
 			// aapt resource value: 0x7F0E0063
-			public const int status_bar_notification_info_overflow = 2131624035;
+			public const int search_menu_title = 2131624035;
 			
 			// aapt resource value: 0x7F0E0064
-			public const int surface_type = 2131624036;
+			public const int search_range = 2131624036;
 			
 			// aapt resource value: 0x7F0E0065
-			public const int terrain_level = 2131624037;
+			public const int status_bar_notification_info_overflow = 2131624037;
 			
 			// aapt resource value: 0x7F0E0066
-			public const int training_tab = 2131624038;
+			public const int surface_type = 2131624038;
 			
 			// aapt resource value: 0x7F0E0067
-			public const int username = 2131624039;
+			public const int terrain_level = 2131624039;
+			
+			// aapt resource value: 0x7F0E0068
+			public const int training_tab = 2131624040;
+			
+			// aapt resource value: 0x7F0E0069
+			public const int username = 2131624041;
 			
 			// aapt resource value: 0x7F0E0004
 			public const int UsernameTaken = 2131623940;
 			
 			// aapt resource value: 0x7F0E0005
 			public const int WrongLoginOrPassword = 2131623941;
+			
+			// aapt resource value: 0x7F0E006A
+			public const int your_position = 2131624042;
 			
 			static String()
 			{
