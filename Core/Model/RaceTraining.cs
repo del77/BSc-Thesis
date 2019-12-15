@@ -38,7 +38,7 @@ namespace Core.Model
         {
             NextCheckpointIndex = 0;
 
-            CurrentTry = new RankingRecord(true);
+            CurrentTry = new RankingRecord(true, Route.Id);
             Route.Ranking.Add(CurrentTry);
 
             checkpoints = new List<Point>();

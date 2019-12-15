@@ -122,22 +122,40 @@ namespace MobileAndroid
 
         private async void ResolveParametersButtonOnClick(object sender, EventArgs e)
         {
-            _resolveParametersProgressBar.Visibility = ViewStates.Visible;
+            ShowProgressBar();
 
             ResolveTerrainLevel();
             await ResolveSurface();
 
-            _resolveParametersProgressBar.Visibility = ViewStates.Invisible;
+            HideProgressBar();
             Toast.MakeText(Application.Context, Resources.GetText(Resource.String.parameters_resolved), ToastLength.Long).Show();
+        }
+
+        private void ShowProgressBar()
+        {
+            _resolveParametersProgressBar.Visibility = ViewStates.Visible;
+
+        }
+
+        private void HideProgressBar()
+        {
+            _resolveParametersProgressBar.Visibility = ViewStates.Invisible;
         }
 
         private async void _addRouteButton_Click(object sender, EventArgs e)
         {
+            ShowProgressBar();
+
             _route.Properties.Name = _routeNameTextBox.Text;
             _route.Properties.HeightAboveSeaLevel = (HeightAboveSeaLevel)_terrainLevelSelect.SelectedItemPosition + 1;
             _route.Properties.PavedPercentage = (int)_routeSurfaceSlider.GetSelectedMaxValue();
-            await _routesService.CreateRoute(_route);
-            Toast.MakeText(Application.Context, Resources.GetText(Resource.String.route_created), ToastLength.Long).Show();
+            var isSuccessful = await _routesService.CreateRoute(_route);
+
+            HideProgressBar();
+            if(isSuccessful)
+                Toast.MakeText(Application.Context, Resources.GetText(Resource.String.route_created), ToastLength.Long).Show();
+            else
+                Toast.MakeText(Application.Context, Resources.GetText(Resource.String.result_not_saved), ToastLength.Long).Show();
 
             Finish();
         }

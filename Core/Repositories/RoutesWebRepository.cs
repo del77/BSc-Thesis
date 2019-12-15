@@ -13,47 +13,80 @@ namespace Core.Repositories
     public class RoutesWebRepository
     {
         private HttpClient _httpClient;
-
+        private readonly UserRepository _userRepository;
         public RoutesWebRepository()
         {
-            var userRepository = new UserRepository();
-            var token = userRepository.GetUserData().Token;
+            _userRepository = new UserRepository();
+            var token = _userRepository.GetUserData().Token;
 
-            //_httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.105:5000/routes/") };
-            _httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.16:5000/routes/") };
+            _httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.105:5000/routes/") };
+            //_httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.16:5000/routes/") };
 
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
 
         }
 
-        public async Task CreateRoute(Route route)
+        public async Task<bool> CreateRoute(Route route)
         {
             var json = JsonConvert.SerializeObject(route);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var uri = string.Empty;
+            
+            try
+            {
+                var response = await _httpClient.PostAsync(uri, content);
+                return true;
+            }
+            catch (Exception)
+            {
+                var dataToSend = new DataToSend(json, uri);
+                _userRepository.CreateDataToSend(dataToSend);
 
-            var response = await _httpClient.PostAsync(string.Empty, content);
+                return false;
+            }
 
         }
 
-        public async Task CreateRankingRecordAsync(RankingRecord currentTry, Guid routeId)
+
+
+        public async Task<bool> CreateRankingRecordAsync(RankingRecord currentTry, Guid routeId)
         {
             var json = JsonConvert.SerializeObject(currentTry);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var uri = $"{routeId}/ranking-record";
 
-            var response = await _httpClient.PostAsync($"{routeId}/ranking-record", content);
+            try
+            {
+                var response = await _httpClient.PostAsync(uri, content);
+                return true;
+            }
+            catch (Exception)
+            {
+                var dataToSend = new DataToSend(json, uri);
+                _userRepository.CreateDataToSend(dataToSend);
+
+                return false;
+            }
+        }
+
+        public async Task<bool> SendJsonData(string json, string uri)
+        {
+            try
+            {
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync(uri, content);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<IEnumerable<Route>> GetRoutes(RoutesFilterQuery query)
         {
-            //public int RouteLengthFrom { get; set; }
-            //public int RouteLengthTo { get; set; }
-
-            //public int SurfacePavedPercentageFrom { get; set; }
-            //public int SurfacePavedPercentageTo { get; set; }
-
-            //public int SurfaceLevel { get; set; }
-            //public int SearchRadius { get; set; }
             var httpClientQuery = HttpUtility.ParseQueryString(string.Empty);
             httpClientQuery[nameof(query.RouteLengthFrom)] = query.RouteLengthFrom.ToString();
             httpClientQuery[nameof(query.RouteLengthTo)] = query.RouteLengthTo.ToString();

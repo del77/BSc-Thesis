@@ -8,6 +8,7 @@
   <string name="create">Dodaj</string>
   <string name="cancel">Anuluj</string>
   <string name="route_created">Trasa została stworzona</string>
+  <string name="result_not_saved">Nie mogliśmy zapisać wyniku. Spróbujemy ponownie później.</string>
   <string name="route_length">Długość trasy [km]</string>
   <string name="surface_type">Twardość nawierzchni [%]</string>
   <string name="terrain_level">Poziom terenu</string>

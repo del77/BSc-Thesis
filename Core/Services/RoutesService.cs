@@ -24,12 +24,10 @@ namespace Core.Services
             _userData = _userRepository.GetUserData();
         }
 
-        public async Task CreateRoute(Route route)
+        public async Task<bool> CreateRoute(Route route)
         {
             //_routesRepository.CreateRoute(route);
-            await _routesWebRepository.CreateRoute(route);
-
-            await Task.CompletedTask;
+            return await _routesWebRepository.CreateRoute(route);
         }
 
         public void ProcessCurrentTry(Route route, RankingRecord currentTry)
@@ -76,9 +74,22 @@ namespace Core.Services
             return routes;
         }
 
-        public async Task UpdateRankingAsync(Guid routeId, RankingRecord currentTry)
+        public async Task<bool> UpdateRankingAsync(Guid routeId, RankingRecord currentTry)
         {
-            await _routesWebRepository.CreateRankingRecordAsync(currentTry, routeId);
+            return await _routesWebRepository.CreateRankingRecordAsync(currentTry, routeId);
+        }
+
+        public async Task ProcessOverdueData()
+        {
+            var dataToSend = _userRepository.GetDataToSend();
+
+            foreach (var data in dataToSend)
+            {
+                var result = await _routesWebRepository.SendJsonData(data.Json, data.Uri);
+
+                if (result)
+                    _userRepository.DeleteDataToSend(data.Id);
+            }
         }
     }
 }

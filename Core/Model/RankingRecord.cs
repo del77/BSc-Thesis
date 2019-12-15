@@ -34,9 +34,10 @@ namespace Core.Model
             CheckpointsTimes = new List<int>();
         }
 
-        public RankingRecord(bool currentTry)
+        public RankingRecord(bool currentTry, Guid routeId)
         {
             CurrentTry = currentTry;
+            RouteId = routeId;
             CheckpointsTimes = new List<int>();
         }
     }
