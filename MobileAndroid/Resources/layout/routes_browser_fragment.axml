@@ -9,7 +9,9 @@
         android:text="@string/route_length"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
     <Xamarin.RangeSlider.RangeSliderControl
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,12 +23,18 @@
         local:valuesAboveThumbs="true"
         local:textAboveThumbsColor="#FF0000"
         android:id="@+id/route_length_slider"
-        />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+        
+
     <TextView
         android:text="@string/surface_type"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"/>
+
+
     <Xamarin.RangeSlider.RangeSliderControl
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,23 +46,30 @@
         local:valuesAboveThumbs="true"
         local:textAboveThumbsColor="#FF0000"
         android:id="@+id/surface_type_slider"
-        />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+        
+
     <TextView
         android:text="@string/terrain_level"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"/>
+
     <Spinner
         android:id="@+id/terrainLevelSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        
-        />
+        android:layout_marginLeft="10dp"/>
+
     <TextView
         android:text="@string/search_range"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"/>
+
     <Xamarin.RangeSlider.RangeSliderControl
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,7 +82,10 @@
         local:valuesAboveThumbs="true"
         local:textAboveThumbsColor="#FF0000"
         android:id="@+id/search_range_select"
-        />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+        
+
 
     <TextView
         android:text="@string/routes"
@@ -77,7 +95,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        />
+        android:layout_marginLeft="10dp"/>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/routesRecycler"
@@ -85,11 +104,19 @@
         android:layout_margin="5dp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+
     <Button
         android:text="@string/search_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/refreshRoutesButton" />
+        android:id="@+id/refreshRoutesButton"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+
 
 </LinearLayout>

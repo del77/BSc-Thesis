@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -145,7 +146,6 @@ namespace MobileAndroid
         private async void _addRouteButton_Click(object sender, EventArgs e)
         {
             ShowProgressBar();
-
             _route.Properties.Name = _routeNameTextBox.Text;
             _route.Properties.HeightAboveSeaLevel = (HeightAboveSeaLevel)_terrainLevelSelect.SelectedItemPosition + 1;
             _route.Properties.PavedPercentage = (int)_routeSurfaceSlider.GetSelectedMaxValue();
@@ -156,7 +156,6 @@ namespace MobileAndroid
                 Toast.MakeText(Application.Context, Resources.GetText(Resource.String.route_created), ToastLength.Long).Show();
             else
                 Toast.MakeText(Application.Context, Resources.GetText(Resource.String.result_not_saved), ToastLength.Long).Show();
-
             Finish();
         }
         private void _cancelRouteButton_Click(object sender, EventArgs e)

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.Remoting.Contexts;
+using System.Threading;
+using System.Threading.Tasks;
 using Android.Gms.Maps;
 using Android.OS;
 using Android.Support.V4.App;
@@ -123,6 +125,8 @@ namespace MobileAndroid.Fragments
 
         private async void Button_Click(object sender, System.EventArgs e)
         {
+            ((MainActivity)Activity).ShowProgressBar();
+
             var location = await Geolocation.GetLastKnownLocationAsync();
 
             var query = new RoutesFilterQuery
@@ -138,6 +142,8 @@ namespace MobileAndroid.Fragments
             };
 
             _routesAdapter.UpdateData(query);
+
+            ((MainActivity)Activity).HideProgressBar();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Android.Content;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -16,6 +18,7 @@ namespace MobileAndroid.Adapters
         private int _checkpointIndexToDisplay;
         private int _nextCheckpointIndex;
         private int _nextCheckpointIndex2;
+        private Context _context;
 
         public RankingAdapter()
         {
@@ -61,7 +64,7 @@ namespace MobileAndroid.Adapters
                 else if (rankingRecord.CurrentTry)
                 {
                     rankingViewHolder.Nickname.SetTextColor(Color.Blue);
-                    rankingViewHolder.Nickname.Text = "Current try";
+                    rankingViewHolder.Nickname.Text = _context.GetString(Resource.String.current_try);
                 }
                 else
                 {
@@ -76,8 +79,9 @@ namespace MobileAndroid.Adapters
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
+            _context = parent.Context;
             View itemView =
-                LayoutInflater.From(parent.Context).Inflate(Resource.Layout.ranking_viewholder, parent, false);
+                LayoutInflater.From(_context).Inflate(Resource.Layout.ranking_viewholder, parent, false);
 
             var rankingViewHolder = new RankingViewHolder(itemView);
             return rankingViewHolder;

@@ -14,6 +14,9 @@ namespace Core.Model
         private readonly Action<int> _playCurrentPosition;
         private readonly Action<int> _playPositionsLost;
         private readonly Action<int> _playPositionsEarned;
+        private readonly Action _showProgressBar;
+        private readonly Action _hideProgressBar;
+        private readonly Action<bool> _showIsTryUpdateSuccessful;
         public int NextCheckpointIndex = 0;
         private List<Point> checkpoints;
         private readonly RoutesService _routesService;
@@ -23,7 +26,8 @@ namespace Core.Model
         public RaceTraining(Route route, Action uiUpdate, Action checkpointReached,
             Func<Task<Tuple<double, double, double?>>> currentLocationDelegate,
             Action stopTrainingUi, Action<int> playCurrentPosition,
-            Action<int> playPositionsLost, Action<int> playPositionsEarned) 
+            Action<int> playPositionsLost, Action<int> playPositionsEarned,
+            Action showProgressBar, Action hideProgressBar, Action<bool> showIsTryUpdateSuccessful) 
             : base(route, uiUpdate, currentLocationDelegate)
         {
             _routesService = new RoutesService();
@@ -32,6 +36,9 @@ namespace Core.Model
             _playCurrentPosition = playCurrentPosition;
             _playPositionsLost = playPositionsLost;
             _playPositionsEarned = playPositionsEarned;
+            _showProgressBar = showProgressBar;
+            _hideProgressBar = hideProgressBar;
+            _showIsTryUpdateSuccessful = showIsTryUpdateSuccessful;
         }
 
         public override async void Start()
@@ -69,14 +76,9 @@ namespace Core.Model
 
         }
 
-        private bool xd = true;
 
         protected override async void AddPoint()
         {
-            //if (!xd)
-            //    return;
-            //xd = false;
-
             var location = await GetLocation();
             var currentLocation = (new Point(location.Item1, location.Item2, Seconds));
             var distance = Point.Distance(currentLocation, Route.Checkpoints[NextCheckpointIndex], 'K');
@@ -93,9 +95,13 @@ namespace Core.Model
                     Stop();
                     //CurrentTry.CheckpointsTimes[CurrentTry.CheckpointsTimes.Count-1] = 13;
                     _routesService.ProcessCurrentTry(Route, CurrentTry);
-                    await _routesService.UpdateRankingAsync(Route.Id, CurrentTry);
+
                     _stopTrainingUi.Invoke();
 
+                    _showProgressBar.Invoke();
+                    var isSuccessful = await _routesService.UpdateRankingAsync(Route.Id, CurrentTry);
+                    _hideProgressBar.Invoke();
+                    _showIsTryUpdateSuccessful.Invoke(isSuccessful);
                 }
                 else
                 {

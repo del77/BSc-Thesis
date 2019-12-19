@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Android;
+using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
-using Android.Locations;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
@@ -17,12 +17,11 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Core.Model;
-using Core.OpenStreetMap;
 using MobileAndroid.Adapters;
 using MobileAndroid.Extensions;
 using Xamarin.Essentials;
 using Bitmap = Android.Graphics.Bitmap;
-using Location = Android.Locations.Location;
+using Fragment = Android.Support.V4.App.Fragment;
 
 namespace MobileAndroid.Fragments
 {
@@ -50,6 +49,8 @@ namespace MobileAndroid.Fragments
 
         public void OnMapReady(GoogleMap googleMap)
         {
+            var permissions = new[] { Manifest.Permission.AccessFineLocation };
+            ActivityCompat.RequestPermissions(Activity, permissions, 1);
             if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.AccessFineLocation)
                 == Permission.Granted)
             {
@@ -57,32 +58,15 @@ namespace MobileAndroid.Fragments
 
                 _googleMap.UiSettings.MyLocationButtonEnabled = true;
                 _googleMap.MyLocationEnabled = true;
-                _googleMap.MyLocationChange += _googleMap_MyLocationChange;
 
                 _polylineOptions = new PolylineOptions();
                 _routePolyline = _googleMap.AddPolyline(_polylineOptions);
-                _googleMap_MyLocationChange(null, null);
+                MoveCameraToCurrentUserPosition();
             }
             else
             {
-                var permissions = new[] { Manifest.Permission.AccessFineLocation };
-                ActivityCompat.RequestPermissions(Activity, permissions, 1);
-                OnMapReady(googleMap);
+                System.Environment.Exit(0);
             }
-
-
-        }
-
-        private async void _googleMap_MyLocationChange(object sender, GoogleMap.MyLocationChangeEventArgs e)
-        {
-            var location = await Geolocation.GetLastKnownLocationAsync();
-
-            //if (location != null)
-            //{
-            //    var latlng = new LatLng(location.Latitude, location.Longitude);
-            //    CameraUpdate userZoom = CameraUpdateFactory.NewLatLngZoom(latlng, 19);
-            //    _googleMap.AnimateCamera(userZoom);
-            //}
         }
 
         public async Task<Tuple<double, double, double?>> GetCurrentLocation()
@@ -157,7 +141,9 @@ namespace MobileAndroid.Fragments
                 Training = new InitialTraining(CurrentRoute, UpdateTimer, GetCurrentLocation);
             else
             {
-                Training = new RaceTraining(CurrentRoute, UpdateTimer, NextCheckpointReached, GetCurrentLocation, StopTraining, PlayCurrentPosition, PlayPositionsLost, PlayPositionsEarned);
+                Training = new RaceTraining(CurrentRoute, UpdateTimer, NextCheckpointReached, GetCurrentLocation, 
+                    StopTraining, PlayCurrentPosition, PlayPositionsLost, PlayPositionsEarned,
+                    ShowProgressBar, HideProgressBar, ShowUpdateResult);
             }
         }
 
@@ -228,11 +214,34 @@ namespace MobileAndroid.Fragments
             _routePolyline.Points = _polylineOptions.Points;
         }
 
+        private void ShowProgressBar()
+        {
+            ((MainActivity)Activity).ShowProgressBar();
+        }
+
+        public void HideProgressBar()
+        {
+            ((MainActivity)Activity).HideProgressBar();
+        }
+
+        public void ShowUpdateResult(bool isSuccessful)
+        {
+            Activity.RunOnUiThread(() =>
+            {
+                if (isSuccessful)
+                    Toast.MakeText(Application.Context, Resources.GetText(Resource.String.try_created), ToastLength.Long).Show();
+                else
+                    Toast.MakeText(Application.Context, Resources.GetText(Resource.String.result_not_saved), ToastLength.Long).Show();
+            });
+        }
+
         private void UpdateTimer()
         {
             Activity.RunOnUiThread(() =>
             {
-                _timer.Text = $"{Training.Seconds / 60}:{Training.Seconds % 60}";
+                var time = TimeSpan.FromSeconds(Training.Seconds);
+                //var time = Training != null ? TimeSpan.FromSeconds(Training.Seconds) : TimeSpan.Zero;
+                _timer.Text = $"{time.Minutes:D2}:{time.Seconds:D2}";
             });
         }
 
@@ -243,6 +252,7 @@ namespace MobileAndroid.Fragments
                 _rankingAdapter.ShowDataForNextCheckpoint();
                 _checkpointMarkers[0].Remove();
                 _checkpointMarkers.RemoveAt(0);
+                MoveCameraToNextCheckpoint();
             });
         }
 
@@ -256,14 +266,7 @@ namespace MobileAndroid.Fragments
 
         private void RemoveAllCheckPoints()
         {
-            try
-            {
-                _checkpointMarkers.ForEach(cp => cp.Remove());
-            }
-            catch (Exception e)
-            {
-
-            }
+            _checkpointMarkers.ForEach(cp => cp.Remove());
         }
 
         private void SetNewRoute()
@@ -295,10 +298,32 @@ namespace MobileAndroid.Fragments
                     .Anchor(0.5f, 0.5f));
                 _checkpointMarkers.Add(marker);
             }
+            MoveCameraToNextCheckpoint();
         }
 
+        private void MoveCameraToNextCheckpoint()
+        {
+            var location = _checkpointMarkers.First().Position;
 
+            MoveCamera(location);
+        }
+
+        private async void MoveCameraToCurrentUserPosition()
+        {
+            var location = await Geolocation.GetLastKnownLocationAsync();
+
+            if (location != null)
+            {
+                var latlng = new LatLng(location.Latitude, location.Longitude);
+                MoveCamera(latlng);
+            }
+        }
+
+        private void MoveCamera(LatLng position)
+        {
+            CameraUpdate userZoom = CameraUpdateFactory.NewLatLngZoom(position, 19);
+            _googleMap.AnimateCamera(userZoom);
+        }
     }
-
 
 }

@@ -8,7 +8,8 @@
   <string name="create">Create</string>
   <string name="cancel">Cancel</string>
   <string name="route_created">Route has been created.</string>
-  <string name="result_not_saved">Route could not been created. We will try to save your try later.</string>
+  <string name="try_created">Your try has been processed.</string>
+  <string name="result_not_saved">Result could not been created. We will try to save your try later.</string>
   <string name="route_length">Route length [km]</string>
   <string name="surface_type">Pavement hardness [%]</string>
   <string name="terrain_level">Terrain level</string>
@@ -44,4 +45,7 @@
   <string name="your_position">Your position: %1$d</string>
   <string name="positions_earned">You have been overtaken %1$d athletes.</string>
   <string name="positions_lost">You have been overtaken by %1$d athletes.</string>
+  <string name="current_try">Current try</string>
+  <string name="stop">Stop</string>
+  <string name="start">Start</string>
 </resources>

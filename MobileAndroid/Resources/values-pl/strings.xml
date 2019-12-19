@@ -8,6 +8,7 @@
   <string name="create">Dodaj</string>
   <string name="cancel">Anuluj</string>
   <string name="route_created">Trasa została stworzona</string>
+  <string name="try_created">Twój wynik został zapisany.</string>
   <string name="result_not_saved">Nie mogliśmy zapisać wyniku. Spróbujemy ponownie później.</string>
   <string name="route_length">Długość trasy [km]</string>
   <string name="surface_type">Twardość nawierzchni [%]</string>
@@ -44,4 +45,7 @@
   <string name="your_position">Jesteś %1$d..</string>
   <string name="positions_earned">Wyprzedziłeś %1$d zawodników.</string>
   <string name="positions_lost">Wyprzedziło cię %1$d zawodników.</string>
+  <string name="current_try">Obecna próba</string>
+  <string name="stop">Stop</string>
+  <string name="start">Start</string>
 </resources>

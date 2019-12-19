@@ -8,11 +8,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="nick"
+        android:textSize="30dp"
         android:id="@+id/ranking_nickname"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="czas"
+        android:textSize="30dp"
         android:gravity="right"
         android:textAlignment="gravity"
         android:id="@+id/ranking_time"/>

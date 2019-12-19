@@ -53,7 +53,8 @@ namespace MobileAndroid.ViewHolders
             MapsInitializer.Initialize(_context);
             GoogleMap = googleMap;
             AddCheckpointsToMap();
-            GoogleMap.MoveCamera(CameraUpdateFactory.NewCameraPosition(CameraPosition.FromLatLngZoom(new LatLng(Route.Checkpoints.First().Latitude, Route.Checkpoints.First().Longitude), 1)));
+            var middleCheckpoint = Route.Checkpoints[Route.Checkpoints.Count / 2];
+            GoogleMap.MoveCamera(CameraUpdateFactory.NewCameraPosition(CameraPosition.FromLatLngZoom(new LatLng(middleCheckpoint.Latitude, middleCheckpoint.Longitude), 15)));
         }
 
         private void AddCheckpointsToMap()
