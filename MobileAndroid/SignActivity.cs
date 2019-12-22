@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Core.Model;
 using Core.Repositories;
 using Core.Services;
 
@@ -32,10 +26,8 @@ namespace MobileAndroid
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.sign_view);
 
-            // Create your application here
             _userRepository = new UserRepository();
             _userService = new UserService();
 
@@ -99,12 +91,6 @@ namespace MobileAndroid
 
             _signResultTextView.Text = Resources.GetString(Resources.GetIdentifier(result, "string", PackageName));
             _signResultTextView.Visibility = ViewStates.Visible;
-        }
-
-        private void SetUserDetails(object sender, DialogClickEventArgs e)
-        {
-            var userData = new UserData("", "");
-            _userRepository.CreateUserData(userData);
         }
 
         private void OpenMainScreen()

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Api.Entities;
-using Api.Framework;
 using Api.Repositories;
 using ApplicationException = Api.Framework.ApplicationException;
 
@@ -33,15 +32,9 @@ namespace Api.Services
             if (await _usersRepository.ExistsUserByUsername(username))
                 throw new ApplicationException("Provided username is taken.", UsernameTakenCode);
 
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(password, out var passwordHash, out var passwordSalt);
 
-            var user = new User
-            {
-                Username = username,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
-            };
+            var user = new User(username, passwordHash, passwordSalt);
 
             await _usersRepository.CreateUserAsync(user);
 
@@ -55,37 +48,30 @@ namespace Api.Services
 
             var user = await _usersRepository.GetUserByUsernameAsync(username);
 
-            // check if username exists
             if (user == null)
                 return null;
 
-            // check if password is correct
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
-            // authentication successful
             return user;
         }
 
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
+            if (string.IsNullOrWhiteSpace(password))
+                throw new Exception("Password cannot be empty.");
 
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
+            using var hmac = new System.Security.Cryptography.HMACSHA512();
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
         }
 
         private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
         {
-            if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
-            if (storedHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
-            if (storedSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
+            if (string.IsNullOrWhiteSpace(password) || storedHash.Length != 64 || storedSalt.Length != 128)
+                return false;
 
             using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
             {

@@ -272,7 +272,8 @@ namespace MobileAndroid.Fragments
         private void SetNewRoute()
         {
             ClearTrainingViews();
-            CurrentRoute = Route.GetNewRoute();
+            var newRouteName = Activity.Resources.GetString(Resource.String.new_route);
+            CurrentRoute = new Route(newRouteName);
             _rankingAdapter.UpdateRoute(CurrentRoute);
         }
 
@@ -304,16 +305,16 @@ namespace MobileAndroid.Fragments
         {
             Activity.RunOnUiThread(() =>
             {
-                Bitmap.Config conf = Bitmap.Config.Argb8888;
-                var bmp = BitmapFactory.DecodeResource(Resources, Resource.Drawable.checkpoint);
-                Canvas canvas1 = new Canvas();
-                canvas1.DrawBitmap(bmp, 0, 0, null);
+                var config = Bitmap.Config.Argb8888;
+                var bitmap = BitmapFactory.DecodeResource(Resources, Resource.Drawable.checkpoint);
+                var canvas = new Canvas();
+                canvas.DrawBitmap(bitmap, 0, 0, null);
 
                 foreach (var routeCheckpoint in CurrentRoute.Checkpoints)
                 {
                     var marker = _googleMap.AddMarker(new MarkerOptions()
                         .SetPosition(new LatLng(routeCheckpoint.Latitude, routeCheckpoint.Longitude))
-                        .SetIcon(BitmapDescriptorFactory.FromBitmap(bmp))
+                        .SetIcon(BitmapDescriptorFactory.FromBitmap(bitmap))
                         .Anchor(0.5f, 0.5f));
                     _checkpointMarkers.Add(marker);
                 }

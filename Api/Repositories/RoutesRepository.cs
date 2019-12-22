@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Api.Dtos;
 using Api.Entities;
 using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.Algorithm.Distance;
 using Point = NetTopologySuite.Geometries.Point;
 
 namespace Api.Repositories

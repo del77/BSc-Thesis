@@ -25,6 +25,7 @@ namespace Api.Dtos
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public double? Altitude { get; set; }
+        public int Number { get; set; }
     }
 
     public class RankingRecordDto

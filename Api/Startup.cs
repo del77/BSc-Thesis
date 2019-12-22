@@ -66,7 +66,7 @@ namespace Api
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRouteService, RoutesService>();
-            services.AddScoped<IUsersRepository, UsersesRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IRoutesRepository, RoutesRepository>();
             services.AddScoped<IJwtService, JwtService>();
             services.AddSingleton(AutoMapperConfig.Initialize());

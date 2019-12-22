@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -23,7 +24,7 @@ namespace MobileAndroid.Adapters
             _routesService = new RoutesService();
         }
 
-        public async void UpdateData(RoutesFilterQuery query)
+        public async Task UpdateData(RoutesFilterQuery query)
         {
             _routes = (await _routesService.GetRoutes(query)).ToList();
             NotifyDataSetChanged();

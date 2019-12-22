@@ -14,6 +14,13 @@ namespace Api.Entities
             Id = Guid.Parse(userId);
         }
 
+        public User(string username, byte[] passwordHash, byte[] passwordSalt)
+        {
+            Username = username;
+            PasswordHash = passwordHash;
+            PasswordSalt = passwordSalt;
+        }
+
         public User() { }
     }
 }

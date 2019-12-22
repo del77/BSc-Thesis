@@ -28,32 +28,18 @@ namespace Core.Services
         public void ProcessCurrentTry(Route route, RankingRecord currentTry)
         {
             var lastTry = route.Ranking.SingleOrDefault(rr => rr.IsMine);
-            if (lastTry != null)
+            if (lastTry == null) 
+                return;
+            if (currentTry.FinalResult < lastTry.FinalResult)
             {
-                if (currentTry.FinalResult < lastTry.FinalResult)
-                {
-                    currentTry.IsMine = true;
-                    currentTry.CurrentTry = false;
-                    currentTry.User = lastTry.User;
+                currentTry.IsMine = true;
+                currentTry.CurrentTry = false;
+                currentTry.User = lastTry.User;
 
-                    route.Ranking.Remove(lastTry);
-                }
-                else
-                    route.Ranking.Remove(currentTry);
+                route.Ranking.Remove(lastTry);
             }
-
-            //await _routesWebRepository.CreateRankingRecordAsync(currentTry, route.Id);
-
-
-            //int firstWorseTryIndex = route.Rankingg.FindIndex(r => r.Points.Last().Time >= rankingRecord.Points.Last().Time);
-            //int firstWorseTryIndex = route.Rankingg.FindIndex(r => r.FinalResult >= ro);
-            //if (firstWorseTryIndex == -1)
-            //    firstWorseTryIndex = route.Rankingg.Count;
-
-            ////route.Ranking.Insert(firstWorseTryIndex, new KeyValuePair<string, List<Point>>("Anon2", rankingRecord.Points.ToList()));
-            //var record = new RankingRecord("Anon1234", routeTimes);
-            //.InsertRankingRecord(route.Id, route.Ranking.Single(r => r.Id == 0));
-
+            else
+                route.Ranking.Remove(currentTry);
         }
 
         public async Task<IEnumerable<Route>> GetRoutes(RoutesFilterQuery query)

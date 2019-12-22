@@ -18,7 +18,6 @@ namespace Core.Model
         private readonly Action _hideProgressBar;
         private readonly Action<bool> _showIsTryUpdateSuccessful;
         public int NextCheckpointIndex = 0;
-        private List<Point> checkpoints;
         private readonly RoutesService _routesService;
 
         private int _rankingPositionOnPreviousCheckpoint;
@@ -41,14 +40,13 @@ namespace Core.Model
             _showIsTryUpdateSuccessful = showIsTryUpdateSuccessful;
         }
 
-        public override async void Start()
+        public override void Start()
         {
             NextCheckpointIndex = 0;
 
             CurrentTry = new RankingRecord(true, Route.Id);
             Route.Ranking.Add(CurrentTry);
 
-            checkpoints = new List<Point>();
             IsStarted = true;
 
             Timer = new Timer(1000);
@@ -81,7 +79,7 @@ namespace Core.Model
         {
             var location = await GetLocation();
             var currentLocation = (new Point(location.Item1, location.Item2, Seconds));
-            var distance = Point.Distance(currentLocation, Route.Checkpoints[NextCheckpointIndex], 'K');
+            var distance = Point.HaversineKilometersDistance(currentLocation, Route.Checkpoints[NextCheckpointIndex]);
 
             Points.Add(currentLocation);
 
@@ -93,7 +91,6 @@ namespace Core.Model
                 if (NextCheckpointIndex == Route.Checkpoints.Count)
                 {
                     Stop();
-                    //CurrentTry.CheckpointsTimes[CurrentTry.CheckpointsTimes.Count-1] = 13;
                     _routesService.ProcessCurrentTry(Route, CurrentTry);
 
                     _stopTrainingUi.Invoke();
@@ -126,7 +123,6 @@ namespace Core.Model
                 }
             }
 
-            // xd = true;
         }
 
         private int GetCurrentPositionInRanking()

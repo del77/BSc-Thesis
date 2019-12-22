@@ -4,8 +4,6 @@ namespace Api.Entities
 {
     public class RouteProperties
     {
-        //public Guid RouteId { get; set; }
-        //public Route Route { get; set; }
         public string Name { get; set; }
         public int PavedPercentage { get; set; }
         public double Distance { get; set; }

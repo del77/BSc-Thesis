@@ -30,34 +30,6 @@ namespace Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("test")]
-        public async Task<IActionResult> Test()
-        {
-            var route = new Route
-            {
-                Checkpoints = new List<Point>()
-                {
-                    new Point
-                    {
-                        //Latitude = 123, Altitude = 321
-                    }
-                },
-                Properties = new RouteProperties
-                {
-                    Distance = 312, HeightAboveSeaLevel = HeightAboveSeaLevel.Decreasing, Name = "xD",
-                    PavedPercentage = 60
-                },
-                Ranking = new List<RankingRecord>
-                {
-                    new RankingRecord
-                        {CheckpointsTimes = "1 2 3 4", FinalResult = 4}
-                }
-            };
-            await _routeService.CreateRouteAsync(route, CurrentUserId);
-
-            return Ok();
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetRoutes([FromQuery]RoutesQuery query)
         {

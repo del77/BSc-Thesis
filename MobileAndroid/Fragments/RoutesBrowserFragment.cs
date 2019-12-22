@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Runtime.Remoting.Contexts;
-using System.Threading;
-using System.Threading.Tasks;
-using Android.Gms.Maps;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
@@ -14,7 +10,6 @@ using Core.Model;
 using MobileAndroid.Adapters;
 using Xamarin.Essentials;
 using Xamarin.RangeSlider;
-using Xamarin.RangeSlider.Common;
 
 namespace MobileAndroid.Fragments
 {
@@ -94,13 +89,8 @@ namespace MobileAndroid.Fragments
         {
             _filterButton.Click += Button_Click;
             _routeLengthSlider.UpperValueChanged += _routeLengthSlider_UpperValueChanged;
-            _routeLengthSlider.DragStarted += _routeLengthSlider_DragStarted;
         }
 
-        private void _routeLengthSlider_DragStarted(object sender, EventArgs e)
-        {
-            //_routeLengthSlider.MaxThumbTextHidden = false;
-        }
 
         private void _routeLengthSlider_UpperValueChanged(object sender, EventArgs e)
         {
@@ -141,7 +131,7 @@ namespace MobileAndroid.Fragments
                 CurrentLongitude = location.Longitude
             };
 
-            _routesAdapter.UpdateData(query);
+            await _routesAdapter.UpdateData(query);
 
             ((MainActivity)Activity).HideProgressBar();
         }

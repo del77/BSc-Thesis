@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Api.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +10,11 @@ namespace Api.Repositories
         Task<User> GetUserByUsernameAsync(string username);
         Task<bool> ExistsUserByUsername(string username);
     }
-    public class UsersesRepository : IUsersRepository
+    public class UsersRepository : IUsersRepository
     {
         private readonly Context _context;
 
-        public UsersesRepository(Context context)
+        public UsersRepository(Context context)
         {
             _context = context;
         }

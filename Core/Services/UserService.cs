@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Model;
@@ -14,13 +11,12 @@ namespace Core.Services
     public class UserService
     {
         private const string CouldNotConnectCode = "ConnectionProblem";
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
         private readonly UserRepository _userRepository;
 
         public UserService()
         {
             _userRepository = new UserRepository();
-            //_httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.105:5000/users/") };
             _httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.16:5000/users/") };
 
         }
