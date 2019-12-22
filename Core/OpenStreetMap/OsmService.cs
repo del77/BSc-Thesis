@@ -13,8 +13,9 @@ namespace Core.OpenStreetMap
 {
     public class OsmService
     {
+        private const string ApiUrl = "http://lz4.overpass-api.de/api/interpreter";
         private readonly HttpClient _httpClient;
-        private const int Offset = 10;
+        private const double OffsetInKilometers = 0.01;
         private static readonly string[] PavedSurfaces =
         {
             "paved", "asphalt", "concrete", "concrete:lanes", "concrete:plates", "paving_stones", "sett", "unhewn_cobblestone",
@@ -29,13 +30,14 @@ namespace Core.OpenStreetMap
 
         public OsmService()
         {
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("http://lz4.overpass-api.de/api/interpreter");
+            _httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(ApiUrl)
+            };
 
         }
         public async Task<int> ResolveRouteSurfaceTypeAsync(Route route)
         {
-            route = Route.GetNewRoute();
             var tags = (await GetSurfaceTypesAsync(route.Checkpoints)).ToList();
 
             int pavedCount = tags.Count(t => PavedSurfaces.Contains(t));
@@ -82,24 +84,21 @@ namespace Core.OpenStreetMap
 
             foreach (var point in points)
             {
-                var from = Point.ComputeOffset(point, Offset, 225);
-                    var to = Point.ComputeOffset(point, Offset, 45);
-                    query.Append($"way[surface]({from}, {to});convert e surface = t[\"surface\"]; out;");
+                var from = Point.ComputeOffset(point, OffsetInKilometers, 225);
+                var from2 = Point.GetPointWithGivenKilometersDistanceAndBearingFromStartingPoint(point, OffsetInKilometers, 225);
+
+                var to = Point.ComputeOffset(point, OffsetInKilometers, 45);
+                var to2 = Point.GetPointWithGivenKilometersDistanceAndBearingFromStartingPoint(point, 1.0 * OffsetInKilometers / 1000, 45);
+
+                query.Append($"way[surface]({from}, {to});convert e surface = t[\"surface\"]; out;");
             }
 
-            try
-            {
-                responseMessage = await _httpClient.GetAsync(query.ToString());
-                jsonResult = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+            responseMessage = await _httpClient.GetAsync(query.ToString());
+            jsonResult = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                res = JsonConvert.DeserializeObject<OsmResponse>(jsonResult);
-                responses.Add(res);
+            res = JsonConvert.DeserializeObject<OsmResponse>(jsonResult);
+            responses.Add(res);
 
-            }
-            catch (Exception e)
-            {
-
-            }
 
             var tags = responses.SelectMany(r => r.Elements).Where(e => e.Tags?.Surface != null).Select(e => e.Tags.Surface);
             return tags;

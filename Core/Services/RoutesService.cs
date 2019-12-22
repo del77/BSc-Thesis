@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Core.Model;
 using Core.Repositories;
@@ -11,7 +9,6 @@ namespace Core.Services
 {
     public class RoutesService
     {
-        private readonly RoutesRepository _routesRepository;
         private readonly RoutesWebRepository _routesWebRepository;
         private readonly UserRepository _userRepository;
         private readonly UserData _userData;
@@ -19,14 +16,12 @@ namespace Core.Services
         public RoutesService()
         {
             _routesWebRepository = new RoutesWebRepository();
-            _routesRepository = new RoutesRepository();
             _userRepository = new UserRepository();
             _userData = _userRepository.GetUserData();
         }
 
         public async Task<bool> CreateRoute(Route route)
         {
-            //_routesRepository.CreateRoute(route);
             return await _routesWebRepository.CreateRoute(route);
         }
 

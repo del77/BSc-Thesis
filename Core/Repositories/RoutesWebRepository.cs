@@ -19,8 +19,8 @@ namespace Core.Repositories
             _userRepository = new UserRepository();
             var token = _userRepository.GetUserData().Token;
 
-            _httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.105:5000/routes/") };
-            //_httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.16:5000/routes/") };
+            //_httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.105:5000/routes/") };
+            _httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.16:5000/routes/") };
 
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 

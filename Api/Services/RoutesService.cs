@@ -28,7 +28,13 @@ namespace Api.Services
 
         public async Task<IEnumerable<Route>> GetRoutesAsync(RoutesQuery query)
         {
-            return await _routesRepository.GetRoutesAsync(query);
+            var routes = await _routesRepository.GetRoutesAsync(query);
+            foreach (var route in routes)
+            {
+                route.Checkpoints = route.Checkpoints.OrderBy(cp => cp.Number).ToList();
+            }
+
+            return routes;
         }
 
         public async Task CreateRouteAsync(Route route, string userId)

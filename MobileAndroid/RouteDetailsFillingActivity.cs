@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Core.Model;
 using Core.OpenStreetMap;
-using Core.Repositories;
 using Core.Services;
 using MobileAndroid.Extensions;
 using Xamarin.RangeSlider;
@@ -73,7 +67,15 @@ namespace MobileAndroid
         private async Task ResolveSurface()
         {
             var osmService = new OsmService();
-            var pavedPercentage = await osmService.ResolveRouteSurfaceTypeAsync(_route);
+            int pavedPercentage;
+            try
+            {
+                pavedPercentage = await osmService.ResolveRouteSurfaceTypeAsync(_route);
+            }
+            catch (Exception)
+            {
+                pavedPercentage = DefaultSurfacePavement;
+            }
 
             _route.Properties.PavedPercentage = pavedPercentage;
             RunOnUiThread(() => _routeSurfaceSlider.SetSelectedMaxValue(pavedPercentage));
@@ -82,9 +84,10 @@ namespace MobileAndroid
         private void CalculateDistance()
         {
             var totalDistance = 0d;
+
             for (int i = 0; i < _route.Checkpoints.Count - 1; i++)
             {
-                totalDistance += Point.Distance(_route.Checkpoints[i], _route.Checkpoints[i + 1], 'K');
+                totalDistance += Point.HaversineKilometersDistance(_route.Checkpoints[i], _route.Checkpoints[i + 1]);
             }
 
             _route.Properties.Distance = Math.Round(totalDistance, 2);

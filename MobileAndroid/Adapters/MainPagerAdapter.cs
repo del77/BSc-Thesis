@@ -36,12 +36,6 @@ namespace MobileAndroid.Adapters
                 return new Java.Lang.String(_context.GetString(Resource.String.routes_tab));
         }
         
-        /**
-        * Gets the fragment tag of a fragment at a specific position in the viewpager.
-        *
-        * @param pos the pos
-        * @return the fragment tag
-        */
         public static string GetFragmentTag(int pos)
         {
             return "android:switcher:" + Resource.Id.mainPager + ":" + pos;

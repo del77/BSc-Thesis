@@ -1,4 +1,3 @@
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -9,14 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="jeden"
-            android:layout_gravity="left|center_vertical"
+          android:layout_gravity="left|center_vertical"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minWidth="25px"
             android:minHeight="25px"
+          android:layout_marginLeft="10dp"
             android:id="@+id/routeName" />
         <Button
             android:id="@+id/removeCurrentRouteButton"
@@ -71,8 +70,4 @@
             android:layout_marginLeft="5dp"
             android:id="@+id/timer" />
     </LinearLayout>
-
-
-
-
 </LinearLayout>

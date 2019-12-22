@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Android.Content;
-using Android.Content.Res;
-using Android.Gms.Maps;
-using Android.Gms.Maps.Model;
-using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Core.Model;
-using Core.Repositories;
 using Core.Services;
 using MobileAndroid.ViewHolders;
 
@@ -24,21 +19,8 @@ namespace MobileAndroid.Adapters
         public RoutesAdapter(Context context)
         {
             _context = context;
-            //_routes = new List<Route>
-            //{
-            //    new Route { Name = "pierwsza"},
-            //    new Route { Name = "druga"},
-            //    new Route { Name = "trzecia"},
-            //    new Route { Name = "czwarta"},
-            //    new Route { Name = "piata"},
-            //    new Route { Name = "szosta"},
-            //    new Route { Name = "siodma"},
-            //    new Route { Name = "osma"},
-            //    new Route { Name = "dziewiata"},
-            //};
 
             _routesService = new RoutesService();
-            //UpdateData();
         }
 
         public async void UpdateData(RoutesFilterQuery query)
@@ -56,7 +38,6 @@ namespace MobileAndroid.Adapters
                 routeViewHolder.RouteDistance.Text = routeProperties.Distance + "km";
                 routeViewHolder.RouteTerrainLevel.Text =
                     _context.Resources.GetStringArray(Resource.Array.terrain_options)[(int)routeProperties.HeightAboveSeaLevel];
-                //routeViewHolder.RouteTerrainLevel.Text = "Wyrównany";
                 routeViewHolder.RouteSurface.Text = routeProperties.PavedPercentage + "%";
                 routeViewHolder.Route = _routes[position];
             }

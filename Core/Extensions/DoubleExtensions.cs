@@ -13,8 +13,6 @@ namespace Core.Extensions
         public static string ToStringWithDot(this double value)
         {
             return value.ToString(new CultureInfo("en-US"));
-
-            return value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 }
