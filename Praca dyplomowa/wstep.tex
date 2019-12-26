@@ -1,0 +1,20 @@
+\chapter{Wstęp}\label{chap:introduction}
+
+\section{Problematyka i zakres pracy}
+Niniejsza praca dotyczy zakresu inżynierii oprogramowania, a w szczególności aplikacji przeznaczonej na urządzenia mobilne. Jej działanie jest dodatkowo wspierane przez webową aplikację serwerową, która ma dostęp do bazy danych.
+
+W ostatnich latach nastąpił intensywny rozwój technologiczny telefonów komórkowych. Wzrost wydajności oraz umieszczanie w nich dodatkowych modułów sprawiły, że urządzenia mobilne zaczęły być wykorzystywane do celów innych niż komunikacja. Jednym z nich jest wspieranie różnego rodzaju aktywności sportowych, między innymi biegania. Aplikacje mogą wykorzystywać otrzymywane poprzez protokół bluetooth dane z mierników tętna lub aktualną lokalizację użytkownika pobieraną z wbudowanego w urządzenie modułu lokalizacji.
+
+W momencie pisania niniejszej pracy na rynku znajduje się wiele takich aplikacji, a ich funkcjonalność opiera się głównie na analizie odbytych treningów. Użytkownik przeważnie ma możliwość wyświetlenia przebiegu pokonanej trasy na mapie, sprawdzenia ile czasu zajął bieg, jaki był całkowity przebyty dystans, a także porównania statystyk z poszczególnych fragmentów trasy. Niektóre z nich oferują także pewne funkcje społecznościowe. Możliwe jest zapisywanie przebiegu pokonanej trasy, a następnie udostępnienie jej. W wyniku tego działania inni biegacze mają możliwość odbycia na niej treningu we własnym zakresie. Warto jednak zaznaczyć, iż użytkownicy poszukujący trasy, często mają co do niej pewne preferencje. Przygotowując się do startu w konkretnych zawodach cechy trasy takie jak jej długość, rodzaj nawierzchni czy pochylenie terenu nie są im obojętne. Niestety, istniejące aplikacje oferują ograniczone możliwości ustalania kryteriów wyszukiwania. W przypadku niektórych aplikacji użytkownicy mają dodatkowo możliwość porównania swojej próby na konkretnej trasie z próbami innych zawodników na podstawie całkowitego czasu treningu.
+
+Głównym przedmiotem pracy jest zaprojektowanie i stworzenie aplikacji, która uzupełni braki oraz rozszerzy niektóre z omówionych funkcjonalności:
+\begin{itemize}
+\item Zapisywanie tras - Trasy udostępniane przez społeczność mają przypisane pewne cechy. Ich określanie jest dokonywane automatycznie lub przez biegacza tworzącego trasę. Są one następujące:
+\begin{itemize}
+\item całkowita długość wyrażona w kilometrach,
+\item nachylenie terenu,
+\item twardość nawierzchni wyrażona w procentach - określa jaka część całej trasy prowadzi przez grunt utwardzony, na przykład asfalt, kostka brukowa.
+\end{itemize}
+Podczas wyszukiwania tras możliwe jest określenie kryteriów powiązanych z powyżyszmi cechami oraz promienia wyszukiwania wyrażonego w kilometrach. Użytkownikowi zostają wyświetlone trasy spełniające jego wymagania i znajdujące się w odpowiedniej odległości od jego obecnej pozycji.
+\item Rywalizacja pomiędzy biegaczami - biegacze pokonujący jedną z zapisanych tras mogą sprawdzić swoją pozycję nie tylko po zakończeniu próby, lecz także w dowolnym momencie jej trwania.
+\end{itemize}

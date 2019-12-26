@@ -1,0 +1,15 @@
+\contentsline {chapter}{\numberline {1\relax .\enspace }Uk\IeC {\l }ad i zawarto\IeC {\'s}\IeC {\'c} pracy}{2}%
+\contentsline {section}{\numberline {1.1\relax .\enspace }Wst\IeC {\k e}p}{2}%
+\contentsline {section}{\numberline {1.2\relax .\enspace }Opis dziedziny problemu}{3}%
+\contentsline {section}{\numberline {1.3\relax .\enspace }Wykorzystane technologie}{3}%
+\contentsline {section}{\numberline {1.4\relax .\enspace }Dokumentacja techniczna}{4}%
+\contentsline {section}{\numberline {1.5\relax .\enspace }Dokumentacja u\IeC {\.z}ytkownika}{4}%
+\contentsline {section}{\numberline {1.6\relax .\enspace }Bibliografia i spisy}{4}%
+\contentsline {chapter}{\numberline {2\relax .\enspace }Uwagi redakcyjne}{5}%
+\contentsline {section}{\numberline {2.1\relax .\enspace }Formatowanie tekstu}{5}%
+\contentsline {section}{\numberline {2.2\relax .\enspace }Tabele, rysunki, listingi, odwo\IeC {\l }ania}{5}%
+\contentsline {section}{\numberline {2.3\relax .\enspace }Forma wypowiedzi w pracy}{7}%
+\contentsline {section}{\numberline {2.4\relax .\enspace }Edycja tekstu w \LaTeX }{7}%
+\contentsline {chapter}{Bibliografia}{8}%
+\contentsline {chapter}{Spis rysunk\'ow}{9}%
+\contentsline {chapter}{Spis tabel}{10}%

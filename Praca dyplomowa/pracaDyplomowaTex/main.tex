@@ -1,0 +1,121 @@
+% Szablon pracy dyplomowej. W razie potrzeby można oczywiście dodawać nowe pakiety.
+
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE
+\RequirePackage[normalem]{ulem}
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1}
+\providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}}
+\providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}
+%DIF SAFE PREAMBLE
+\providecommand{\DIFaddbegin}{}
+\providecommand{\DIFaddend}{}
+\providecommand{\DIFdelbegin}{}
+\providecommand{\DIFdelend}{}
+%DIF FLOATSAFE PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}}
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}}
+\providecommand{\DIFaddbeginFL}{}
+\providecommand{\DIFaddendFL}{}
+\providecommand{\DIFdelbeginFL}{}
+\providecommand{\DIFdelendFL}{}
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
+\pdfoutput=1
+\pdfcompresslevel=9
+\pdfinfo
+{
+    /Author ()
+    /Title ()
+    /Subject ()
+    /Keywords ()
+}
+\documentclass[a4paper,onecolumn,twoside,12pt]{mwrep}
+
+\usepackage{algorithm}
+\usepackage{tikz}
+\usepackage{hhline}
+\usepackage{fixltx2e}
+\usetikzlibrary{arrows,shapes}
+
+\usepackage{color}
+\usepackage{algpseudocode}
+\usepackage{times}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage[polish]{babel}
+\usepackage{polski}
+\usepackage{setspace}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{array,longtable}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{backref}
+
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{%
+    \ifcase #1 (Brak cytowania.)%
+    
+    \or        (Cytowanie na stronie~#2.)%
+    \else      (Cytowanie na stronach~#2.)%
+    \fi}
+\renewcommand*{\backreftwosep}{ i~}%
+\renewcommand*{\backreflastsep}{ i~}%
+
+\hyphenpenalty=10000
+\clubpenalty=10000	
+\widowpenalty=10000	
+\brokenpenalty=10000
+\exhyphenpenalty=999999	
+\righthyphenmin=3
+
+\newcolumntype{C}{>{\rowfont}c}
+\newcommand\setrowfont[1]{\noalign{\gdef\rowfont{#1}}}
+\gdef\rowfont{}
+
+\tolerance=4500
+\pretolerance=250
+\hfuzz=1.5pt
+\hbadness=1450
+
+\renewcommand{\labelitemi}{$\bullet$}
+
+\makeatletter
+\newcommand{\newalgname}[1]{%
+  \renewcommand{\ALG@name}{#1}%
+}
+\newalgname{Algorytm}
+\renewcommand{\listalgorithmname}{Liste des \ALG@name s}
+\makeatother
+
+\newcommand*\conj[1]{\bar{#1}}
+\newcommand*\mean[1]{\bar{#1}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\newcommand{\LongComment}[1]{\Comment{\parbox[t]{.45\linewidth} {#1}}}
+
+\sloppy
+
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-5cm}
+\setlength{\textheight}{\paperheight}
+\addtolength{\textheight}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+\topmargin -1.25cm
+\footskip 1.4cm
+
+\linespread{1.5}
+
+\begin{document}
+
+\setcounter{page}{1}
+\pagestyle{plain}
+\tableofcontents
+
+\input{introduction.tex}
+\bibliographystyle{plain}
+\bibliography{sample.bib}
+\listoffigures
+\listoftables
+\end{document}

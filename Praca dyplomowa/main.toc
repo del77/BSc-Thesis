@@ -1,0 +1,6 @@
+\contentsline {chapter}{\numberline {1\relax .\enspace }Wst\IeC {\k e}p}{2}%
+\contentsline {section}{\numberline {1.1\relax .\enspace }Problematyka i zakres pracy}{2}%
+\contentsline {chapter}{\numberline {2\relax .\enspace }r2}{4}%
+\contentsline {chapter}{Bibliografia}{5}%
+\contentsline {chapter}{Spis rysunk\'ow}{6}%
+\contentsline {chapter}{Spis tabel}{7}%

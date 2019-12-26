@@ -13,7 +13,7 @@ namespace MobileAndroid
     public class SignActivity : Activity
     {
         private EditText _usernameEditText;
-        private EditText _passowrdEditText;
+        private EditText _passwordEditText;
         private Button _registerButton;
         private Button _loginButton;
         private TextView _signResultTextView;
@@ -46,7 +46,7 @@ namespace MobileAndroid
         private void FindViews()
         {
             _usernameEditText = FindViewById<EditText>(Resource.Id.username_input);
-            _passowrdEditText = FindViewById<EditText>(Resource.Id.password_input);
+            _passwordEditText = FindViewById<EditText>(Resource.Id.password_input);
             _registerButton = FindViewById<Button>(Resource.Id.register_button);
             _loginButton = FindViewById<Button>(Resource.Id.login_button);
             _signResultTextView = FindViewById<TextView>(Resource.Id.sign_result_information);
@@ -64,7 +64,7 @@ namespace MobileAndroid
             _signProgressBar.Visibility = ViewStates.Visible;
 
             string username = _usernameEditText.Text;
-            string password = _passowrdEditText.Text;
+            string password = _passwordEditText.Text;
 
             var result = await _userService.Login(username, password);
 
@@ -84,7 +84,7 @@ namespace MobileAndroid
             _signProgressBar.Visibility = ViewStates.Visible;
 
             string username = _usernameEditText.Text;
-            string password = _passowrdEditText.Text;
+            string password = _passwordEditText.Text;
             
             var result = await _userService.RegisterAccount(username, password);
             _signProgressBar.Visibility = ViewStates.Invisible;
