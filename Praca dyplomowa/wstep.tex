@@ -5,16 +5,48 @@ Niniejsza praca dotyczy zakresu inżynierii oprogramowania, a w szczególności 
 
 W ostatnich latach nastąpił intensywny rozwój technologiczny telefonów komórkowych. Wzrost wydajności oraz umieszczanie w nich dodatkowych modułów sprawiły, że urządzenia mobilne zaczęły być wykorzystywane do celów innych niż komunikacja. Jednym z nich jest wspieranie różnego rodzaju aktywności sportowych, między innymi biegania. Aplikacje mogą wykorzystywać otrzymywane poprzez protokół bluetooth dane z mierników tętna lub aktualną lokalizację użytkownika pobieraną z wbudowanego w urządzenie modułu lokalizacji.
 
-W momencie pisania niniejszej pracy na rynku znajduje się wiele takich aplikacji, a ich funkcjonalność opiera się głównie na analizie odbytych treningów. Użytkownik przeważnie ma możliwość wyświetlenia przebiegu pokonanej trasy na mapie, sprawdzenia ile czasu zajął bieg, jaki był całkowity przebyty dystans, a także porównania statystyk z poszczególnych fragmentów trasy. Niektóre z nich oferują także pewne funkcje społecznościowe. Możliwe jest zapisywanie przebiegu pokonanej trasy, a następnie udostępnienie jej. W wyniku tego działania inni biegacze mają możliwość odbycia na niej treningu we własnym zakresie. Warto jednak zaznaczyć, iż użytkownicy poszukujący trasy, często mają co do niej pewne preferencje. Przygotowując się do startu w konkretnych zawodach cechy trasy takie jak jej długość, rodzaj nawierzchni czy pochylenie terenu nie są im obojętne. Niestety, istniejące aplikacje oferują ograniczone możliwości ustalania kryteriów wyszukiwania. W przypadku niektórych aplikacji użytkownicy mają dodatkowo możliwość porównania swojej próby na konkretnej trasie z próbami innych zawodników na podstawie całkowitego czasu treningu.
+W momencie pisania niniejszej pracy na rynku znajduje się wiele takich aplikacji, a ich funkcjonalność opiera się głównie na analizie odbytych treningów. Użytkownik przeważnie ma możliwość wyświetlenia przebiegu pokonanej trasy na mapie, sprawdzenia ile czasu zajął bieg, jaki był całkowity przebyty dystans, a także porównania statystyk z poszczególnych fragmentów trasy. Niektóre z nich oferują także pewne funkcje społecznościowe. Możliwe jest zapisywanie przebiegu pokonanej trasy, a następnie udostępnienie jej. W wyniku tego działania inni biegacze mają możliwość wyszukania trasy i odbycia na niej treningu we własnym zakresie. W przypadku niektórych aplikacji użytkownicy mają dodatkowo możliwość porównania swojej próby na konkretnej trasie z próbami innych zawodników na podstawie całkowitego czasu treningu. Aplikacje zawierające wymienione powyższe funkcje mają jednak pewne braki i niedoskonałości.
 
-Głównym przedmiotem pracy jest zaprojektowanie i stworzenie aplikacji, która uzupełni braki oraz rozszerzy niektóre z omówionych funkcjonalności:
-\begin{itemize}
-\item Zapisywanie tras - Trasy udostępniane przez społeczność mają przypisane pewne cechy. Ich określanie jest dokonywane automatycznie lub przez biegacza tworzącego trasę. Są one następujące:
+Po pierwsze, zawody biegowe różnią się od siebie dystansem i rodzajem terenu - niektóre wiodą przez trasę o twardej nawierzchni (na przykład asfalt, kostka brukowa) i wyrównanym poziomie, zaś inne przez nieutwardzone grunty wymagające podbiegów i zbiegów. Choć na pierwszy rzut oka może nie wydawać się to oczywiste, przygotowanie do startu w konkretnych zawodach jest najefektywniejsze wtedy, gdy trening przeprowadzany jest w warunkach zbliżonych do tych, które można spotkać na trasie biegu. Z tego względu użytkownicy poszukujący trasy, zwykle mają co do niej pewne preferencje, które nie mogą zostać uwzględnione, ponieważ kryteria wyszukiwania tras w istniejących aplikacjach są bardzo ograniczone.
+
+Po drugie, mimo że porównanie czasów osiągniętych na poszczególnych trasach jest dobrym sposobem na sprawdzenie swojej obecnej formy, istniejące aplikacje umożliwiają sprawdzenie rezultatu dopiero po zakończonym treningu, a nie w jego trakcie.
+
+Z tych względów, głównym przedmiotem pracy jest zaprojektowanie i stworzenie aplikacji, której funkcjonalność jest udoskonalona i w efekcie nie posiada wymienionych problemów. Do każdej z tras udostępnianych przez społeczność zostaną przypisane pewne cechy. Ich określanie dokonywane będzie automatycznie, jednak biegacz tworzący trasę będzie miał możliwość skorygowania niedokładności we własnym zakresie. Są one następujące:
 \begin{itemize}
 \item całkowita długość wyrażona w kilometrach,
 \item nachylenie terenu,
-\item twardość nawierzchni wyrażona w procentach - określa jaka część całej trasy prowadzi przez grunt utwardzony, na przykład asfalt, kostka brukowa.
+\item twardość nawierzchni wyrażona w procentach - określa jaka część całej trasy prowadzi przez grunt utwardzony.
 \end{itemize}
-Podczas wyszukiwania tras możliwe jest określenie kryteriów powiązanych z powyżyszmi cechami oraz promienia wyszukiwania wyrażonego w kilometrach. Użytkownikowi zostają wyświetlone trasy spełniające jego wymagania i znajdujące się w odpowiedniej odległości od jego obecnej pozycji.
-\item Rywalizacja pomiędzy biegaczami - biegacze pokonujący jedną z zapisanych tras mogą sprawdzić swoją pozycję nie tylko po zakończeniu próby, lecz także w dowolnym momencie jej trwania.
+Użytkownik ma możliwość określenia kryteriów wyszukiwania powiązanych z cechami trasy. Dodatkowo może on określić maksymalny promień wyszukiwania względem jego obecnej pozycji. W ten sposób otrzymuje on rezultat zawierający znajdujące się dostatecznie blisko trasy spełniające jego wymagania, przez co przygotowanie do zawodów może być efektywniejsze. Tempo biegacza może zmieniać się na różnych fragmentach trasy, a więc osoba zajmująca pierwszą pozycję w połowie zawodów, niekoniecznie je zwycięży. Mając to na uwadze możliwe jest udoskonalenie drugiego aspektu z aktualnie istniejących aplikacji. Na podstawie prób zawodników którzy ukończyli wcześniej konkretną trasę, użytkownik będzie informowany nie tylko o ostatecznie osiągniętej pozycji, lecz także o aktualnie zajmowanym miejscu w klasyfikacji na poszczególnych fragmentach trasy oraz o fakcie, że zyskał lub utracił pozycję. Taka symulacja sprawia wrażenie uczestnictwa w wirtualnych zawodach. Uczucie rywalizacji z innymi, może nie tylko urozmaicić trening, ale także sprawić, że za sprawą chęci wygranej, będzie on efektywniejszy.
+
+\section{Cele pracy}
+Do celów niniejszej pracy należą:
+\begin{itemize}
+\item \textbf{Opracowanie modelu danych pozwalającego na przechowywanie dodatkowych informacji o zapisywanych trasach wraz z rozwiązaniem problemu charakterystyki tras oraz wirtualnej rywalizacji} - pierwszym z działań które należy podjąć, jest zaprojektowanie modelu danych. Tworzone trasy muszą być zapisywane w sposób umożliwiający określanie ich cech (zarówno automatyczne jak i manualne na podstawie opinii użytkownika), wyszukiwanie na podstawie wprowadzonych kryteriów oraz przeprowadzanie procesu wirtualnej rywalizacji. Jako że aplikacja składa się z funkcjonalności, do których działania wymagana jest komunikacja pomiędzy użytkownikami, model danych musi zostać opracowany nie tylko dla aplikacji mobilnej, lecz także dla części serwerowej systemu. Następnie należy opracować logikę, która pozwoli przypisać trasie pewne cechy. Charakterystyka będzie jedynie sugestią, dlatego użytkownik powinien mieć możliwość ich skorygowania. Ostatnim elementem jest zaproponowanie podejścia, które na podstawie poprzednich prób użytkowników, pozwoli przeprowadzić swego rodzaju „wirtualny wyścig”.
+\item \textbf{Stworzenie prototypu mobilnej aplikacji wspomagającej trening biegaczy} - Dotyczy implementacji założeń opracowanych w pierwszym celu oraz zbudowaniu systemu składającego się z aplikacji mobilnej przeznaczonej na system operacyjny Android i aplikacji serwerowej posiadającej dostęp do bazy danych. Całość powinna być zaprojektowana w sposób, który w przyszłości umożliwi ewentualną obsługę kolejnego mobilnego systemu operacyjnego bez modyfikacji istniejącego kodu źródłowego.
+\item \textbf{Ocena możliwości praktycznych stworzonego prototypu poprzez porównanie do istniejących aplikacji o podobnym zastosowaniu} - Na końcu stworzony system zostanie porównany z innymi, znajdującymi się już na rynku, rozwiązaniami w dziedzinie aplikacji treningowych. Na tej podstawie możliwa będzie ocena, czy rzeczywiście oferuje on rozszerzoną funkcjonalność.
 \end{itemize}
+
+\section{Przegląd literatury}
+Niniejszy podrozdział zawiera pozycje, na które warto zwrócić uwagę, w przypadku potrzeby zgłębienia tematu podejmowanego w ramach pracy.
+\begin{itemize}
+\item{Wykorzystywanie nawigacji satelitarnej:}
+\begin{itemize}
+\item{a}
+\end{itemize}
+\item{Budowanie aplikacji mobilnych:}
+\begin{itemize}
+\item{a}
+\end{itemize}
+\item{Budowanie aplikacji serwerowych:}
+\begin{itemize}
+\item{a}
+\end{itemize}
+\item{Obsługa bazy danych:}
+\begin{itemize}
+\item{a}
+\end{itemize}
+\end{itemize}
+
+\section{Układ pracy}
+Niniejszy rozdział jest wstępem do pracy. Określa on główną problematykę i zakres pracy, charakteryzuje jej cele oraz wymienia pozycje literackie, które szczegółowo opisują tematy tworzenia aplikacji oraz wykorzystania danych udostępnianych przez nawigację satelitarną. W rozdziale drugim opisany jest sposób, w jaki urządzenia mobilne używane są do wspomagania treningów biegowych. Zawiera on podstawowe informacje dotyczące zasady działania takich aplikacji, metod wykorzystania nawigacji satelitarnej, sposobów informowania użytkowników o rezultatach przeprowadzanych treningów. Porównuje także popularne w tym sektorze aplikacje, które posiadają mocną pozycję na rynku. W rozdziale trzecim skupiono się na procesie charakteryzowania tras. Omówiono wszystkie dane jakie może zawierać trasa, jakie cechy mogą zostać z nich wyodrębnione oraz sam sposób ich wyodrębnienia. Rozdział czwarty zaś, wyjaśnia jak zapisane dane, mogą być wykorzystane do przeprowadzenia symulacji rywalizacji pomiędzy zawodnikami. Omawia także potencjalne problemy, które można przy tym napotkać wraz z propozycją ich rozwiązania. W rozdziale piątym przedstawiono technologie użyte do stworzenia całego systemu: narzędzia programistyczne, język programowania użyty do stworzenia aplikacji mobilnej, aplikacji serwerowej, system baz danych, który przechowuje dane niezbędne do jej działania oraz bibliotekę umożliwiającą wyświetlanie map w graficznym interfejsie użytkownika. W rozdziale szóstym przedstawiono fazy budowy aplikacji: analizę wymagań, jej architekturę, implementację oraz eksperyment testowy, który udowodni poprawność logiki odpowiedzialnej za wirtualną rywalizację. W ostatnim rozdziale zawarto podsumowanie. Wynika z niego, że udało się opracować model danych, który pozwolił przypisać do trasy pewne cechy ją charakteryzujące oraz przeprowadzić symulację rzeczywistej rywalizacji biegowej. Na podstawie porównania funkcji zaimplementowanych w ramach niniejszej z tymi, które zawierają istniejące aplikacje, wysnuto także wniosek mówiący, że udało się stworzyć aplikację służącą do treningów biegowych, która oferuje nowe oraz unikalne w swojej kategorii funkcjonalności.

@@ -1,6 +1,9 @@
 \contentsline {chapter}{\numberline {1\relax .\enspace }Wst\IeC {\k e}p}{2}%
 \contentsline {section}{\numberline {1.1\relax .\enspace }Problematyka i zakres pracy}{2}%
-\contentsline {chapter}{\numberline {2\relax .\enspace }r2}{4}%
-\contentsline {chapter}{Bibliografia}{5}%
-\contentsline {chapter}{Spis rysunk\'ow}{6}%
-\contentsline {chapter}{Spis tabel}{7}%
+\contentsline {section}{\numberline {1.2\relax .\enspace }Cele pracy}{4}%
+\contentsline {section}{\numberline {1.3\relax .\enspace }Przegl\IeC {\k a}d literatury}{4}%
+\contentsline {section}{\numberline {1.4\relax .\enspace }Uk\IeC {\l }ad pracy}{5}%
+\contentsline {chapter}{\numberline {2\relax .\enspace }r2}{7}%
+\contentsline {chapter}{Bibliografia}{8}%
+\contentsline {chapter}{Spis rysunk\'ow}{9}%
+\contentsline {chapter}{Spis tabel}{10}%
