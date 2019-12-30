@@ -24,6 +24,8 @@
 \contentsline {section}{\numberline {3.1\relax .\enspace }Mo\IeC {\.z}liwe cechy trasy}{16}%
 \contentsline {section}{\numberline {3.2\relax .\enspace }Przypisanie cech do trasy}{16}%
 \contentsline {section}{\numberline {3.3\relax .\enspace }Kryteria wyszukiwania tras}{18}%
-\contentsline {chapter}{Bibliografia}{19}%
-\contentsline {chapter}{Spis rysunk\'ow}{20}%
-\contentsline {chapter}{Spis tabel}{21}%
+\contentsline {chapter}{\numberline {4\relax .\enspace }Symulacja rywalizacji na podstawie zgromadzonych danych}{19}%
+\contentsline {section}{\numberline {4.1\relax .\enspace }Spos\IeC {\'o}b przeprowadzenia procesu wirtualnej rywalizacji}{19}%
+\contentsline {section}{\numberline {4.2\relax .\enspace }Informowanie u\IeC {\.z}ytkownika o rezultatach}{21}%
+\contentsline {chapter}{Spis rysunk\'ow}{22}%
+\contentsline {chapter}{Spis tabel}{23}%

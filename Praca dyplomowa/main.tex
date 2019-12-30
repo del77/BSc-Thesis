@@ -2,7 +2,7 @@
 %DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
 %DIF UNDERLINE PREAMBLE
 \RequirePackage[normalem]{ulem}
-\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1}
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1}\definecolor{GREEN}{rgb}{0,1,0}
 \providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}}
 \providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}
 %DIF SAFE PREAMBLE
@@ -37,7 +37,7 @@
 \usepackage{caption}
 \usetikzlibrary{arrows,shapes}
 
-\usepackage{color}
+\usepackage{color, colortbl}
 \usepackage{algpseudocode}
 \usepackage{times}
 \usepackage[utf8x]{inputenc}
@@ -64,7 +64,7 @@
     \fi}
 \renewcommand*{\backreftwosep}{ i~}%
 \renewcommand*{\backreflastsep}{ i~}%
-\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+%\newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
 \hyphenpenalty=10000
 \clubpenalty=10000	
@@ -73,7 +73,6 @@
 \exhyphenpenalty=999999	
 \righthyphenmin=3
 
-\newcolumntype{C}{>{\rowfont}c}
 \newcolumntype{C}{>{\rowfont}c}
 \newcommand\setrowfont[1]{\noalign{\gdef\rowfont{#1}}}
 \gdef\rowfont{}
@@ -84,7 +83,6 @@
 \hbadness=1450
 
 \renewcommand{\labelitemi}{$\bullet$}
-
 \makeatletter
 \newcommand{\newalgname}[1]{%
   \renewcommand{\ALG@name}{#1}%
@@ -121,6 +119,7 @@
 \input{wstep.tex}
 \input{wykorzystanie-urzadzen-mobilnych.tex}
 \input{charakterystyka-tras.tex}
+\input{symulacja-rywalizacji.tex}
 \bibliographystyle{plain}
 \bibliography{sample.bib}
 \listoffigures

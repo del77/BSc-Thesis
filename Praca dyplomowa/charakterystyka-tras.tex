@@ -1,7 +1,7 @@
 \chapter{Tworzenie i charakterystyka tras}\label{chap:charakterystyka-tras}
 Tworzenie trasy polega na zapisaniu w systemie pozycji, ustalonych przy użyciu nawigacji satelitarnej, na których użytkownik znajdował się w trakcie treningu tak jak zostało to pokazane na rysunku przedstawiającym fragment utworzonej trasy \ref{image:mapka_fragment_trasy}, na którym linią ciągłą zaznaczono rzeczywistą trasę pokonaną przez biegacza, a kropkami reprezentację trasy zapisaną w systemie. Zapamiętywane są tylko te punkty, które znajdują się w odległości nie mniejszej niż 10 metrów od swojego poprzednika. Zaproponowana minimalna odległość pomiędzy punktami, pozwoli na osiągnięcie dostatecznie dokładnego przebiegu trasy, przy jednoczesnym zapobiegnięciu wystąpienia problemu, opisanego w rozdziale \ref{chap:wahania-pozycji}.
 
-\begin{figure}[h]\label{fig:miary}
+\begin{figure}[h]
 \begin{center}
 \includegraphics{img/mapka_fragment_trasy.png}
 \caption{Fragment utworzonej trasy. [Opracowanie własne]}\label{image:mapka_fragment_trasy}
@@ -22,7 +22,7 @@ Do każdej trasy mogą zostać przypisane 3 cechy.
 \item{\textbf{Twardość nawierzchni}} - Wyraża jaka część całej trasy przebiega przez nawierzchnię utwardzoną (na przykład asfalt lub kostka brukowa) w stosunku do nawierzchni nieutwardzonej (na przykład piasek lub trawa). Wartość wyrażona jest w procentach. Przykładowo wartość 60\% dla trasy o dystansie 10 kilometrów oznacza, że 6 kilometrów prowadzi przez nawierzchnię utwardzoną, a 4 kilometry przez nieutwardzoną.
 \end{itemize}
 \section{Przypisanie cech do trasy}
-Długość trasy przypisywana jest bezpośrednio po ukończeniu treningu. Jej wyznaczenie polega na zsumowaniu odległości pomiędzy wszystkimi następującymi po sobie punktami przy użyciu wzorów \ref{eq:haversine1},  \ref{eq:haversine2} i \ref{eq:haversine3}.
+Długość trasy przypisywana jest bezpośrednio po ukończeniu treningu. Jej wyznaczenie polega na zsumowaniu odległości pomiędzy wszystkimi następującymi po sobie punktami przy użyciu wzorów \ref{eq:haversine11},  \ref{eq:haversine2} i \ref{eq:haversine3}.
 
 Określenie poziomu terenu odbywa się poprzez obliczenie różnicy wysokości nad poziomem morza pomiędzy punktem rozpoczynającym oraz kończącym trasę i przypisanie odpowiednio poziomu:
 \begin{itemize}
@@ -53,7 +53,7 @@ W celu umożliwienia automatycznego przypisania rodzaju nawierzchni, posłużono
 
 Tworzone przez użytkowników trasy zapisywane są w formie punktów, dlatego przed skorzystaniem z serwisu OpenStreetMap, należy zdefiniować wspomniany prostokątny obszar poszukiwań. Korzystając ze wzoru \cite{eq:haversine_generowanie_punktu} wyznaczane są więc 2 nowe punkty: oddalony o 10 metrów i 225 stopni względem północy oraz oddalony o 10 metrów i 45 stopni względem północy. Po ustaleniu rodzaju nawierzchni dla każdego z punktów trasy, możliwe jest wyliczenie wartości procentowej, a tym samym określenie cechy według wzoru:
 \begin{equation}\label{eq:haversine1}
-{Twardość\hspace{0.15cm} nawierzchni} = \frac{u}{u + n} \cdot 100,
+{Twardosc\hspace{0.15cm} nawierzchni} = \frac{u}{u + n} \cdot 100,
 \end{equation}
 gdzie \(u\) oznacza liczbę obiektów z etykietą  „utwardzona”, \(n\) liczbę obiektów z etykietą  „nieutwardzona”.
 Z uwagi na czytelność wynik zaokrąglany jest do liczby całkowitej.
