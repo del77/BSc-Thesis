@@ -51,6 +51,9 @@
 \usepackage{pdflscape}
 \usepackage{afterpage}
 \usepackage{backref}
+\usepackage{array, makecell} %
+\usepackage{tabularx}
+    \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
 \renewcommand*{\backref}[1]{}
 \renewcommand*{\backrefalt}[4]{%
@@ -61,6 +64,7 @@
     \fi}
 \renewcommand*{\backreftwosep}{ i~}%
 \renewcommand*{\backreflastsep}{ i~}%
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
 \hyphenpenalty=10000
 \clubpenalty=10000	
@@ -69,6 +73,7 @@
 \exhyphenpenalty=999999	
 \righthyphenmin=3
 
+\newcolumntype{C}{>{\rowfont}c}
 \newcolumntype{C}{>{\rowfont}c}
 \newcommand\setrowfont[1]{\noalign{\gdef\rowfont{#1}}}
 \gdef\rowfont{}
@@ -115,6 +120,7 @@
 
 \input{wstep.tex}
 \input{wykorzystanie-urzadzen-mobilnych.tex}
+\input{charakterystyka-tras.tex}
 \bibliographystyle{plain}
 \bibliography{sample.bib}
 \listoffigures

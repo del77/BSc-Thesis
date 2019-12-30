@@ -1,4 +1,4 @@
-\chapter{Wykorzystanie urządzeń mobilnych do treningów biegowych}\label{chap:wykorzystanie_urzadzen_mobilnych}
+\chapter{Wykorzystanie urządzeń mobilnych i nawigacji satelitarnej do treningów biegowych}\label{chap:wykorzystanie_urzadzen_mobilnych}
 \section{Nawigacja satelitarna}\label{section:nawigacja-satelitarna}
 Nawigacja satelitarna jest systemem, który pozwala ustalić pozycję punktu w przestrzeni. Zasada jej działania opiera się na pomiarze odległości pomiędzy odbiornikiem reprezentującym punkt, którego pozycja ma zostać ustalona, a satelitami znajdującymi się na orbicie okołoziemskiej. Wyznaczając odległość pomiędzy tylko jedną satelitą a odbiornikiem, możliwe jest stwierdzenie, że poszukiwany punkt znajduje się gdzieś na powierzchni pewnej sfery o środku równym położeniu satelity w chwili wysłania sygnału oraz promieniowi równemu wyznaczonej odległości. Analogicznie, mając dostęp do dwóch satelitów, można otrzymać dwie sfery. Odbiornik znajduje się wtedy na okręgu powstałym z przecięcia obu sfer. Choć pozycja odbiornika jest uściślona względem pierwszego przypadku, to nadal nie można ustalić jej dokładnej pozycji. Skorzystanie z trzech satelitów. Skorzystanie z trzeciego satelity sprawia, że przecięcie wszystkich sfer wyznacza tylko dwa punkty, w których może znajdować się antena odbiornika. Jeden z tych punktów znajduje się bardzo wysoko nad ziemią, dlatego można go pominąć. W ten sposób możliwe ustalenie dokładnej pozycji odbiornika w dwóch wymiarach. Chcąc poznać także wysokość na której znajduje się punkt, konieczne jest skorzystanie z minimum czterech satelitów  \cite{gps2}. Pozycja użytkownika ustalona w dwóch wymiarach jest wystarczająca do przeprowadzenia procesu wirtualnej rywalizacji. Automatyczne przypisanie cechy, która reprezentuje poziom terenu przez który przebiega trasa wymaga jednak informacji o pozycji użytkownika w trzech wymiarach.
 
@@ -11,12 +11,36 @@ Do pewnego momentu wspieranie treningów za pomocą danych pochodzących z nawig
 \end{itemize}
 Precyzja systemów nawigacji używanych obecnie w urządzeniach mobilnych jest nie mniejsza niż 10 metrów. Czynniki takie jak niekorzystne warunki atmosferyczne mogą jednak mieć negatywny wpływ na dokładność \cite{gps2}, co należy mieć na uwadze podczas projektowania aplikacji przeznaczonej treningom biegowym.
 
+\section{Działania na danych pochodzących z nawigacji satelitarnej}
+\subsection{Obliczanie odległości pomiędzy dwoma punktami geograficznymi}
+Do obliczenia odległości pomiędzy dwoma punktami na sferze można skorzystać z \textbf{formuły haversine} \cite{haversine}. Jej wzór prezentuje się następująco:\\
+\begin{equation}\label{eq:haversine1}
+a = \sin ^2(\frac{\Delta  \phi}{2}) + cos  \phi_1 \cdot cos\phi_2 \cdot sin^2(\frac{\Delta \lambda}{2})
+\end{equation}
+\begin{equation}\label{eq:haversine2}
+c = 2 \cdot atan2( \sqrt{a}, \sqrt{1-a})
+\end{equation}
+\begin{equation}\label{eq:haversine3}
+d = R \cdot c
+\end{equation}
+gdzie \(\phi\) jest szerokością geograficzną, \(\lambda\) długością geograficzną, \(R\) średnim promieniem Ziemi wynoszącym w zaokrągleniu 6371 kilometrów. Wzór zakłada, że miary wszystkich kątów podane są w radianach.
+
+\subsection{Wyznaczanie punktu oddalonego o podany dystans i kąt od punktu początkowego}
+Znając punkt początkowy, kierunek oraz odległość możliwe jest wyznaczenie punktu końcowego za pomocą następującego wzoru \cite{haversine}:
+\begin{equation}\label{eq:haversine_generowanie_punktu}
+\begin{cases}\varphi_2=asin(sin{ \varphi_1 } \cdot cos{ \delta } + cos{\varphi_1} \cdot sin{\delta} \cdot cos{ \theta })\\
+\lambda_2 = \lambda_1 + atan2(sin \theta \cdot sin \delta \cdot cos \varphi_1, cos \delta -sin \varphi_1 \cdot sin  \varphi_2 )
+\end{cases}
+\end{equation}
+gdzie \(\phi\) jest szerokością geograficzną, \(\lambda\) długością geograficzną, \(\theta\) określonym względem północy, zgodnie ze wskazówkami zegara kierunkiem wyrażonym w radianach, \(d\) odległością od punktu początkowego,
+\(R\) średnim promieniem Ziemi wynoszącym w zaokrągleniu 6371 kilometrów, \(\delta\) odległością kątową (\(\frac{d}{R}\)). Wzór zakłada, że miary wszystkich kątów podane są w radianach.
+
 \section{Możliwe problemy i sposoby ich rozwiązania}
 Wykorzystywanie danych pochodzących z nawigacji satelitarnej do celu, w którym precyzja jest niezwykle istotna może przysporzyć pewnych problemów. W tym rozdziale opisano możliwe do napotkania problemy oraz propozycje ich rozwiązania.
-\subsection{Automatyczne określenie poziomu terenu w przypadku dostępu do jedynie trzech satelitów}
+\subsection{Automatyczne określenie poziomu terenu w przypadku dostępu do jedynie trzech satelitów}\label{chap:problem-poziom-terenu}
 Jak wspomniano w podrozdziale \ref{section:nawigacja-satelitarna}, mając jednoczesny dostęp do trzech satelitów, pomimo znajomości pozycji użytkownika na mapie, nie jest możliwe określenie jego wysokości nad poziomem morza. Z tego powodu nie można określić cechy trasy, która daje biegaczowi informacje na temat tego czy możliwe jest napotkanie na niej jakichś podbiegów lub zbiegów. Brakująca wysokość może zostać ustalona przy pomocy zewnętrznych serwisów udostępniających brakującą daną na podstawie szerokości oraz długości geograficznej. Przykładem narzędzia udostępniającego tę funkcjonalność jest serwis Google Maps \cite{googlemaps}. Biorąc pod uwagę, że urządzenia mobilne są obecnie w stanie obsługiwać różne systemy nawigacji satelitarnej, których ilość dostępnych przekracza 20, prawdopodobieństwo posiadania jednoczesnego kontaktu z mniej niż czterema satelitami, a tym samym niemożności określenia wysokości użytkownika nad poziomem morza jest stosunkowo niskie. Z tego względu w aplikacji tworzonej w ramach niniejszej pracy nie zaimplementowano pobierania wysokości z zewnętrznego serwisu. W przypadku gdy ilość jednocześnie dostępnych satelitów nie przekracza trzech, omawiana cecha trasy jest ustalana przez użytkownika.
-\subsection{Wahania pozycji przy braku ruchu}
-Pozycja wyznaczana przy użyciu nawigacji satelitarnej obarczona jest kilkumetrowym błędem. Oznacza to, że dokonując kilku odczytów, lokalizacja okaże się za każdym razem inna, pomimo faktu że w rzeczywistości odbiornik znajduje się za każdym razem w tym samym miejscu. Przykładowe odczyty dla nieporuszającego się odbiornika zostały przedstawione w tabeli \ref{table:punktygps}, a ich wizualizacja na mapie umieszczono na rysunku \ref{fig:mapka_punktygps}. Odległość pomiędzy skrajnie oddalonymi od siebie punktami wynosi niespełna 10 metrów.
+\subsection{Wahania pozycji przy braku ruchu}\label{chap:wahania-pozycji}
+Pozycja wyznaczana przy użyciu nawigacji satelitarnej obarczona jest kilkumetrowym błędem. Oznacza to, że dokonując kilku odczytów, lokalizacja okaże się za każdym razem inna, pomimo faktu że w rzeczywistości odbiornik znajduje się za każdym razem w tym samym miejscu. Przykładowe odczyty dla nieporuszającego się odbiornika zostały przedstawione w tabeli \ref{table:punktygps}, a ich wizualizacja na mapie umieszczono na rysunku \ref{fig:mapka_punktygps}. Odległość pomiędzy skrajnie oddalonymi od siebie punktami wynosi niespełna 10 metrów. Rozwiązaniem tego problemu jest branie pobranego punktu pod uwagę tylko wtedy, gdy jego odległość od punktu go poprzedzającego przekracza pewną wartość. Użytkownik nieporuszający się nie spełni tego warunku, co zapobiegnie wystąpieniu przedstawionego problemu.
 
 \begin{table}[h!]
 \parbox{\dimexpr\linewidth-8cm\relax}{\centering%
