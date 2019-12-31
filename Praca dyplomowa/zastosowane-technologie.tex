@@ -1,0 +1,31 @@
+\chapter{Zastosowane technologie}\label{chap:zastosowane-technologie}
+W niniejszym rozdziale opisane zostały technologie użyte podczas tworzenia zarówno aplikacji mobilnej jak i aplikacji webowej.
+\section{Oprogramowanie}
+\textbf{Visual Studio Community 2019}\ref{visual-studio} - Zintegrowane środowisko programistyczne wydane przez firmę Microsoft \ref{microsoft}. Choć pozwala na pracę z wieloma językami programowania, jego przeznaczeniem jest głównie tworzenie oprogramowania w języku C\# \ref{csharp}. Visual Studio pozwala także na generowanie kodu, wykonywanie operacji bezpośrednio na serwerze bazodanowym, pracę z systemami kontroli wersji oraz korzystanie z wielu udogodnień narzędzi wspomagających pracę programisty. Istnieje także możliwość dodatkowego rozszerzenia funkcjonalności środowiska programistycznego za pomocą oddzielnych rozszerzeń. Dzięki wsparciu dla wielu technologii, możliwe jest tworzenie oprogramowania o rozmaitym przeznaczeniu, zaczynając od programów przeznaczonych na komputery i urządzenia mobilne, przez aplikacje webowe, aż po gry wideo i rozwiązania wykorzystujące nauczanie maszynowe.
+
+\section{Aplikacja mobilna}
+Do stworzenia części mobilnej budowanego systemu wybrano technologię \textbf{Xamarin} \ref{docs}, wydaną przez firmę Microsoft \ref{microsoft}. Wykorzystuje ona kod pisany w języku C\# \ref{csharp} do implementacji logiki aplikacji oraz kod XML \ref{xml} do tworzenia interfejsów użytkownika. Zdecydowano się na ten wybór przede wszystkim z powodu możliwości budowy aplikacji wieloplatformowych, jakie udostępnia ta technologia. Jest to szczególnie ważne, ponieważ pomimo że w obecnej fazie aplikacja jest przeznaczona tylko na urządzenia mobilne z systemem operacyjnym Android \ref{android}, zakłada się, że w przyszłości może ona wspierać także system operacyjny iOS \ref{ios} oraz inteligentne zegarki.
+
+Istnieją dwa podejścia budowania aplikacji wieloplatformowych w Xamarin:
+\begin {itemize}
+\item{Xamarin Forms} - Pozwala współdzielić kod źródłowy odpowiadający zarówno za logikę aplikacji jak i interfejs użytkownika. Podczas tworzenia interfejsu możliwe jest używanie tylko pewnego zbioru kontrolek, które korzystają z natywnych funkcjonalności wspólnych dla wszystkich obsługiwanych w Xamarin systemów operacyjnych. 
+\item{Xamarin Native} - Pozwala współdzielić kod źródłowy odpowiadający za logikę. interfejs użytkownika tworzony jest dla każdego systemu operacyjnego oddzielnie. Dzięki temu w aplikacji mogą być wykorzystywane wszystkie funkcje udostępniane przez system operacyjny.
+\end{itemize}
+W celu uniknięcia problemów z obsługą nawigacji satelitarnej, wyświetlaniem rankingu oraz punktów kontrolnych na mapie w tworzonej użyto podejścia Native, a więc kontrolki używane w widokach aplikacji, są kontrolkami należącymi bezpośrednio do systemu Android.
+
+\section{Aplikacja webowa}
+Do stworzenia części serwerowej budowanego systemu wybrano język C\# \ref{csharp} oraz szkielet aplikacyjny (ang. \textit{framework}) \textbf{ASP.NET Core} służący do budowy aplikacji internetu rzeczy, aplikacji internetowych, programów działających w chmurze obliczeniowej czy (co istotne w tym przypadku) części serwerowych aplikacji mobilnych \ref{ksiazka-asp-core}. ASP.NET Core został wydany w 2016 roku jako nowa i udoskonalona odsłona szkieletu aplikacyjnego ASP.NET. Nowa wersja zapewnia wieloplatformowość (aplikacje mogą być tworzone i uruchamiane w systemach Windows, Linux i macOS). Ważną cechą tej technologii jest nastawienie na wydajność - w przeciwieństwie do swojego poprzednika ASP.NET Core nie jest oparty na jednej bibliotece, ale na zestawie pakietów zawierających różnorodne funkcjonalności. Dzięki temu do aplikacji dodane są tylko te zależności, które rzeczywiście są używane, a w efekcie jest ona bardziej wydajna.
+
+Komunikacja pomiędzy aplikacją serwerową a bazą danych odbywa się poprzez bibliotekę \textbf{Entity Framework}, która jest platformą mapowania obiektowo-relacyjnego. Pozwala ona zastąpić konieczność pisania kodu SQL (\textit{Structured Query Language}) wykonywaniem operacji bazodanowych poprzez modyfikowanie stanu obiektów w programie.
+
+\section{System zarządzania bazą danych}
+Jako oprogramowanie odpowiedzialne za zapisywanie, odczytywanie oraz zarządzanie danymi wybrano \textbf{SQL Server} \ref{ksiazka-sql}. Jest to system zarządzania relacyjną bazą danych wydany przez firmę Microsoft. SQL Server jest jednym z najczęściej stosowanych rozwiązań w tej dziedzinie. Swoją pozycję zawdzięcza sobie wysoką wydajnością, ścisłą integracją z pozostałymi produktami Microsoft (na przykład chmurą Azure), łatwością w instalacji i eksploatacji (istnieją dedykowane narzędzia, które znacznie upraszczają zarządzania bazami danych).
+
+\section{Obsługa map}
+W systemie posłużono się dwoma różnymi rozwiązaniami oferującymi obsługę i dostęp do mapy świata.
+\subsection{Wyświetlanie mapy w aplikacji mobilnej}
+Mapa wyświetlana jest na ekranie urządzenia mobilnego dzięki wykorzystaniu biblioteki serwisu Google Maps \ref{google-maps}. Charakteryzuje się ona wysokim poziomem interaktywności. Użytkownik ma możliwość przesuwania, oddalania, przybliżania mapy oraz śledzenia własnej pozycji. Programista ma także możliwość wyświetlania na mapie rozmaitych dodatkowych grafik takich jak: ikony, linie, figury geometryczne, markery i personalizowania jej według własnych potrzeb.
+
+W chwili pisania niniejszej pracy dostęp do wymienionych funkcjonalności jest całkowicie darmowy. Dodatkowej opłaty wymagają funkcje związane z wskazywaniem drogi do konkretnego punktu oraz pokazywaniem szczegółowych informacji o konkretnych lokalizacjach.
+ Do skorzystania z usługi wymagane jest pobranie 
+\subsection{Automatyczne ustalanie twardości nawierzchni}

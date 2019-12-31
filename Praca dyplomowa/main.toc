@@ -27,5 +27,14 @@
 \contentsline {chapter}{\numberline {4\relax .\enspace }Symulacja rywalizacji na podstawie zgromadzonych danych}{19}%
 \contentsline {section}{\numberline {4.1\relax .\enspace }Spos\IeC {\'o}b przeprowadzenia procesu wirtualnej rywalizacji}{19}%
 \contentsline {section}{\numberline {4.2\relax .\enspace }Informowanie u\IeC {\.z}ytkownika o rezultatach}{21}%
-\contentsline {chapter}{Spis rysunk\'ow}{22}%
-\contentsline {chapter}{Spis tabel}{23}%
+\contentsline {chapter}{\numberline {5\relax .\enspace }Zastosowane technologie}{22}%
+\contentsline {section}{\numberline {5.1\relax .\enspace }Oprogramowanie}{22}%
+\contentsline {section}{\numberline {5.2\relax .\enspace }Aplikacja mobilna}{22}%
+\contentsline {section}{\numberline {5.3\relax .\enspace }Aplikacja webowa}{23}%
+\contentsline {section}{\numberline {5.4\relax .\enspace }System zarz\IeC {\k a}dzania baz\IeC {\k a} danych}{24}%
+\contentsline {section}{\numberline {5.5\relax .\enspace }Obs\IeC {\l }uga map}{24}%
+\contentsline {subsection}{\numberline {5.5.1\relax .\enspace }Wy\IeC {\'s}wietlanie mapy w aplikacji mobilnej}{24}%
+\contentsline {subsection}{\numberline {5.5.2\relax .\enspace }Automatyczne ustalanie twardo\IeC {\'s}ci nawierzchni}{24}%
+\contentsline {chapter}{Bibliografia}{25}%
+\contentsline {chapter}{Spis rysunk\'ow}{26}%
+\contentsline {chapter}{Spis tabel}{27}%
