@@ -6,45 +6,40 @@ using System.Threading.Tasks;
 using System.Web;
 using Core.Extensions;
 using Core.Model;
+using Core.Repositories.Local;
 using Newtonsoft.Json;
 
-namespace Core.Repositories
+namespace Core.Repositories.Web
 {
-    public class RoutesWebRepository
+    public class RoutesWebRepository : WebRepositoryBase
     {
-        private readonly HttpClient _httpClient;
-        private readonly UserRepository _userRepository;
+        private readonly UserLocalRepository _userLocalRepository;
+        private readonly string _routesUri = "routes";
+
         public RoutesWebRepository()
         {
-            _userRepository = new UserRepository();
-            var token = _userRepository.GetUserData().Token;
-
-            _httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.16:5000/routes/") };
-
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-
-
+            _userLocalRepository = new UserLocalRepository();
+            var token = _userLocalRepository.GetUserData().Token;
+            Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         }
 
         public async Task<bool> CreateRoute(Route route)
         {
             var json = JsonConvert.SerializeObject(route);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var uri = string.Empty;
             
             try
             {
-                var response = await _httpClient.PostAsync(uri, content);
+                var response = await Client.PostAsync(_routesUri, content);
                 return true;
             }
             catch (Exception)
             {
-                var dataToSend = new DataToSend(json, uri);
-                _userRepository.CreateDataToSend(dataToSend);
+                var dataToSend = new DataToSend(json, _routesUri);
+                _userLocalRepository.CreateDataToSend(dataToSend);
 
                 return false;
             }
-
         }
 
 
@@ -53,17 +48,17 @@ namespace Core.Repositories
         {
             var json = JsonConvert.SerializeObject(currentTry);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var uri = $"{routeId}/ranking-record";
+            var uri = $"{_routesUri}/{routeId}/ranking-record";
 
             try
             {
-                var response = await _httpClient.PostAsync(uri, content);
+                var response = await Client.PostAsync(uri, content);
                 return true;
             }
             catch (Exception)
             {
                 var dataToSend = new DataToSend(json, uri);
-                _userRepository.CreateDataToSend(dataToSend);
+                _userLocalRepository.CreateDataToSend(dataToSend);
 
                 return false;
             }
@@ -74,7 +69,7 @@ namespace Core.Repositories
             try
             {
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync(uri, content);
+                var response = await Client.PostAsync(uri, content);
 
                 return response.IsSuccessStatusCode;
             }
@@ -96,7 +91,7 @@ namespace Core.Repositories
             httpClientQuery[nameof(query.CurrentLatitude)] = query.CurrentLatitude.ToStringWithDot();
             httpClientQuery[nameof(query.CurrentLongitude)] = query.CurrentLongitude.ToStringWithDot();
 
-            var responseJson = await _httpClient.GetStringAsync("?"+httpClientQuery);
+            var responseJson = await Client.GetStringAsync($"{_routesUri}?"+httpClientQuery);
 
             var result = JsonConvert.DeserializeObject<IEnumerable<Route>>(responseJson);
             return result;

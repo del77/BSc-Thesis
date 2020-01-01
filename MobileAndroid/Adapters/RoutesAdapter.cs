@@ -38,7 +38,7 @@ namespace MobileAndroid.Adapters
                 routeViewHolder.RouteName.Text = routeProperties.Name;
                 routeViewHolder.RouteDistance.Text = routeProperties.Distance + "km";
                 routeViewHolder.RouteTerrainLevel.Text =
-                    _context.Resources.GetStringArray(Resource.Array.terrain_options)[(int)routeProperties.HeightAboveSeaLevel];
+                    _context.Resources.GetStringArray(Resource.Array.terrain_options)[(int)routeProperties.TerrainLevel];
                 routeViewHolder.RouteSurface.Text = routeProperties.PavedPercentage + "%";
                 routeViewHolder.Route = _routes[position];
             }

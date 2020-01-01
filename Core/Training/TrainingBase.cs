@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using Core.Model;
 
-namespace Core.Model
+namespace Core.Training
 {
     public abstract class TrainingBase
     {

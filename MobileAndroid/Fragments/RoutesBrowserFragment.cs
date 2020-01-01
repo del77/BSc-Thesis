@@ -125,7 +125,7 @@ namespace MobileAndroid.Fragments
                 RouteLengthTo = (int)_routeLengthSlider.GetSelectedMaxValue(),
                 SurfacePavedPercentageFrom = (int)_routeSurfaceSlider.GetSelectedMinValue(),
                 SurfacePavedPercentageTo = (int)_routeSurfaceSlider.GetSelectedMaxValue(),
-                SurfaceLevel = (HeightAboveSeaLevel)_terrainLevelSelect.SelectedItemPosition,
+                SurfaceLevel = (TerrainLevel)_terrainLevelSelect.SelectedItemPosition,
                 SearchRadiusInMeters = (int)_searchRadiusSlider.GetSelectedMaxValue() * 1000,
                 CurrentLatitude = location.Latitude,
                 CurrentLongitude = location.Longitude

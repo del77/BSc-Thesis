@@ -37,31 +37,10 @@ namespace MobileAndroid
             _routesService = new RoutesService();
             _route = Intent.GetExtra<Route>("route");
 
-            CalculateDistance();
+            
             FindViews();
             BindData();
             LinkEventHandlers();
-        }
-
-        private void ResolveTerrainLevel()
-        {
-            var startAltitude = _route.Checkpoints.First().Altitude;
-            var finishAltitude = _route.Checkpoints.Last().Altitude;
-
-            if (startAltitude == null || finishAltitude == null)
-            {
-                _route.Properties.HeightAboveSeaLevel = HeightAboveSeaLevel.Close;
-                return;
-            }
-
-            if (Math.Abs(startAltitude.Value - finishAltitude.Value) >= 10)
-            {
-                _route.Properties.HeightAboveSeaLevel = startAltitude > finishAltitude
-                    ? HeightAboveSeaLevel.Decreasing
-                    : HeightAboveSeaLevel.Increasing;
-                _terrainLevelSelect.SetSelection((int)_route.Properties.HeightAboveSeaLevel);
-
-            }
         }
 
         private async Task ResolveSurface()
@@ -79,18 +58,6 @@ namespace MobileAndroid
 
             _route.Properties.PavedPercentage = pavedPercentage;
             RunOnUiThread(() => _routeSurfaceSlider.SetSelectedMaxValue(pavedPercentage));
-        }
-
-        private void CalculateDistance()
-        {
-            var totalDistance = 0d;
-
-            for (int i = 0; i < _route.Checkpoints.Count - 1; i++)
-            {
-                totalDistance += Point.HaversineKilometersDistance(_route.Checkpoints[i], _route.Checkpoints[i + 1]);
-            }
-
-            _route.Properties.Distance = Math.Round(totalDistance, 2);
         }
 
         private void FindViews()
@@ -135,6 +102,12 @@ namespace MobileAndroid
             Toast.MakeText(Application.Context, Resources.GetText(Resource.String.parameters_resolved), ToastLength.Long).Show();
         }
 
+        private void ResolveTerrainLevel()
+        {
+            var resolvedTerrainLevel = _route.ResolveTerrainLevel();
+            _terrainLevelSelect.SetSelection((int)resolvedTerrainLevel);
+        }
+
         private void ShowProgressBar()
         {
             _resolveParametersProgressBar.Visibility = ViewStates.Visible;
@@ -150,7 +123,7 @@ namespace MobileAndroid
         {
             ShowProgressBar();
             _route.Properties.Name = _routeNameTextBox.Text;
-            _route.Properties.HeightAboveSeaLevel = (HeightAboveSeaLevel)_terrainLevelSelect.SelectedItemPosition + 1;
+            _route.Properties.TerrainLevel = (TerrainLevel)_terrainLevelSelect.SelectedItemPosition + 1;
             _route.Properties.PavedPercentage = (int)_routeSurfaceSlider.GetSelectedMaxValue();
             var isSuccessful = await _routesService.CreateRoute(_route);
 

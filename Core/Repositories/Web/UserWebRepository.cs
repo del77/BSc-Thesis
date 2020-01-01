@@ -3,21 +3,19 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Model;
-using Core.Repositories;
+using Core.Repositories.Local;
 using Newtonsoft.Json;
 
-namespace Core.Services
+namespace Core.Repositories.Web
 {
-    public class UserService
+    public class UserWebRepository : WebRepositoryBase
     {
         private const string CouldNotConnectCode = "ConnectionProblem";
-        private readonly HttpClient _httpClient;
-        private readonly UserRepository _userRepository;
+        private readonly UserLocalRepository _userLocalRepository;
 
-        public UserService()
+        public UserWebRepository()
         {
-            _userRepository = new UserRepository();
-            _httpClient = new HttpClient { BaseAddress = new Uri("http://192.168.1.16:5000/users/") };
+            _userLocalRepository = new UserLocalRepository();
 
         }
 
@@ -26,7 +24,7 @@ namespace Core.Services
             try
             {
                 var content = BuildUserDataPayload(username, password);
-                var response = await _httpClient.PostAsync("register", content);
+                var response = await Client.PostAsync("users/register", content);
 
                 var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return message;
@@ -42,12 +40,12 @@ namespace Core.Services
             try
             {
                 var content = BuildUserDataPayload(username, password);
-                var response = await _httpClient.PostAsync("login", content);
+                var response = await Client.PostAsync("login", content);
                 var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    _userRepository.CreateUserData(new UserData(username, message));
+                    _userLocalRepository.CreateUserData(new UserData(username, message));
                     return new Tuple<bool, string>(true, string.Empty);
                 }
 

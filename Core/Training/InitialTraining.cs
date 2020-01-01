@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using Core.Model;
 
-namespace Core.Model
+namespace Core.Training
 {
     public class InitialTraining : TrainingBase
     {
@@ -37,6 +38,7 @@ namespace Core.Model
 
             var location = GetLocation().GetAwaiter().GetResult();
             Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3, _checkpointNumber));
+            Route.CalculateDistance();
             SaveCheckpointTime();
 
             Seconds = 0;

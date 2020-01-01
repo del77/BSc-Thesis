@@ -17,9 +17,17 @@ Warning--I didn't find a database entry for "osm"
 Warning--I didn't find a database entry for "osm-docs-wiki"
 Warning--I didn't find a database entry for "osm-surface"
 Warning--I didn't find a database entry for "eq:haversine_generowanie_punktu"
+Warning--I didn't find a database entry for "microsoft"
+Warning--I didn't find a database entry for "csharp"
+Warning--I didn't find a database entry for "xamarin_docs"
+Warning--I didn't find a database entry for "ksiazka-asp-core"
+Warning--I didn't find a database entry for "google-maps"
+Warning--I didn't find a database entry for "osm-gather-data"
+Warning--I didn't find a database entry for "overpass-wiki"
+Warning--I didn't find a database entry for "android"
 You've used 1 entry,
             2118 wiz_defined-function locations,
-            516 strings with 4244 characters,
+            524 strings with 4333 characters,
 and the built_in function-call counts, 235 in all, are:
 = -- 19
 > -- 7
@@ -58,4 +66,4 @@ warning$ -- 0
 while$ -- 2
 width$ -- 2
 write$ -- 12
-(There were 14 warnings)
+(There were 22 warnings)

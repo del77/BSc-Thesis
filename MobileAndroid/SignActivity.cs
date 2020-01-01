@@ -5,6 +5,8 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Core.Repositories;
+using Core.Repositories.Local;
+using Core.Repositories.Web;
 using Core.Services;
 
 namespace MobileAndroid
@@ -19,8 +21,8 @@ namespace MobileAndroid
         private TextView _signResultTextView;
         private ProgressBar _signProgressBar;
 
-        private UserRepository _userRepository;
-        private UserService _userService;
+        private UserLocalRepository _userLocalRepository;
+        private UserWebRepository _userWebRepository;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -28,10 +30,10 @@ namespace MobileAndroid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.sign_view);
 
-            _userRepository = new UserRepository();
-            _userService = new UserService();
+            _userLocalRepository = new UserLocalRepository();
+            _userWebRepository = new UserWebRepository();
 
-            var userData = _userRepository.GetUserData();
+            var userData = _userLocalRepository.GetUserData();
             if (userData == null)
             {
                 FindViews();
@@ -66,7 +68,7 @@ namespace MobileAndroid
             string username = _usernameEditText.Text;
             string password = _passwordEditText.Text;
 
-            var result = await _userService.Login(username, password);
+            var result = await _userWebRepository.Login(username, password);
 
             if (result.Item1)
             {
@@ -86,7 +88,7 @@ namespace MobileAndroid
             string username = _usernameEditText.Text;
             string password = _passwordEditText.Text;
             
-            var result = await _userService.RegisterAccount(username, password);
+            var result = await _userWebRepository.RegisterAccount(username, password);
             _signProgressBar.Visibility = ViewStates.Invisible;
 
             _signResultTextView.Text = Resources.GetString(Resources.GetIdentifier(result, "string", PackageName));

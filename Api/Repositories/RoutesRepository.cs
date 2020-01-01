@@ -44,7 +44,7 @@ namespace Api.Repositories
                 .Where(r => r.Checkpoints.First(cp => cp.Number == 0).Coordinates.IsWithinDistance(currentLocation, query.SearchRadiusInMeters));
 
             if (query.SurfaceLevel > 0)
-                routes = routes.Where(r => r.Properties.HeightAboveSeaLevel == (HeightAboveSeaLevel)query.SurfaceLevel);
+                routes = routes.Where(r => r.Properties.TerrainLevel == (TerrainLevel)query.SurfaceLevel);
 
             return await routes
                 .Include(r => r.Checkpoints)

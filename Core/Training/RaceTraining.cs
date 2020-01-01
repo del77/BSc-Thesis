@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using Core.Model;
 using Core.Services;
 
-namespace Core.Model
+namespace Core.Training
 {
     public class RaceTraining : TrainingBase
     {

@@ -17,6 +17,7 @@ using Android.Views;
 using Android.Widget;
 using Core.Extensions;
 using Core.Model;
+using Core.Training;
 using MobileAndroid.Adapters;
 using MobileAndroid.Extensions;
 using Xamarin.Essentials;

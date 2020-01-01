@@ -1,0 +1,78 @@
+\chapter{Dokumentaja techniczna}\label{chap:dokumentacja-techniczna}
+Niniejszy rozdział stanowi objaśnienie, w jaki sposób system został stworzony. Zawiera opis wymagań oraz szczegóły implementacyjne dotyczące budowy poszczególnych warstw przy wykorzystaniu technologii opisanych w rozdziale \ref{chap:zastosowane-technologie}.
+\section{Projekt systemu}
+\subsection{Opis założeń}
+moja-aplikacja składa się z aplikacji przeznaczonej na urządzenia z systemem Android \cite{android} oraz wspierającej ją aplikacji webowej. Komunikacja pomiędzy nimi odbywa się poprzez protokół HTTP (\textit{Hypertext Transfer Protocol}), a sam interfejs aplikacji serwerowej został wykonany w stylu \textbf{REST} (\textit{Representational state transfer}). Oznacza to między innymi, że konkretny zasób na serwerze jest identyfikowany na podstawie przypisanego mu URI (\textit{Uniform Resource Identifier}), a użytkownik odpytujący serwer jest identyfikowany na podstawie parametru zawartego w nagłówkach żądania. Wymiana danych pomiędzy obiema aplikacjami odbywa się przy pomocy formatu JSON (\textit{JavaScript Object Notation}). \cite{ksiazka-asp-core}
+
+\subsubsection{Aplikacja mobilna powinna:}
+\begin{itemize}
+\item{Umożliwiać wieloplatformość} - zastosowana architektura powinna oddzielać logikę biznesową aplikacji od interfejsu graficznego. W efekcie dzięki zastosowaniu technologii Xamarin, przeniesienie aplikacji na inny mobilny system operacyjny powinno ograniczać się do zbudowania jedynie widoku przeznaczonego pod ten system.
+\item{Udostępniać użytkownikowi interfejs służący do stworzenia konta i uwierzytelnienia się.}
+\item{Przed umożliwieniem utworzenia trasy, wyszukania jej lub przeprowadzenia treningu wymagać uwierzytelnienia się w systemie.}
+\item{Pozwalać użytkownikom tworzyć trasy, a także umożliwiać manualne lub automatyczne określenie ich cech.}
+\item{Pozwalać przeglądać trasy na podstawie zdefiniowanych przez użytkownika kryteriów wyszukiwania.}
+\item{Pozwalać na przeprowadzenie treningu na wybranej trasie wraz z elementem wirtualnej rywalizacji.}
+\item{Dostosowywać się do wersji językowej używanej w systemie.}
+\item{Informować użytkownika o rezultatach zarówno poprzez informacje wyświetlane na ekranie jak i odtwarzane głosowo.}
+\item{Reagować na błędy - na przykład nieudane połączenie z aplikacją serwerową.}
+\end{itemize}
+
+\subsubsection{Aplikacja serwerowa powinna:}
+\begin{itemize}
+\item{Pozwalać na utworzenie konta użytkownika oraz uwierzytelnienie się}
+\item{Zapisywać trasy stworzone przez użytkowników pod warunkiem prawidłowego uwierzytelnienia się}
+\item{Zapisywać próby użytkowników na trasach pod warunkiem prawidłowego uwierzytelnienia się}
+\item{W przypadku wystąpienia błędu, zwracać odpowiedź w sposób pozwalający aplikacji mobilnej wyświetlić komunikat o błędzie}
+\end{itemize}
+
+\subsection{Podział projektu}
+Dzięki skorzystaniu z technologii umożliwiającej tworzenie aplikacji mobilnych, aplikacji serwerowych oraz zintegrowanego środowiska programistycznego pochodzącego od jednego producenta, możliwe było tworzenie obu aplikacji w ramach pojedynczego rozwiązania (ang. \textit{solution}). Pozwoliło to na pisanie kodu źródłowego, kompilowanie oraz uruchamianie w trybie debugowania obu aplikacji w jednym momencie. Nie było więc potrzeby korzystania z dwóch różnych środowisk programistycznych jednocześnie, co okazało się bardzo znaczącym udogodnieniem w kontekście wydajnościowym.
+
+Stworzona solucja zawiera następujące projekty:
+\begin{itemize}
+\item{Api} - zawiera część serwerową systemu.
+\item{Core} - zawiera logikę biznesową oraz model danych części aplikacji mobilnej systemu.
+\item{MobileAndroid} - zawiera kod interfejs użytkownika aplikacji przeznaczonej na system operacyjny Android.
+\end{itemize}
+Rozdzielenie logiki biznesowej oraz modelu danych od widoku aplikacji mobilnej sprawia, że dodanie wsparcia dla dodatkowych mobilnych systemów operacyjnych ogranicza się do stworzenia w solucji nowego projektu zawierającego jedynie interfejs użytkownika oraz wykorzystanie projektu Core do jego obsługi.
+
+\subsection{Przygotowanie aplikacji do działania}
+\subsubsection{Aplikacja serwerowa}
+Przed zbudowaniem aplikacji serwerowej należy ustawić w pliku konfiguracyjnym projektu (\textit{appsettings.json}) parametry połączenia (ang \textit{connection string}) bazy danych. Przykład konfiguracji przedstawiono na listingu \ref{listing:appsettings}.
+
+\begin{lstlisting}[caption={Plik konfiguracyjny aplikacji serwerowej},label=listing:appsettings]
+{
+  "ConnectionStrings": {
+    "Default": "data source=.SQLEXPRESS; initial catalog=
+    BscThesisDb; integrated security=SSPI"
+  }
+}
+\end{lstlisting}
+
+Następnie należy wykonać polecenie \textit{dotnet build}. Spowoduje ono pobranie potrzebnych zależności oraz zbudowanie projektu. Ostatnim krokiem jest wywołanie polecenia \textit{dotnet ef database update} w celu stworzenia bazy danych i potrzebnych tabel.
+
+\subsubsection{Aplikacja mobilna}
+Przed zbudowaniem aplikacji mobilnej należy ustawić wartość zmiennej \textit{ApiBaseAddress} w klasie \textit{WebRepositoryBase} znajdującej się w projekcie \textit{Core} w przestrzeni nazw \textit{Repositories.Web}. Przechowuje ona adres pod jakim znajduje się uruchomiona instancja części serwerowej systemu. Pod zdefiniowany adres będą więc kierowane wszystkie zapytania HTTP wychodzące z aplikacji mobilnej. Przykładowo zdefiniowany adres przedstawiono na listingu \ref{listing:webrepobase}
+
+\begin{lstlisting}[caption={Klasa zawierająca adres aplikacji serwerowej},label=listing:webrepobase]
+public abstract class WebRepositoryBase
+{
+	private const string ApiBaseAddress = 
+		"http://192.168.1.16:5000/";
+	protected readonly HttpClient Client;
+
+	protected WebRepositoryBase()
+	{
+		Client = new HttpClient { BaseAddress =
+			new Uri(ApiBaseAddress) };
+	}
+}
+\end{lstlisting}
+
+Po wykonaniu tej czynności należy pobrać zależności i zbudować aplikację za pomocą polecenia \textit{dotnet build}.
+
+
+
+\section{Warstwa modelu danych}
+\section{Warstwa logiki biznesowej}
+\section{Warstwa interfejsu użytkownika}

@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Model;
-using Core.Repositories;
+using Core.Repositories.Local;
+using Core.Repositories.Web;
 
 namespace Core.Services
 {
     public class RoutesService
     {
         private readonly RoutesWebRepository _routesWebRepository;
-        private readonly UserRepository _userRepository;
+        private readonly UserLocalRepository _userLocalRepository;
         private readonly UserData _userData;
 
         public RoutesService()
         {
             _routesWebRepository = new RoutesWebRepository();
-            _userRepository = new UserRepository();
-            _userData = _userRepository.GetUserData();
+            _userLocalRepository = new UserLocalRepository();
+            _userData = _userLocalRepository.GetUserData();
         }
 
         public async Task<bool> CreateRoute(Route route)
@@ -62,14 +63,14 @@ namespace Core.Services
 
         public async Task ProcessOverdueData()
         {
-            var dataToSend = _userRepository.GetDataToSend();
+            var dataToSend = _userLocalRepository.GetDataToSend();
 
             foreach (var data in dataToSend)
             {
                 var result = await _routesWebRepository.SendJsonData(data.Json, data.Uri);
 
                 if (result)
-                    _userRepository.DeleteDataToSend(data.Id);
+                    _userLocalRepository.DeleteDataToSend(data.Id);
             }
         }
     }
