@@ -30,7 +30,7 @@ namespace MobileAndroid.Adapters
 
         public void ShowDataForNextCheckpoint()
         {
-            _currentCheckpointIndex = _route.Ranking.First(rr => rr.CurrentTry).CheckpointsTimes.Count - 1;
+            _currentCheckpointIndex = _route.Ranking.First(rr => rr.IsCurrentTry).CheckpointsTimes.Count - 1;
 
             NotifyDataSetChanged();
         }
@@ -46,7 +46,7 @@ namespace MobileAndroid.Adapters
                     rankingViewHolder.Nickname.SetTextColor(Color.Green);
                     rankingViewHolder.Nickname.Text += rankingRecord.User;
                 }
-                else if (rankingRecord.CurrentTry)
+                else if (rankingRecord.IsCurrentTry)
                 {
                     rankingViewHolder.Nickname.SetTextColor(Color.Blue);
                     rankingViewHolder.Nickname.Text += _context.GetString(Resource.String.current_try);

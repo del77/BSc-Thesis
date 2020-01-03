@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Api.Entities.Point">
+    <Position X="1.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABAAAAAAAAEAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Point.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Api.Entities.RankingRecord">
+    <Position X="6" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAABAAAAAAAAEAAAAgAAAAAAAACAAAAAAAABAA=</HashCode>
+      <FileName>Entities\RankingRecord.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Api.Entities.Route">
+    <Position X="5.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAABACAAA=</HashCode>
+      <FileName>Entities\Route.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Properties" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Ranking" />
+      <Property Name="Checkpoints" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Api.Entities.RouteProperties">
+    <Position X="9.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAQAAAAAAABAAAAAAQAAAAA=</HashCode>
+      <FileName>Entities\RouteProperties.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TerrainLevel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Api.Entities.User">
+    <Position X="1.75" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EACCAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Api.Entities.TerrainLevel">
+    <Position X="9.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Entities\RouteProperties.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

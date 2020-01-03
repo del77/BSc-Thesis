@@ -25,9 +25,10 @@ Warning--I didn't find a database entry for "google-maps"
 Warning--I didn't find a database entry for "osm-gather-data"
 Warning--I didn't find a database entry for "overpass-wiki"
 Warning--I didn't find a database entry for "android"
+Warning--I didn't find a database entry for "geography-type"
 You've used 1 entry,
             2118 wiz_defined-function locations,
-            524 strings with 4333 characters,
+            525 strings with 4347 characters,
 and the built_in function-call counts, 235 in all, are:
 = -- 19
 > -- 7
@@ -66,4 +67,4 @@ warning$ -- 0
 while$ -- 2
 width$ -- 2
 write$ -- 12
-(There were 22 warnings)
+(There were 23 warnings)

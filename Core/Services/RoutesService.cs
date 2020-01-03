@@ -34,7 +34,7 @@ namespace Core.Services
             if (currentTry.FinalResult < lastTry.FinalResult)
             {
                 currentTry.IsMine = true;
-                currentTry.CurrentTry = false;
+                currentTry.IsCurrentTry = false;
                 currentTry.User = lastTry.User;
 
                 route.Ranking.Remove(lastTry);

@@ -8,7 +8,8 @@ namespace Api.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Route>().HasMany(r => r.Checkpoints).WithOne(cp => cp.Route)
+            modelBuilder.Entity<Route>().HasMany(r => r.Checkpoints)
+                .WithOne(cp => cp.Route)
                 .HasForeignKey(cp => cp.RouteId);
             modelBuilder.Entity<Route>().OwnsOne(r => r.Properties);
             modelBuilder.Entity<Route>().HasMany(r => r.Ranking).WithOne(rr => rr.Route)

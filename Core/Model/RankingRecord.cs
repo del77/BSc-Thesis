@@ -10,7 +10,7 @@ namespace Core.Model
         public string User { get; set; }
 
         public bool IsMine { get; set; }
-        public bool CurrentTry { get; set; }
+        public bool IsCurrentTry { get; set; }
 
         public List<int> CheckpointsTimes { get; set; }
 
@@ -26,9 +26,9 @@ namespace Core.Model
             CheckpointsTimes = new List<int>();
         }
 
-        public RankingRecord(bool currentTry, Guid routeId)
+        public RankingRecord(bool isCurrentTry, Guid routeId)
         {
-            CurrentTry = currentTry;
+            IsCurrentTry = isCurrentTry;
             RouteId = routeId;
             CheckpointsTimes = new List<int>();
         }

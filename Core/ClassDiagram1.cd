@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Core.Model.DataToSend">
+    <Position X="0.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAgA=</HashCode>
+      <FileName>Model\DataToSend.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Model.Point">
+    <Position X="0.5" Y="0.5" Width="5" />
+    <TypeIdentifier>
+      <HashCode>iAAAIACAAEAAAAAEAEAIgAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Point.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Model.RankingRecord">
+    <Position X="7.25" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAgABAAAAAAAAQAAAAAAAAAAAAACAAAAAAAABAA=</HashCode>
+      <FileName>Model\RankingRecord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Model.Route">
+    <Position X="6.25" Y="0.5" Width="2.5" />
+    <AssociationLine Name="Checkpoints" Type="Core.Model.Point">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.013" Y="0.067" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AgACAAAAgAAAAEAAAAAAAAAAAAAAAAAAAAAAABACAAA=</HashCode>
+      <FileName>Model\Route.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Properties" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Ranking" />
+      <Property Name="Checkpoints" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Core.Model.RouteProperties">
+    <Position X="10.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAQAAAAAAABAAAAAAQAAAAA=</HashCode>
+      <FileName>Model\RouteProperties.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TerrainLevel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Core.Model.UserData">
+    <Position X="3.5" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Model\UserData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Core.Model.TerrainLevel">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Model\RouteProperties.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

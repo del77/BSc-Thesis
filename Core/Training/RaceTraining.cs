@@ -127,7 +127,7 @@ namespace Core.Training
 
         private int GetCurrentPositionInRanking()
         {
-            return Route.Ranking.FindIndex(rr => rr.CurrentTry) + 1;
+            return Route.Ranking.FindIndex(rr => rr.IsCurrentTry) + 1;
         }
 
         private void UpdateRankingToShowPositionsForCheckpoint(int checkpointIndex)

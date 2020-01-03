@@ -64,7 +64,6 @@
   showtabs=false,
   numbers=left,
   stepnumber=1,
-  breaklines=true,
   columns=fullflexible,
   showstringspaces=false,
   breakatwhitespace=true,
@@ -74,9 +73,10 @@
 %  commentstyle=\color{greencomments},
 %  keywordstyle=\color{bluekeywords},
 %  stringstyle=\color{redstrings},
-  basicstyle=\ttfamily,
+basicstyle=\ttfamily\footnotesize,
 xleftmargin=2em,
-framexleftmargin=1.5em
+framexleftmargin=1.6em,
+  breaklines=true,
 }
 
 \renewcommand*{\backref}[1]{}
@@ -142,7 +142,6 @@ framexleftmargin=1.5em
 \setcounter{page}{1}
 \pagestyle{plain}
 \tableofcontents
-
 \input{wstep.tex}
 \input{wykorzystanie-urzadzen-mobilnych.tex}
 \input{charakterystyka-tras.tex}
