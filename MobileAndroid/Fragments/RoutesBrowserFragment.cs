@@ -131,7 +131,7 @@ namespace MobileAndroid.Fragments
                 CurrentLongitude = location.Longitude
             };
 
-            await _routesAdapter.UpdateData(query);
+            await _routesAdapter.UpdateRoutes(query);
 
             ((MainActivity)Activity).HideProgressBar();
         }

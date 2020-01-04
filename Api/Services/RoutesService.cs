@@ -31,7 +31,7 @@ namespace Api.Services
             var routes = await _routesRepository.GetRoutesAsync(query);
             foreach (var route in routes)
             {
-                route.Checkpoints = route.Checkpoints.OrderBy(cp => cp.Number).ToList();
+                OrderCheckpointsInRoute(route);
             }
 
             return routes;
@@ -47,32 +47,29 @@ namespace Api.Services
         public async Task ProcessNewTryAsync(Guid routeId, string userId, RankingRecordDto rankingRecordDto)
         {
             var route = await _routesRepository.GetRouteAsync(routeId);
-            
+
             var currentRankingRecord = route.Ranking.SingleOrDefault(rr => rr.UserId == Guid.Parse(userId));
             if (currentRankingRecord == null)
             {
                 var newRankingRecord = _mapper.Map<RankingRecord>(rankingRecordDto);
                 newRankingRecord.UserId = Guid.Parse(userId);
-                route.Ranking.Add(newRankingRecord); 
+                route.Ranking.Add(newRankingRecord);
             }
             else
             {
                 if (currentRankingRecord.FinalResult < rankingRecordDto.CheckpointsTimes.Last())
                     return;
 
-                try
-                {
-                    _mapper.Map(rankingRecordDto, currentRankingRecord);
+                _mapper.Map(rankingRecordDto, currentRankingRecord);
 
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
             }
 
             await _routesRepository.UpdateAsync();
+        }
+
+        private void OrderCheckpointsInRoute(Route route)
+        {
+            route.Checkpoints = route.Checkpoints.OrderBy(cp => cp.Number).ToList();
         }
     }
 }

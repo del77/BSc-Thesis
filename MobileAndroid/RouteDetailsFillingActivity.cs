@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Core.Model;
-using Core.OpenStreetMap;
 using Core.Services;
 using MobileAndroid.Extensions;
 using Xamarin.RangeSlider;
@@ -27,7 +24,6 @@ namespace MobileAndroid
         private RoutesService _routesService;
         private Route _route;
 
-        private const int DefaultSurfacePavement = 50;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,28 +33,13 @@ namespace MobileAndroid
             _routesService = new RoutesService();
             _route = Intent.GetExtra<Route>("route");
 
-            
+
             FindViews();
             BindData();
             LinkEventHandlers();
         }
 
-        private async Task ResolveSurface()
-        {
-            var osmService = new OsmService();
-            int pavedPercentage;
-            try
-            {
-                pavedPercentage = await osmService.ResolveRouteSurfaceTypeAsync(_route);
-            }
-            catch (Exception)
-            {
-                pavedPercentage = DefaultSurfacePavement;
-            }
-
-            _route.Properties.PavedPercentage = pavedPercentage;
-            RunOnUiThread(() => _routeSurfaceSlider.SetSelectedMaxValue(pavedPercentage));
-        }
+        
 
         private void FindViews()
         {
@@ -79,8 +60,7 @@ namespace MobileAndroid
             terrainSelectAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             _terrainLevelSelect.Adapter = terrainSelectAdapter;
 
-            _routeSurfaceSlider.SetSelectedMaxValue(DefaultSurfacePavement);
-
+            _routeSurfaceSlider.SetSelectedMaxValue(50);
             _routeDistanceTextView.Text = Resources.GetString(Resource.String.route_length) + ": " + _route.Properties.Distance;
         }
 
@@ -95,23 +75,18 @@ namespace MobileAndroid
         {
             ShowProgressBar();
 
-            ResolveTerrainLevel();
-            await ResolveSurface();
+            await _routesService.ResolveRouteParameters(_route);
+            _terrainLevelSelect.SetSelection((int)_route.Properties.TerrainLevel - 1);
+            _routeSurfaceSlider.SetSelectedMaxValue(_route.Properties.PavedPercentage);
 
             HideProgressBar();
             Toast.MakeText(Application.Context, Resources.GetText(Resource.String.parameters_resolved), ToastLength.Long).Show();
         }
 
-        private void ResolveTerrainLevel()
-        {
-            var resolvedTerrainLevel = _route.ResolveTerrainLevel();
-            _terrainLevelSelect.SetSelection((int)resolvedTerrainLevel);
-        }
 
         private void ShowProgressBar()
         {
             _resolveParametersProgressBar.Visibility = ViewStates.Visible;
-
         }
 
         private void HideProgressBar()
@@ -128,7 +103,7 @@ namespace MobileAndroid
             var isSuccessful = await _routesService.CreateRoute(_route);
 
             HideProgressBar();
-            if(isSuccessful)
+            if (isSuccessful)
                 Toast.MakeText(Application.Context, Resources.GetText(Resource.String.route_created), ToastLength.Long).Show();
             else
                 Toast.MakeText(Application.Context, Resources.GetText(Resource.String.result_not_saved), ToastLength.Long).Show();

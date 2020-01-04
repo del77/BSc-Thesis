@@ -14,6 +14,7 @@ namespace Core.OpenStreetMap
         private const string ApiUrl = "http://lz4.overpass-api.de/api/interpreter";
         private readonly HttpClient _httpClient;
         private const double OffsetInKilometers = 0.01;
+        private const int DefaultSurfacePavement = 50;
         private static readonly string[] PavedSurfaces =
         {
             "paved", "asphalt", "concrete", "concrete:lanes", "concrete:plates", "paving_stones", "sett", "unhewn_cobblestone",
@@ -42,6 +43,8 @@ namespace Core.OpenStreetMap
             int unpavedCount = tags.Count(t => UnpavedSurfaces.Contains(t));
 
             var pavedPercent = 1.0 * pavedCount / (pavedCount + unpavedCount) * 100;
+            if (double.IsNaN(pavedPercent))
+                return DefaultSurfacePavement;
 
             return (int)Math.Round(pavedPercent);
         }
@@ -49,33 +52,6 @@ namespace Core.OpenStreetMap
         {
             StringBuilder query = new StringBuilder($"?data=[out:json];");
             var responses = new List<OsmResponse>();
-            //points = new List<Point>
-            //{
-            //    new Point(51.752812, 19.443531, 0),
-            //    new Point(51.753191, 19.443938, 0),
-            //    new Point(51.753815, 19.444035, 0),
-            //    new Point(51.754535, 19.443889, 0),
-            //    new Point(51.754960, 19.443792, 0),
-            //    new Point(51.755188, 19.443438, 0),
-            //    new Point(51.755355, 19.442881, 0),
-            //    new Point(51.755434, 19.442151, 0),
-            //    new Point(51.755447, 19.441508, 0),
-            //    new Point(51.755248, 19.439899, 0),
-            //    new Point(51.755076, 19.439011, 0),
-            //    new Point(51.754810, 19.438247, 0),
-            //    new Point(51.754531, 19.437764, 0),
-            //    new Point(51.753840, 19.437378, 0),
-            //    new Point(51.753362, 19.437410, 0),
-            //    new Point(51.752904, 19.437775, 0),
-            //    new Point(51.752612, 19.438257, 0),
-            //    new Point(51.752406, 19.438868, 0),
-            //    new Point(51.752230, 19.439626, 0),
-            //    new Point(51.752190, 19.440430, 0),
-            //    new Point(51.752217, 19.441374, 0),
-
-            //    new Point(51.948656, 19.206382, 0)
-            //};
-
 
             foreach (var point in points)
             {

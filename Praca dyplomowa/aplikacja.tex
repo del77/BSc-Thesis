@@ -6,23 +6,19 @@ moja-aplikacja składa się z aplikacji przeznaczonej na urządzenia z systemem 
 
 \subsubsection{Aplikacja mobilna powinna:}
 \begin{itemize}
-\item{Umożliwiać wieloplatformość} - zastosowana architektura powinna oddzielać logikę biznesową aplikacji od interfejsu graficznego. W efekcie dzięki zastosowaniu technologii Xamarin, przeniesienie aplikacji na inny mobilny system operacyjny powinno ograniczać się do zbudowania jedynie widoku przeznaczonego pod ten system.
-\item{Udostępniać użytkownikowi interfejs służący do stworzenia konta i uwierzytelnienia się.}
-\item{Przed umożliwieniem utworzenia trasy, wyszukania jej lub przeprowadzenia treningu wymagać uwierzytelnienia się w systemie.}
+\item{Wspierać wieloplatformość} - zastosowana architektura powinna oddzielać logikę biznesową aplikacji od interfejsu graficznego. W efekcie dzięki zastosowaniu technologii Xamarin, przeniesienie aplikacji na inny mobilny system operacyjny powinno ograniczać się do zbudowania jedynie widoku przeznaczonego pod ten system.
 \item{Pozwalać użytkownikom tworzyć trasy, a także umożliwiać manualne lub automatyczne określenie ich cech.}
 \item{Pozwalać przeglądać trasy na podstawie zdefiniowanych przez użytkownika kryteriów wyszukiwania.}
 \item{Pozwalać na przeprowadzenie treningu na wybranej trasie wraz z elementem wirtualnej rywalizacji.}
-\item{Dostosowywać się do wersji językowej używanej w systemie.}
 \item{Informować użytkownika o rezultatach zarówno poprzez informacje wyświetlane na ekranie jak i odtwarzane głosowo.}
 \item{Reagować na błędy - na przykład nieudane połączenie z aplikacją serwerową.}
 \end{itemize}
 
 \subsubsection{Aplikacja serwerowa powinna:}
 \begin{itemize}
-\item{Pozwalać na utworzenie konta użytkownika oraz uwierzytelnienie się}
-\item{Zapisywać trasy stworzone przez użytkowników pod warunkiem prawidłowego uwierzytelnienia się}
-\item{Zapisywać próby użytkowników na trasach pod warunkiem prawidłowego uwierzytelnienia się}
-\item{W przypadku wystąpienia błędu, zwracać odpowiedź w sposób pozwalający aplikacji mobilnej wyświetlić komunikat o błędzie}
+\item{Pozwolić wyszukiwać trasy na podstawie otrzymanych kryteriów}
+\item{Zapisywać trasy stworzone przez użytkowników}
+\item{Zapisywać próby użytkowników na trasach}
 \end{itemize}
 
 \subsection{Podział projektu}
@@ -160,4 +156,258 @@ public static IMapper Initialize()
 \end{lstlisting}
 
 \section{Warstwa logiki biznesowej}
+\subsection{Wyszukiwanie tras}
+Wyszukiwanie tras odbywa się poprzez wysłanie zapytania z aplikacji mobilnej do aplikacji serwerowej. Ustalone przez użytkownika kryteria wyszukiwania są następnie przekazywane do bazy danych. Dzięki temu proces odfiltrowania tras ma miejsce tak wcześnie jak to możliwe i do aplikacji serwerowej, a następnie mobilnej trafiają tylko te trasy, które rzeczywiście spełniają ustalone kryteria. Diagram sekwencji tego procesu został pokazany na rysunku \ref{image:sekwencja_wyszukiwanie}. Kryteria wybrane przez użytkownika zapisane są w instancji klasy \textit{RoutesFilterQuery}, która pozwala zachować wszystkie informacje opisane w rozdziale \ref{chap:kryteria}. Obiekt ten jest przekazywany do części serwerowej systemu w celu dokonania odpowiedniej filtracji tras.
+
+W momencie gdy zostanie wywołana metoda \textit{GetRoutesAsync} klasy \textit{RoutesRepository}, przekazany obiekt jest wykorzystany do określenia warunków, które muszą spełniać pobierane trasy. Działanie to zostało pokazane na listingu \ref{listing:filtracja_tras}. Warto podkreślić, że dzięki zastosowaniu typu \textit{geography} w tabeli bazy danych, możliwe jest policzenie odległości pomiędzy pozycją użytkownika a początkiem trasy bezpośrednio na poziomie bazy danych \cite{geography-type, geography-type2}. Warunek ten określa linia numer 8 listingu. Na podstawie określonych warunków generowane jest następnie zapytanie SQL wykonywane bezpośrednio na poziomie bazy danych.
+\begin{lstlisting}[caption={Określenie warunków dla pobieranych tras},label=listing:filtracja_tras]
+var routes = _context.Routes
+	 .Where(r => r.Properties.PavedPercentage 
+         >= query.SurfacePavedPercentageFrom
+	&& r.Properties.PavedPercentage <= query.SurfacePavedPercentageTo)
+        .Where(r => r.Properties.Distance >= query.RouteLengthFrom
+        && r.Properties.Distance <= query.RouteLengthTo)
+        .Where(r => r.Checkpoints.First(cp => cp.Number == 0)
+        .Coordinates.IsWithinDistance(currentLocation,
+        query.SearchRadiusInMeters));
+
+if (query.SurfaceLevel > 0)
+	routes = routes.Where(r => r.Properties.TerrainLevel 
+	== (TerrainLevel)query.SurfaceLevel);
+\end{lstlisting}
+\begin{figure}[h]\label{fig:api_model}
+\begin{center}
+\includegraphics[width=\textwidth]{img/diagram_sekwencji_wyszukiwanie.png}
+\caption{Diagram sekwencji procesu wyszukiwania tras [Opracowanie własne]}\label{image:sekwencja_wyszukiwanie}
+\end{center}
+\end{figure}
+Po pobraniu danych z bazy danych, w klasie \textit{RoutesService} z przestrzeni nazw \textit{Api.Services} aplikacji serwerowej punkty kontrolne każdej trasy są sortowane według pola \textit{Number}, tak aby ich kolejność w kolekcji odpowiadała kolejności, którą powinny zajmować na trasie. Po przesłaniu danych o trasach z aplikacji serwerowej do aplikacji mobilnej, w klasie \textit{RoutesService} znajdującej się przestrzeni nazw \textit{Core.Services}, odbywa się aktualizacja własciwości \textit{IsMine}. Proces ten został pokazany na listingu \ref{listing:ismine}. Dzięki temu w interfejsie użytkownika możliwe jest wyróżnienie wyniku, który należy do biegacza.
+\begin{lstlisting}[caption={Aktualizacja właściwości IsMine klasy Route},label=listing:ismine]
+private void MarkUserRoute(Route route)
+{
+	var mineRankingRecord = route.Ranking
+	.FirstOrDefault(r => r.User == _userData.Username);
+	if (mineRankingRecord != null)
+		mineRankingRecord.IsMine = true;
+}
+\end{lstlisting}
+
+\subsection{Odbywanie treningu}
+Implementacje treningu, który tworzy nową trasę jak i trening przeprowadzany w ramach istniejącej trasy, który zawiera w sobie dodatkowo element wirtualnej rywalizacji zawierają wspólną logikę, dlatego tak jak widać na rysunku \ref{image:trening-diagram}, skorzystano z mechanizmu dziedziczenia. Należy zwrócić uwagę, że klasy te zawierają kilka pól typu \textit{Action}. Dzięki nim możliwe jest aktualizowanie interfejsu użytkownika z poziomu metody klasy należącej do logiki biznesowej. W przypadku stworzenia aplikacji mobilnej przeznaczonej na inny system operacyjny, wystarczy przekazać odpowiednie implementacje metod odpowiedzialnych za aktualizację interfejsu użytkownika, a zostaną one wywołane. 
+
+Metody \textit{Start} oraz \textit{Stop} służą do odpowiednio do rozpoczęcia i zakończenia treningu. Zawierają one logikę odpowiedzialną za dodanie obecnej próby użytkownika do rankingu oraz uruchomienie i zatrzymanie stopera. Dzięki stoperowi za każdym razem gdy upłynie jedna sekunda, aktualizowany jest interfejs użytkownika oraz wywoływana jest metoda \textit{ProcessUserLocation}, której implementacja zależna jest od typu treningu.
+\begin{figure}[h]\label{fig:asdl}
+\begin{center}
+\includegraphics[width=\textwidth]{img/trening-diagram.png}
+\caption{Diagram klas odpowiadających za przeprowadzanie treningów [Opracowanie własne]}\label{image:trening-diagram}
+\end{center}
+\end{figure}
+\subsubsection{Trening tworzący trasę}
+Za logikę obsługującą trening na nowej trasie odpowiada klasa \textit{InitialTraining}. Za każdym razem gdy wywołana zostanie metoda \textit{ProcessUserLocation}, podejmowana jest próba dodania do tworzonej trasy nowego punktu kontrolnego na podstawie obecnej pozycji biegacza. Aby punkt mógł zostać dodany, użytkownik musi znajdować się w pozycji nie mniejszej niż 10 metrów od ostatnio utworzonego punktu kontrolnego. Prawdziwość tego warunku jest sprawdzana w linii numer 6, 7 i 8 na listingu \ref{listing:add-point-initial}. Działanie ma to na celu uniknięcie problemu opisanego w rozdziale \ref{chap:wahania-pozycji}, którego wystąpienie spowodowałoby utworzenie skupiska punktów kontrolnych oddalonych od siebie o kilka metrów. Wyznaczenie odległości pomiędzy aktualną pozycją użytkownika, a ostatnio utworzonym punktem kontrolnym obliczana jest za pomocą formuły Haversine przytoczonej w rozdziale \ref{chap:haversine}. Jej implementacja została pokazana na listingu \ref{listing:haversine}. Współrzędne odczytywane są w stopniach, dlatego przed obliczeniem odległości, konieczne było wyznaczenie ich wartości w radianach.
+\begin{lstlisting}[caption={Wyznaczenie odległości pomiędzy dwoma punktami},label=listing:haversine]
+public static double HaversineKilometersDistance(Point point1,
+	Point point2)
+{
+  var latitudeDelta = DegreesToRadians(point1.Latitude - point2.Latitude);
+  var longitudeDelta = DegreesToRadians(
+  	point1.Longitude - point2.Longitude);
+
+  var firstPointLatitudeCos = Math.Cos(DegreesToRadians(point1.Latitude));
+  var secondPointLatitudeCos = Math.Cos(
+  	DegreesToRadians(point2.Latitude));
+
+  var a = Math.Pow(Math.Sin(latitudeDelta / 2), 2)
+  	+ firstPointLatitudeCos *
+	secondPointLatitudeCos * Math.Pow(Math.Sin(longitudeDelta / 2), 2);
+  var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+  var d = EarthRadiusInKilometers * c;
+
+  return d;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Tworzenie punktów kontrolnych},label=listing:add-point-initial]
+protected override async void ProcessUserLocation()
+{
+    var location = await GetLocation();
+    var currentPosition = new Point(
+    	location.Item1, location.Item2,location.Item3,NextCheckpointIndex);
+    var distanceFromLastPoint = Route.Checkpoints.Any()
+        ? Point.HaversineKilometersDistance(Route.Checkpoints.Last(),
+        currentPosition)
+        : _kilometersDistanceBetweenCheckpoints;
+    if (distanceFromLastPoint >= _kilometersDistanceBetweenCheckpoints)
+    {
+        NextCheckpointIndex++;
+        Route.Checkpoints.Add(currentPosition);
+        SaveCheckpointTime();
+    }
+}
+\end{lstlisting}
+Wraz z utworzeniem punktu kontrolnego, zapisywany jest także czas, który upłynął od rozpoczęcia treningu. Oznacza to, że biegacz tworzący trasę, zostaje jednocześnie pierwszym użytkownikiem dodanym do rankingu.
+
+W momencie gdy użytkownik postanawia zakończyć trening, wywołana zostaje metoda \textit{Stop}. Oprócz bazowej implementacji tej metody, zostaje także wykonany kod odpowiedzialny za utworzenie ostatniego punktu kontrolnego. Jest on tworzony niezależnie od odległości do przedostatniego punktu kontrolnego, a jego pozycja odpowiada pozycji użytkownika z momentu zakończenia treningu.
+
+\subsubsection{Trening na zapisanej trasie oraz wirtualna rywalizacja}
+Proces wirtualnej rywalizacji odbywa się wraz z rozpoczęciem treningu na stworzonej wcześniej trasie. Za obsługę obu tych elementów odpowiada klasa \textit{RaceTraining}. Metoda \textit{ProcessUserLocation} służy do zapisywania czasów, które biegacz osiągnął na każdym z punktów kontrolnych. Jej kod źródłowy został przedstawiony na listingu \ref{listing:add-point-race}.
+\begin{lstlisting}[caption={Proces wirtualnej rywalizacji},label=listing:add-point-race]
+protected override async void ProcessUserLocation()
+{
+  var location = await GetLocation();
+  var currentLocation = (new Point(location.Item1,
+    location.Item2, Seconds));
+  var distance = Point.HaversineKilometersDistance(currentLocation,
+    Route.Checkpoints[NextCheckpointIndex]);
+
+  if (distance < _distanceFromCheckpointToleranceInKilometers)
+  {
+      NextCheckpointIndex++;
+
+      SaveCheckpointTime();
+      if (NextCheckpointIndex == Route.Checkpoints.Count)
+      {
+        Stop();
+        _routesService.ProcessCurrentTry(Route, CurrentTry);
+
+        _stopTrainingUi.Invoke();
+
+        _showProgressBar.Invoke();
+        var isSuccessful = await _routesWebRepository
+		.CreateRankingRecordAsync(CurrentTry, Route.Id);
+        _hideProgressBar.Invoke();
+        _showIsTryUpdateSuccessful.Invoke(isSuccessful);
+      }
+      else
+      {
+        UpdateRankingToShowPositionsForCheckpoint(NextCheckpointIndex - 1);
+
+        var currentPosition = GetCurrentPositionInRanking();
+        if (currentPosition == 
+          rankingPositionOnPreviousCheckpoint
+            || _rankingPositionOnPreviousCheckpoint == 0)
+        {
+            _playCurrentPosition.Invoke(currentPosition);
+        }
+        else
+        {
+            if (currentPosition < _rankingPositionOnPreviousCheckpoint)
+                _playPositionsEarned(
+                _rankingPositionOnPreviousCheckpoint
+                  - currentPosition);
+            else
+                _playPositionsLost(currentPosition
+                  - _rankingPositionOnPreviousCheckpoint);
+         }
+
+        _rankingPositionOnPreviousCheckpoint = currentPosition;
+
+        _checkpointReached.Invoke();
+      }
+  }
+}
+\end{lstlisting}
+Biegacz musi znajdować się w odległości nie większej niż 10 metrów od następnego w kolejności punktu kontrolnego. Gdy ten warunek zostanie spełniony, bieżący czas od rozpoczęcia treningu zostaje zapisany. Odległość pomiędzy użytkownikiem a punktem kontrolnym wyznaczana jest za pomocą formuły haversine, której implementacja znajduje się na listingu \ref{listing:haversine}. Za każdym razem gdy punkt kontrolny zostanie osiągnięty, aktualizowany jest ranking. Odbywa się to poprzez posortowanie kolekcji \textit{Ranking} znajdującej się w instancji klasy \textit{Route} względem wartości, która reprezentuje czas osiągnięty przez wszystkich użytkowników na punkcie kontrolnym. Oprócz faktu, że pozycje w rankingu wyświetlonym na ekranie urządzenia zmieniają się wraz z trwaniem biegu, odtwarzane są komunikaty głosowe. Logika odpowiadająca za ten proces znajduje się w liniach 32-47 listingu \ref{listing:add-point-race} i jest implementacją warunków opisanych w rozdziale \ref{chap:zasada-tts}.
+
+W momencie gdy zostaną osiągnięte wszystkie punkty kontrolne, trening jest automatycznie zakańczany, a próba użytkownika jest poddawana przetworzeniu. Scenariusz ten realizują linie 15-26 listingu \ref{listing:add-point-race}. Proces przetworzenia próby jest implementacją warunków opisanych w rozdziale \ref{chapter:sposob-rywalizacji} i został przedstawiony na listingu \ref{listing:przetworzenie-proby}.
+\begin{lstlisting}[caption={Przetworzenie próby użytkownika},label=listing:przetworzenie-proby]
+public void ProcessCurrentTry(Route route, RankingRecord currentTry)
+{
+    var lastTry = route.Ranking.SingleOrDefault(rr => rr.IsMine);
+    if (lastTry == null) 
+        return;
+    if (currentTry.FinalResult < lastTry.FinalResult)
+    {
+        currentTry.IsMine = true;
+        currentTry.IsCurrentTry = false;
+        currentTry.User = lastTry.User;
+
+        route.Ranking.Remove(lastTry);
+    }
+    else
+        route.Ranking.Remove(currentTry);
+}
+\end{lstlisting}
+Logika ta jest wykonywana na urządzeniu mobilnym, dzięki czemu użytkownik ma możliwość sprawdzenia końcowego rankingu wirtualnej rywalizacji. Warto zaznaczyć, że próba jest także wysyłana do aplikacji serwerowej, gdzie przetwarzana jest w ten sam sposób. Ma to miejsce nawet w przypadku, gdy końcowa lokata użytkownika w rankingu na urządzeniu mobilnym nie zmieniła się. Jest to spowodowane brakiem gwarancji, że ranking zapisany w bazie danych, jest nadal w tym samym stanie, co w momencie pobrania go na urządzenie mobilne przed rozpoczęciem treningu.
+
+\subsection{Automatyczne przypisywanie cech do trasy}
+Logikę odpowiedzialną za automatyczne przypisywanie cech umieszczono w klasie \textit{RoutesService}, która znajduje się w przestrzeni nazw \textit{Core.Services}. Została zaimplementowana zgodnie z opisem zawartym w rozdziale \ref{chap:przypisanie-cech}.
+\subsubsection{Długość trasy}
+Wyznaczenie długości polega na zsumowaniu odległości pomiędzy wszystkimi punktami trasy przy pomocy formuły haversine, której implementację pokazano na listingu \ref{listing:haversine}.
+\begin{lstlisting}[caption={Wyznaczenie długości trasy},label=listing:dlugosc-trasy]
+public void CalculateRouteDistance(Route route)
+{
+    var totalDistance = 0d;
+    for (int i = 0; i < route.Checkpoints.Count - 1; i++)
+    {
+        totalDistance += Point.HaversineKilometersDistance(
+        	route.Checkpoints[i], route.Checkpoints[i + 1]);
+    }
+    route.Properties.Distance = Math.Round(totalDistance, 2);
+}
+\end{lstlisting}
+\subsubsection{Poziom terenu}
+Wyznaczenie poziomu terenu zostało pokazane na listingu \ref{listing:poziom-terenu}. Wartość zmiennej \textit{terrainLevelDifferenceThresholdInPercentage} wyraża maksymalną procentową różnicę pomiędzy wysokością początkową a końcową dla której poziom terenu będzie uznany jako wyrównany. W tym przypadku wynosi ona 10\%.
+
+Ponadto poziom terenu zostanie wyznaczony jako „wyrównany”, gdy nie udało się wyznaczyć wysokości któregokolwiek z punktów.
+\begin{lstlisting}[caption={Wyznaczenie poziomu terenu},label=listing:poziom-terenu]
+private void ResolveTerrainLevel(Route route)
+{
+    const int terrainLevelDifferenceThresholdInPercentage = 10;
+    const double terrainLevelDifferenceThreshold =
+    	1.0 * terrainLevelDifferenceThresholdInPercentage / 100 + 1;
+    var startAltitude = route.Checkpoints.First().Altitude;
+    var finishAltitude = route.Checkpoints.Last().Altitude;
+
+    route.Properties.TerrainLevel = TerrainLevel.Close;
+    if (startAltitude != null && finishAltitude != null)
+    {
+        if (startAltitude 
+        	> finishAltitude * terrainLevelDifferenceThreshold)
+        {
+            route.Properties.TerrainLevel = TerrainLevel.Decreasing;
+        }
+        else if (finishAltitude 
+        	> startAltitude * terrainLevelDifferenceThreshold)
+        {
+            route.Properties.TerrainLevel = TerrainLevel.Increasing;
+        }
+    }
+}
+\end{lstlisting}
+\subsubsection{Twardość nawierzchni}
+Za wyznaczenie tej cechy odpowiada klasa \textit{OsmService}. Główna metoda odpowiedzialna za to działanie została przedstawiona na listingu \ref{listing:twardosc-nawierzchni}. Metoda wywoływana w linii numer 3 listingu zajmuje się zbudowaniem odpowiedniego zapytania zgodnie z zasadami opisanymi w \cite{overpass-wiki}, wysłaniem go do serwisu OpenStreetMap \cite{osm} oraz zwróceniem otrzymanej odpowiedzi. W efekcie do zmiennej \textit{tags} zostają przypisane rodzaje nawierzchni dla każdego punktu trasy, natomiast zmienne \textit{PavedSurfaces} oraz \textit{UnpavedSurfaces} zawierają wszystkie możliwe utwardzone oraz nieutwardzone rodzaje nawierzchni zgodnie z tabelą \ref{table:rodzaje-nawierzchni} z rozdziału \ref{chapter:wyznaczenie-twardosc}. Na tej podstawie w liniach 4-7 wyznaczana jest procentowa twardość nawierzchni utworzonej trasy. 
+W przypadku gdy nie uda się ustalić twardość nawierzchni (na przykład gdy z zewnętrznego serwisu nie uda się otrzymać żadnych informacji) twardość trasy zostaje ustalona jako wartość zmiennej \textit{DefaultSurfacePavement} wynosząca 50\%.
+\begin{lstlisting}[caption={Wyznaczenie poziomu terenu},label=listing:twardosc-nawierzchni]
+public async Task<int> ResolveRouteSurfaceTypeAsync(Route route)
+{
+  var tags = (await GetSurfaceTypesAsync(route.Checkpoints)).ToList();
+  int pavedCount = tags.Count(t => PavedSurfaces.Contains(t));
+  int unpavedCount = tags.Count(t => UnpavedSurfaces.Contains(t));
+
+  var pavedPercent = 1.0 * pavedCount / (pavedCount + unpavedCount) * 100;
+  if (double.IsNaN(pavedPercent))
+      return DefaultSurfacePavement;
+
+  return (int)Math.Round(pavedPercent);
+}
+\end{lstlisting}
+
+\subsection{Brak połączenia z serwerem po zakończonym treningu}
+Może zdarzyć się, że nie uda się zapisać treningu użytkownika, ponieważ urządzenie nie miało dostępu do internetu lub nastąpiła awaria serwera. W takim wypadku użytkownik utraciłby swoją próbę. Aby tego uniknąć, w momencie gdy nie uda się nawiązać połączenia z serwerem, dane o treningu w formacie JSON oraz adres pod który miały być wysłane zapisywane są w lokalnej bazie danych urządzenia. Następnie możliwe jest podjęcie ponownej próby wysłania zaległych danych. Proces ten został przedstawiony na listingu \ref{listing:overdue-data}. Metoda \textit{ProcessOverdueData} wywoływana jest przy każdym uruchomieniu aplikacji. Z lokalnej bazy danych pobierane są wszystkie zaległe treningi, a następnie po raz kolejny wysłane do części serwerowej aplikacji w metodzie wywoływanej w linii numer 6 listingu. W przypadku powodzenia tej operacji trening jest usuwany z lokalnej bazy danych.
+\begin{lstlisting}[caption={Wyznaczenie poziomu terenu},label=listing:overdue-data]
+public async Task ProcessOverdueData()
+{
+    var dataToSend = _userLocalRepository.GetDataToSend();
+    foreach (var data in dataToSend)
+    {
+        var result = await _routesWebRepository
+        	.SendJsonData(data.Json, data.Uri);
+
+        if (result)
+            _userLocalRepository.DeleteDataToSend(data.Id);
+    }
+}
+\end{lstlisting}
+
 \section{Warstwa interfejsu użytkownika}
+\subsection{Internacjonalizacja}

@@ -12,7 +12,7 @@ Do pewnego momentu wspieranie treningów za pomocą danych pochodzących z nawig
 Precyzja systemów nawigacji używanych obecnie w urządzeniach mobilnych jest nie mniejsza niż 10 metrów. Czynniki takie jak niekorzystne warunki atmosferyczne mogą jednak mieć negatywny wpływ na dokładność \cite{gps2}, co należy mieć na uwadze podczas projektowania aplikacji przeznaczonej treningom biegowym.
 
 \section{Działania na danych pochodzących z nawigacji satelitarnej}
-\subsection{Obliczanie odległości pomiędzy dwoma punktami geograficznymi}
+\subsection{Obliczanie odległości pomiędzy dwoma punktami geograficznymi}\label{chap:haversine}
 Do obliczenia odległości pomiędzy dwoma punktami na sferze można skorzystać z \textbf{formuły haversine} \cite{haversine}. Jej wzór prezentuje się następująco:\\
 \begin{equation}\label{eq:haversine11}
 a = \sin ^2(\frac{\Delta  \phi}{2}) + cos  \phi_1 \cdot cos\phi_2 \cdot sin^2(\frac{\Delta \lambda}{2})

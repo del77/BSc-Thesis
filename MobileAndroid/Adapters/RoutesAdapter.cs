@@ -24,7 +24,7 @@ namespace MobileAndroid.Adapters
             _routesService = new RoutesService();
         }
 
-        public async Task UpdateData(RoutesFilterQuery query)
+        public async Task UpdateRoutes(RoutesFilterQuery query)
         {
             _routes = (await _routesService.GetRoutes(query)).ToList();
             NotifyDataSetChanged();

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Timers;
 using Core.Model;
+using Core.Repositories.Web;
 using Core.Services;
 
 namespace Core.Training
@@ -17,10 +17,10 @@ namespace Core.Training
         private readonly Action _showProgressBar;
         private readonly Action _hideProgressBar;
         private readonly Action<bool> _showIsTryUpdateSuccessful;
-        public int NextCheckpointIndex = 0;
-        private readonly RoutesService _routesService;
+        private readonly RoutesWebRepository _routesWebRepository;
 
         private int _rankingPositionOnPreviousCheckpoint;
+        readonly double _distanceFromCheckpointToleranceInKilometers = 0.010;
 
         public RaceTraining(Route route, Action uiUpdate, Action checkpointReached,
             Func<Task<Tuple<double, double, double?>>> currentLocationDelegate,
@@ -29,7 +29,7 @@ namespace Core.Training
             Action showProgressBar, Action hideProgressBar, Action<bool> showIsTryUpdateSuccessful) 
             : base(route, uiUpdate, currentLocationDelegate)
         {
-            _routesService = new RoutesService();
+            _routesWebRepository = new RoutesWebRepository();
             _checkpointReached = checkpointReached;
             _stopTrainingUi = stopTrainingUi;
             _playCurrentPosition = playCurrentPosition;
@@ -40,50 +40,21 @@ namespace Core.Training
             _showIsTryUpdateSuccessful = showIsTryUpdateSuccessful;
         }
 
-        public override void Start()
-        {
-            NextCheckpointIndex = 0;
-
-            CurrentTry = new RankingRecord(true, Route.Id);
-            Route.Ranking.Add(CurrentTry);
-
-            IsStarted = true;
-
-            Timer = new Timer(1000);
-            Timer.Elapsed += _timer_Elapsed;
-
-            AddPoint();
-            Timer.Start();
-        }
-
-        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            Seconds++;
-
-            AddPoint();
-            UiUpdate();
-        }
-
         public override void Stop()
         {
-            Timer.Stop();
-            IsStarted = false;
+            base.Stop();
             if (NextCheckpointIndex != Route.Checkpoints.Count)
                 Route.Ranking.Remove(CurrentTry);
-            Seconds = 0;
-
         }
 
 
-        protected override async void AddPoint()
+        protected override async void ProcessUserLocation()
         {
             var location = await GetLocation();
             var currentLocation = (new Point(location.Item1, location.Item2, Seconds));
             var distance = Point.HaversineKilometersDistance(currentLocation, Route.Checkpoints[NextCheckpointIndex]);
 
-            Points.Add(currentLocation);
-
-            if (distance < 0.005)
+            if (distance < _distanceFromCheckpointToleranceInKilometers)
             {
                 NextCheckpointIndex++;
 
@@ -91,12 +62,12 @@ namespace Core.Training
                 if (NextCheckpointIndex == Route.Checkpoints.Count)
                 {
                     Stop();
-                    _routesService.ProcessCurrentTry(Route, CurrentTry);
+                    RoutesService.ProcessCurrentTry(Route, CurrentTry);
 
                     _stopTrainingUi.Invoke();
 
                     _showProgressBar.Invoke();
-                    var isSuccessful = await _routesService.UpdateRankingAsync(Route.Id, CurrentTry);
+                    var isSuccessful = await _routesWebRepository.CreateRankingRecordAsync(CurrentTry, Route.Id);
                     _hideProgressBar.Invoke();
                     _showIsTryUpdateSuccessful.Invoke(isSuccessful);
                 }

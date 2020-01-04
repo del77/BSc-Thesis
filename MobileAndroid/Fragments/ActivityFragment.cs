@@ -249,6 +249,7 @@ namespace MobileAndroid.Fragments
             Activity.RunOnUiThread(() =>
             {
                 _rankingAdapter.ShowDataForNextCheckpoint();
+                _checkpointMarkers[0].Remove();
                 _checkpointMarkers.RemoveAt(0);
                 MoveCameraToNextCheckpoint();
             });
@@ -268,6 +269,7 @@ namespace MobileAndroid.Fragments
             {
                 _checkpointMarkers.ForEach(cp => cp.Remove());
             });
+            _checkpointMarkers.Clear();
         }
 
         private void SetNewRoute()
