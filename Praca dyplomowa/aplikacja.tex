@@ -181,7 +181,7 @@ if (query.SurfaceLevel > 0)
 \caption{Diagram sekwencji procesu wyszukiwania tras [Opracowanie własne]}\label{image:sekwencja_wyszukiwanie}
 \end{center}
 \end{figure}
-Po pobraniu danych z bazy danych, w klasie \textit{RoutesService} z przestrzeni nazw \textit{Api.Services} aplikacji serwerowej punkty kontrolne każdej trasy są sortowane według pola \textit{Number}, tak aby ich kolejność w kolekcji odpowiadała kolejności, którą powinny zajmować na trasie. Po przesłaniu danych o trasach z aplikacji serwerowej do aplikacji mobilnej, w klasie \textit{RoutesService} znajdującej się przestrzeni nazw \textit{Core.Services}, odbywa się aktualizacja własciwości \textit{IsMine}. Proces ten został pokazany na listingu \ref{listing:ismine}. Dzięki temu w interfejsie użytkownika możliwe jest wyróżnienie wyniku, który należy do biegacza.
+Po pobraniu danych z bazy danych, w klasie \textit{RoutesService} z przestrzeni nazw \textit{Api.Services} aplikacji serwerowej punkty kontrolne każdej trasy są sortowane według własciwości \textit{Number}, tak aby ich kolejność w kolekcji odpowiadała kolejności, którą powinny zajmować na trasie. Oprócz tego pozycje rankingowe są sortowane według właściwości \textit{FinalResult}, dzięki czemu w momencie przejścia do szczegółów trasy, użytkownik widzi jej końcowy ranking. Po przesłaniu danych o trasach z aplikacji serwerowej do aplikacji mobilnej, w klasie \textit{RoutesService} znajdującej się przestrzeni nazw \textit{Core.Services}, odbywa się aktualizacja właściwości \textit{IsMine}. Proces ten został pokazany na listingu \ref{listing:ismine}. Dzięki temu w interfejsie użytkownika możliwe jest wyróżnienie wyniku, który należy do biegacza.
 \begin{lstlisting}[caption={Aktualizacja właściwości IsMine klasy Route},label=listing:ismine]
 private void MarkUserRoute(Route route)
 {
@@ -192,7 +192,7 @@ private void MarkUserRoute(Route route)
 }
 \end{lstlisting}
 
-\subsection{Odbywanie treningu}
+\subsection{Odbywanie treningu}\label{chap:trening}
 Implementacje treningu, który tworzy nową trasę jak i trening przeprowadzany w ramach istniejącej trasy, który zawiera w sobie dodatkowo element wirtualnej rywalizacji zawierają wspólną logikę, dlatego tak jak widać na rysunku \ref{image:trening-diagram}, skorzystano z mechanizmu dziedziczenia. Należy zwrócić uwagę, że klasy te zawierają kilka pól typu \textit{Action}. Dzięki nim możliwe jest aktualizowanie interfejsu użytkownika z poziomu metody klasy należącej do logiki biznesowej. W przypadku stworzenia aplikacji mobilnej przeznaczonej na inny system operacyjny, wystarczy przekazać odpowiednie implementacje metod odpowiedzialnych za aktualizację interfejsu użytkownika, a zostaną one wywołane. 
 
 Metody \textit{Start} oraz \textit{Stop} służą do odpowiednio do rozpoczęcia i zakończenia treningu. Zawierają one logikę odpowiedzialną za dodanie obecnej próby użytkownika do rankingu oraz uruchomienie i zatrzymanie stopera. Dzięki stoperowi za każdym razem gdy upłynie jedna sekunda, aktualizowany jest interfejs użytkownika oraz wywoływana jest metoda \textit{ProcessUserLocation}, której implementacja zależna jest od typu treningu.
@@ -410,4 +410,125 @@ public async Task ProcessOverdueData()
 \end{lstlisting}
 
 \section{Warstwa interfejsu użytkownika}
-\subsection{Internacjonalizacja}
+Za warstwę interfejsu użytkownika odpowiada aplikacja przeznaczona dla systemu operacyjnego Android \cite{Android}. Aby możliwe było korzystanie z aplikacji, użytkownik musi udzielić jej pozwolenia na wykorzystanie nawigacji satelitarnej. 
+\subsection{Wyszukiwanie tras}
+Widok wyszukiwania tras składa się z części odpowiedzialnej za umożliwienie użytkownikowi wybranie omówionych w rozdziale \ref{chap:kryteria} kryteriów wyszukiwania oraz części która wyświetla znalezione trasy w formie listy.
+
+Ustalone kryteria wyszukiwania przypisywane są do instancji klasy \textit{RoutesFilterQuery}, której właściwości zostały pokazane na rysunku \ref{image:xamarin_model}, a następnie przesyłane do części serwerowej systemu. Po otrzymaniu odpowiedzi zawierającej odpowiednie trasy, następuję ich wyświetlenie. Odpowiada za to metoda z klasy \textit{RoutesAdapter}. Jej fragment został pokazany na listingu \ref{listing:adapter-trasy}.
+\begin{lstlisting}[caption={Przypisanie cech trasy do elementu listy},label=listing:adapter-trasy]
+var routeProperties = _routes[position].Properties;
+routeViewHolder.RouteName.Text = routeProperties.Name;
+routeViewHolder.RouteDistance.Text = routeProperties.Distance + "km";
+routeViewHolder.RouteTerrainLevel.Text = _context
+	.Resources.GetStringArray(
+	Resource.Array.terrain_options)[(int)routeProperties.TerrainLevel];
+routeViewHolder.RouteSurface.Text = routeProperties.PavedPercentage+"\%";
+routeViewHolder.Route = _routes[position];
+\end{lstlisting}
+W ramach wykonywanego kodu do pojedynczego elementu listy przypisywane są: nazwa trasy nadana przez użytkownika, jej długość, poziom terenu oraz twardość nawierzchni.
+
+\subsection{Widok treningu}
+Przeznaczeniem tego widoku jest zarządzanie treningiem oraz wyświetlanie informacji na temat jego stanu. Za jego układ odpowiada plik \textit{activity\textunderscore fragment.axml}, natomiast klasa \textit{ActivityFragment} zawiera szereg metod, które pozwalają go aktualizować.
+
+Widok ten odpowiada zarówno za trening tworzący trasę, jak i trening który odbywany jest w ramach trasy wybranej przez użytkownika. W zależności od tego czy obiekt trasy posiada jakieś punkty kontrolne, tworzona jest instancja klasy \textit{InitialTraining} lub \textit{RaceTraining}, które zostały omówione w rozdziale \ref{chap:trening}. Działanie to zostało przedstawione na listingu \ref{listing:init-race} zawierającym fragment metody \textit{BindData}. Jak widać podczas tworzenia obiektu przekazywane są do niego także delegaty, które pozwalają na aktualizację interfejsu użytkownika lub odtwarzanie komunikatów głosowych.
+\begin{lstlisting}[caption={Utworzenie obiektu zawierającego logikę treningu},label=listing:init-race]
+private void RemoveNextCheckpoint()
+{
+	if (!CurrentRoute.Checkpoints.Any())
+	    Training = new InitialTraining(CurrentRoute, UpdateTimer,
+	    	GetCurrentLocation);
+	else
+	{
+	    Training = new RaceTraining(CurrentRoute, UpdateTimer,
+	    	NextCheckpointReached, GetCurrentLocation, 
+      	    	FinishRace, PlayCurrentPosition, PlayPositionsLost,
+      	    	PlayPositionsEarned, ShowProgressBar,
+      	    	HideProgressBar, ShowUpdateResult);
+	}
+}
+\end{lstlisting}
+\subsubsection{Obsługa mapy}
+W momencie gdy mapa zostanie załadowana, wywoływana jest metoda \textit{OnMapReady}, która pozwala programiście dokonać dodatkowej konfiguracji. Proces ten został pokazany na listingu \ref{listing:konf-mapy}. 
+
+\begin{lstlisting}[caption={Konfiguracja mapy},label=listing:konf-mapy]
+_googleMap = googleMap;
+
+_googleMap.UiSettings.MyLocationButtonEnabled = true;
+_googleMap.MyLocationEnabled = true;
+
+_polylineOptions = new PolylineOptions();
+_routePolyline = _googleMap.AddPolyline(_polylineOptions);
+MoveCameraToCurrentUserPosition();
+\end{lstlisting}
+W tym przypadku:
+\begin{itemize}
+\item{w linii numer 3. i 4. włączono pokazywanie lokalizacji użytkownika na mapie},
+\item{w linii 6. i 7. dodano obiekt, który reprezentuje w formie narysowanej na mapie linii trasę przebytą przez użytkownika w czasie treningu},
+\item{w linii 8. wykonano kod odpowiedzialny za przesunięcie i przybliżenie mapy do bieżącej lokalizacji użytkownika}.
+\end{itemize}
+\subsubsection{Wyświetlanie rankingu}
+Wraz z osiąganiem punktów kontrolnych, ranking aktualizowany jest w warstwie logiki biznesowej, dlatego w warstwie widoku wystarczy ograniczyć się do wyświetlenia tych danych w formie listy. Proces ten ma miejsce w klasie \textit{RankingAdapter}, fragment metody która tego dokonuje został przedstawiony na listingu \ref{listing:adapter}.
+
+\begin{lstlisting}[caption={Wyświetlanie rankingu},label=listing:adapter]
+var rankingRecord = _route.Ranking.ElementAt(position);
+rankingViewHolder.Nickname.Text = $"{position + 1}. ";
+if (rankingRecord.IsMine)
+{
+    rankingViewHolder.Nickname.SetTextColor(Color.Green);
+    rankingViewHolder.Nickname.Text += rankingRecord.User;
+}
+else if (rankingRecord.IsCurrentTry)
+{
+    rankingViewHolder.Nickname.SetTextColor(Color.Blue);
+    rankingViewHolder.Nickname.Text 
+    	+= _context.GetString(Resource.String.current_try);
+}
+else
+{
+    rankingViewHolder.Nickname.SetTextColor(Color.Black);
+    rankingViewHolder.Nickname.Text += rankingRecord.User;
+}
+
+var currentTime = rankingRecord
+	.CheckpointsTimes[_currentCheckpointIndex]
+	.SecondsToStopwatchTimeString();
+rankingViewHolder.Time.Text = currentTime;
+\end{lstlisting}
+W tym miejscu skorzystano z właściwości \textit{IsMine} oraz \textit{IsCurrentTry} zawartych w klasie \textit{RankingRecord}. Dzięki temu możliwe było:
+\begin{itemize}
+\item{Wyświetlenie pseudonimu użytkownika w kolorze zielonym gdy właściwość \textit{IsMine} zawierała wartość \textit{true}. Pozycja ta reprezentowała poprzednią próbę użytkownika na trasie.}
+\item{Wyświetlenie tekstu  „bieżąca próba” w kolorze niebieskim gdy właściwość \textit{IsCurrentTry} zawierała wartość \textit{true}. Pozycja ta reprezentowała bieżącą próbe użytkownika na trasie.} 
+\item{Wyświetlenie pseudonimów innych użytkowników w kolorze czarnym w pozostałych przypadkach}.
+\end{itemize}
+
+\subsubsection{Odtwarzanie informacji głosowych}
+Odtworzenie komunikatu głosowego ogranicza się do skorzystania z klasy \textit {TextToSpeech} udostępnianej przez wykorzystaną technologię. Przykład kodu odtwarzającego informację o aktualnie zajmowanej przez użytkownika pozycji pokazano na listingu \ref{listing:tts}
+\begin{lstlisting}[caption={Odtworzenie informacji głosowej o aktualnie zajmowanej pozycji},label=listing:tts]
+private void PlayCurrentPosition(int position)
+{
+    TextToSpeech.SpeakAsync($"{Resources
+    	.GetString(Resource.String.your_position, position)}");
+}
+\end{lstlisting}
+Jako argument metody \textit{SpeakAsync} należy podać tekst, który ma zostać odtworzony. W tym wypadku odpowiedni tekst pobierany jest z zasobu \textit{Resources}. Pozwoliło to odtworzyć wiadomość w wersji językowej zgodnej z językiem ustawionym w systemie operacyjnym.
+
+\subsection{Przypisywanie cech do trasy}
+Wraz zakończeniem treningu kończącego trasę, użytkownik przenoszony jest do widoku przypisania cech do trasy. Jego układ określa plik \textit{route\textunderscore details\textunderscore filling\textunderscore view.axml}. Za automatyczne określenie cech trasy odpowiada metoda \textit{ResolveParametersButtonOnClick} klasy \textit{RouteDetailsFillingActivitiy}. Jej implementacja została pokazana na listingu \ref{listing:filling}.
+\begin{lstlisting}[caption={Wywołanie procesu automatycznego przypisania cech trasy},label=listing:filling]
+private async void ResolveParametersButtonOnClick(object sender,
+	EventArgs e)
+{
+    ShowProgressBar();
+
+    await _routesService.ResolveRouteParameters(_route);
+    _terrainLevelSelect
+    	.SetSelection((int)_route.Properties.TerrainLevel - 1);
+    _routeSurfaceSlider
+    	.SetSelectedMaxValue(_route.Properties.PavedPercentage);
+
+    HideProgressBar();
+    Toast.MakeText(Application.Context,Resources.GetText(
+    	Resource.String.parameters_resolved), ToastLength.Long).Show();
+}
+\end{lstlisting}
+Automatyczne określenie cech trasy ogranicza się do wywołania metody z warstwy logiki biznesowej, co ma miejsce w linii numer 6 listingu. Po zakończeniu tego procesu, widok jest aktualizowany tak, aby pokazywać określone cechy. Ma to miejsce w liniach 7. oraz 9.

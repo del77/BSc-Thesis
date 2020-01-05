@@ -40,7 +40,7 @@
   <string name="UsernameTaken">Ten login jest zajęty</string>
   <string name="AccountCreated">Twoje konto zostało utworzone</string>
   <string name="from">od</string>
-  <string name="resolve_parameters_automatically">Określ parametry automatycznie</string>
+  <string name="resolve_parameters_automatically">Określ cechy automatycznie</string>
   <string name="parameters_resolved">Parametry trasy zostały określone.</string>
   <string name="your_position">Jesteś %1$d..</string>
   <string name="positions_earned">Wyprzedziłeś %1$d zawodników.</string>

@@ -21,7 +21,6 @@ namespace MobileAndroid.Adapters
 
             if (route.Ranking.Any())
             {
-                _route.Ranking = _route.Ranking.OrderBy(rr => rr.FinalResult).ToList();
                 _currentCheckpointIndex = route.Ranking.First().CheckpointsTimes.Count() - 1;
             }
 
@@ -56,7 +55,6 @@ namespace MobileAndroid.Adapters
                     rankingViewHolder.Nickname.SetTextColor(Color.Black);
                     rankingViewHolder.Nickname.Text += rankingRecord.User;
                 }
-
 
                 var currentTime = rankingRecord.CheckpointsTimes[_currentCheckpointIndex].SecondsToStopwatchTimeString();
                 rankingViewHolder.Time.Text = currentTime;

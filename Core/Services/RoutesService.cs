@@ -113,7 +113,7 @@ namespace Core.Services
 
         private void MarkUserRoute(Route route)
         {
-            var mineRankingRecord = route.Ranking.FirstOrDefault(r => r.User == _userData.Username);
+            var mineRankingRecord = route.Ranking.FirstOrDefault(r => r.User == "biegacz1");
             if (mineRankingRecord != null)
                 mineRankingRecord.IsMine = true;
         }

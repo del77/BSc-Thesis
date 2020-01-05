@@ -17,11 +17,13 @@ namespace Core.Training
 
         public override void Stop()
         {
-            base.Stop();
+            SaveCheckpointTime();
             var location = GetLocation().GetAwaiter().GetResult();
             Route.Checkpoints.Add(new Point(location.Item1, location.Item2, location.Item3, NextCheckpointIndex));
+
+            base.Stop();
+            
             RoutesService.CalculateRouteDistance(Route);
-            SaveCheckpointTime();
         }
 
         protected override async void ProcessUserLocation()

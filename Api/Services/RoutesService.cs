@@ -32,6 +32,7 @@ namespace Api.Services
             foreach (var route in routes)
             {
                 OrderCheckpointsInRoute(route);
+                OrderRankingInRoute(route);
             }
 
             return routes;
@@ -70,6 +71,11 @@ namespace Api.Services
         private void OrderCheckpointsInRoute(Route route)
         {
             route.Checkpoints = route.Checkpoints.OrderBy(cp => cp.Number).ToList();
+        }
+
+        private void OrderRankingInRoute(Route route)
+        {
+            route.Ranking = route.Ranking.OrderBy(rr => rr.FinalResult).ToList();
         }
     }
 }

@@ -249,9 +249,17 @@ namespace MobileAndroid.Fragments
             Activity.RunOnUiThread(() =>
             {
                 _rankingAdapter.ShowDataForNextCheckpoint();
+                RemoveNextCheckpoint();
+                MoveCameraToNextCheckpoint();
+            });
+        }
+
+        private void RemoveNextCheckpoint()
+        {
+            Activity.RunOnUiThread(() =>
+            {
                 _checkpointMarkers[0].Remove();
                 _checkpointMarkers.RemoveAt(0);
-                MoveCameraToNextCheckpoint();
             });
         }
 
@@ -277,6 +285,7 @@ namespace MobileAndroid.Fragments
             ClearTrainingViews();
             var newRouteName = Activity.Resources.GetString(Resource.String.new_route);
             CurrentRoute = new Route(newRouteName);
+            BindData();
             _rankingAdapter.UpdateRoute(CurrentRoute);
         }
 

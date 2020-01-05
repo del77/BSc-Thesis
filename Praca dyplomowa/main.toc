@@ -5,7 +5,6 @@
 \contentsline {subsection}{\numberline {1.3.1\relax .\enspace }Wykorzystywanie nawigacji satelitarnej}{7}%
 \contentsline {subsection}{\numberline {1.3.2\relax .\enspace }Budowanie aplikacji mobilnych}{7}%
 \contentsline {subsection}{\numberline {1.3.3\relax .\enspace }Budowanie aplikacji serwerowych}{7}%
-\contentsline {subsection}{\numberline {1.3.4\relax .\enspace }Obs\IeC {\l }uga bazy danych}{7}%
 \contentsline {section}{\numberline {1.4\relax .\enspace }Uk\IeC {\l }ad pracy}{7}%
 \contentsline {chapter}{\numberline {2\relax .\enspace }Wykorzystanie urz\IeC {\k a}dze\IeC {\'n} mobilnych i nawigacji satelitarnej do trening\IeC {\'o}w biegowych}{9}%
 \contentsline {section}{\numberline {2.1\relax .\enspace }Nawigacja satelitarna}{9}%
@@ -52,10 +51,14 @@
 \contentsline {subsection}{\numberline {6.3.3\relax .\enspace }Automatyczne przypisywanie cech do trasy}{42}%
 \contentsline {subsection}{\numberline {6.3.4\relax .\enspace }Brak po\IeC {\l }\IeC {\k a}czenia z serwerem po zako\IeC {\'n}czonym treningu}{44}%
 \contentsline {section}{\numberline {6.4\relax .\enspace }Warstwa interfejsu u\IeC {\.z}ytkownika}{45}%
-\contentsline {subsection}{\numberline {6.4.1\relax .\enspace }Internacjonalizacja}{45}%
-\contentsline {chapter}{\numberline {7\relax .\enspace }Dokumentacja u\IeC {\.z}ytkownika}{46}%
-\contentsline {chapter}{\numberline {8\relax .\enspace }Podsumowanie}{47}%
-\contentsline {chapter}{Bibliografia}{48}%
-\contentsline {chapter}{Spis rysunk\'ow}{49}%
-\contentsline {chapter}{Spis tabel}{50}%
-\contentsline {chapter}{Spis listing\IeC {\'o}w}{51}%
+\contentsline {subsection}{\numberline {6.4.1\relax .\enspace }Wyszukiwanie tras}{45}%
+\contentsline {subsection}{\numberline {6.4.2\relax .\enspace }Widok treningu}{46}%
+\contentsline {subsection}{\numberline {6.4.3\relax .\enspace }Przypisywanie cech do trasy}{49}%
+\contentsline {chapter}{\numberline {7\relax .\enspace }Dokumentacja u\IeC {\.z}ytkownika}{50}%
+\contentsline {section}{\numberline {7.1\relax .\enspace }Trening tworz\IeC {\k a}cy tras\IeC {\k e}}{50}%
+\contentsline {section}{\numberline {7.2\relax .\enspace }Trening na zapisanej trasie}{51}%
+\contentsline {chapter}{\numberline {8\relax .\enspace }Podsumowanie}{54}%
+\contentsline {chapter}{Bibliografia}{55}%
+\contentsline {chapter}{Spis rysunk\'ow}{56}%
+\contentsline {chapter}{Spis tabel}{57}%
+\contentsline {chapter}{Spis listing\IeC {\'o}w}{58}%

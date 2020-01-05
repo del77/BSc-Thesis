@@ -12,3 +12,9 @@
 \contentsline {lstlisting}{\numberline {6.12}Wyznaczenie poziomu terenu}{43}%
 \contentsline {lstlisting}{\numberline {6.13}Wyznaczenie poziomu terenu}{44}%
 \contentsline {lstlisting}{\numberline {6.14}Wyznaczenie poziomu terenu}{45}%
+\contentsline {lstlisting}{\numberline {6.15}Przypisanie cech trasy do elementu listy}{46}%
+\contentsline {lstlisting}{\numberline {6.16}Utworzenie obiektu zawieraj\IeC {\k a}cego logik\IeC {\k e} treningu}{46}%
+\contentsline {lstlisting}{\numberline {6.17}Konfiguracja mapy}{47}%
+\contentsline {lstlisting}{\numberline {6.18}Wy\IeC {\'s}wietlanie rankingu}{47}%
+\contentsline {lstlisting}{\numberline {6.19}Odtworzenie informacji g\IeC {\l }osowej o aktualnie zajmowanej pozycji}{48}%
+\contentsline {lstlisting}{\numberline {6.20}Wywo\IeC {\l }anie procesu automatycznego przypisania cech trasy}{49}%

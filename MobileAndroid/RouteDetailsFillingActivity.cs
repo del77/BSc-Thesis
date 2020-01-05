@@ -24,7 +24,6 @@ namespace MobileAndroid
         private RoutesService _routesService;
         private Route _route;
 
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -38,8 +37,6 @@ namespace MobileAndroid
             BindData();
             LinkEventHandlers();
         }
-
-        
 
         private void FindViews()
         {

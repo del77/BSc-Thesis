@@ -1,8 +1,15 @@
 This is BibTeX, Version 0.99d (TeX Live 2019/W32TeX)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
+Case mismatch error between cite keys Android and android
+---line 237 of file main.aux
+ : \citation{Android
+ :                  }
+I'm skipping whatever remains of this command
 The style file: plain.bst
 Database file #1: sample.bib
+Warning--I didn't find a database entry for "xamarin_docs_real"
+Warning--I didn't find a database entry for "ksiazka-asp-core"
 Warning--I didn't find a database entry for "gpsgov"
 Warning--I didn't find a database entry for "baidu1"
 Warning--I didn't find a database entry for "stronkagps1"
@@ -20,7 +27,6 @@ Warning--I didn't find a database entry for "eq:haversine_generowanie_punktu"
 Warning--I didn't find a database entry for "microsoft"
 Warning--I didn't find a database entry for "csharp"
 Warning--I didn't find a database entry for "xamarin_docs"
-Warning--I didn't find a database entry for "ksiazka-asp-core"
 Warning--I didn't find a database entry for "google-maps"
 Warning--I didn't find a database entry for "osm-gather-data"
 Warning--I didn't find a database entry for "overpass-wiki"
@@ -29,7 +35,7 @@ Warning--I didn't find a database entry for "geography-type"
 Warning--I didn't find a database entry for "geography-type2"
 You've used 1 entry,
             2118 wiz_defined-function locations,
-            526 strings with 4362 characters,
+            527 strings with 4379 characters,
 and the built_in function-call counts, 235 in all, are:
 = -- 19
 > -- 7
@@ -68,4 +74,4 @@ warning$ -- 0
 while$ -- 2
 width$ -- 2
 write$ -- 12
-(There were 24 warnings)
+(There was 1 error message)

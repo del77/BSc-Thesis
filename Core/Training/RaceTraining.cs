@@ -45,6 +45,8 @@ namespace Core.Training
             base.Stop();
             if (NextCheckpointIndex != Route.Checkpoints.Count)
                 Route.Ranking.Remove(CurrentTry);
+            Route.Ranking = Route.Ranking.OrderBy(rr => rr.FinalResult).ToList();
+
         }
 
 

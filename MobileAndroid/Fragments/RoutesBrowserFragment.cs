@@ -118,7 +118,6 @@ namespace MobileAndroid.Fragments
             ((MainActivity)Activity).ShowProgressBar();
 
             var location = await Geolocation.GetLastKnownLocationAsync();
-
             var query = new RoutesFilterQuery
             {
                 RouteLengthFrom = (int)_routeLengthSlider.GetSelectedMinValue(),
