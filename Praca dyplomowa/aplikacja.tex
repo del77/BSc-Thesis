@@ -139,7 +139,7 @@ Konfiguracja pozwoliła na utworzenie następujących relacji:
 Dzięki instrukcji z linii numer 7 dane z klas \textit{Route} oraz \textit{RouteProperties} zostały umieszczone w jednej tabeli. Pozwoliło to na uniknięcie łączenia tabel podczas pobierania danych. Typy wyliczeniowe nie wymagają osobnej tabeli i są przechowywane w postaci liczb, dlatego nie było potrzeby tworzenia dodatkowej struktury dla cechy \textit{poziom terenu}.
 
 Warto zauważyć, że czasy osiągane na punktach kontrolnych są przechowywane jako łańcuch znaków (\textit{string}). Pozwoliło to uniknąć tworzenia dodatkowej tabeli i relacji \textit{jeden do wielu} z tabelą reprezentującą klasę \textit{RankingRecord}. Mapowanie pomiędzy kolekcją a łańcuchem znaków odbywa się w klasie \textit{AutomapperConfig} znajdującej się w przestrzeni nazw \textit{Api.Mappers} i zostało przedstawione na listingu \ref{listing:collection-string-mapping}.
-\begin{lstlisting}[caption={Mapowanie pomiedzy kolekcją a łańcuchem znaków},label=collection-string-mapping]
+\begin{lstlisting}[caption={Mapowanie pomiedzy kolekcją a łańcuchem znaków},label=listing:collection-string-mapping]
 public static IMapper Initialize()
     => new MapperConfiguration(cfg =>
         {
@@ -375,9 +375,9 @@ private void ResolveTerrainLevel(Route route)
 }
 \end{lstlisting}
 \subsubsection{Twardość nawierzchni}
-Za wyznaczenie tej cechy odpowiada klasa \textit{OsmService}. Główna metoda odpowiedzialna za to działanie została przedstawiona na listingu \ref{listing:twardosc-nawierzchni}. Metoda wywoływana w linii numer 3 listingu zajmuje się zbudowaniem odpowiedniego zapytania zgodnie z zasadami opisanymi w \cite{overpass-wiki}, wysłaniem go do serwisu OpenStreetMap \cite{osm} oraz zwróceniem otrzymanej odpowiedzi. W efekcie do zmiennej \textit{tags} zostają przypisane rodzaje nawierzchni dla każdego punktu trasy, natomiast zmienne \textit{PavedSurfaces} oraz \textit{UnpavedSurfaces} zawierają wszystkie możliwe utwardzone oraz nieutwardzone rodzaje nawierzchni zgodnie z tabelą \ref{table:rodzaje-nawierzchni} z rozdziału \ref{chapter:wyznaczenie-twardosc}. Na tej podstawie w liniach 4-7 wyznaczana jest procentowa twardość nawierzchni utworzonej trasy. 
+Za wyznaczenie tej cechy odpowiada klasa \textit{OsmService}. Główna metoda odpowiedzialna za to działanie została przedstawiona na listingu \ref{listing:twardosc-nawierzchni}. Metoda wywoływana w linii numer 3 listingu zajmuje się zbudowaniem odpowiedniego zapytania zgodnie z zasadami opisanymi w \cite{osm-docs-wiki}, wysłaniem go do serwisu OpenStreetMap \cite{osm} oraz zwróceniem otrzymanej odpowiedzi. W efekcie do zmiennej \textit{tags} zostają przypisane rodzaje nawierzchni dla każdego punktu trasy, natomiast zmienne \textit{PavedSurfaces} oraz \textit{UnpavedSurfaces} zawierają wszystkie możliwe utwardzone oraz nieutwardzone rodzaje nawierzchni zgodnie z tabelą \ref{table:rodzaje-nawierzchni} z rozdziału \ref{chapter:wyznaczenie-twardosc}. Na tej podstawie w liniach 4-7 wyznaczana jest procentowa twardość nawierzchni utworzonej trasy. 
 W przypadku gdy nie uda się ustalić twardość nawierzchni (na przykład gdy połączenie z zewnętrznym serwisem zakończy się niepowodzeniem) twardość trasy zostaje ustalona jako wartość zmiennej \textit{DefaultSurfacePavement} wynosząca 50\%.
-\begin{lstlisting}[caption={Wyznaczenie poziomu terenu},label=listing:twardosc-nawierzchni]
+\begin{lstlisting}[caption={Wyznaczenie twardości nawierzchni},label=listing:twardosc-nawierzchni]
 public async Task<int> ResolveRouteSurfaceTypeAsync(Route route)
 {
   var tags = (await GetSurfaceTypesAsync(route.Checkpoints)).ToList();
@@ -394,7 +394,7 @@ public async Task<int> ResolveRouteSurfaceTypeAsync(Route route)
 
 \subsection{Brak połączenia z serwerem po zakończonym treningu}
 Może zdarzyć się, że nie uda się zapisać treningu użytkownika, ponieważ urządzenie nie miało dostępu do internetu lub nastąpiła awaria serwera. W takim wypadku użytkownik utraciłby swoją próbę. Aby tego uniknąć, w momencie gdy nie uda się nawiązać połączenia z serwerem, dane o treningu w formacie JSON oraz adres pod który miały być wysłane zapisywane są w pamięci urządzenia. Dzięki temu możliwe jest podjęcie ponownej próby wysłania zaległych danych. Proces ten został przedstawiony na listingu \ref{listing:overdue-data}. Metoda \textit{ProcessOverdueData} wywoływana jest przy każdym uruchomieniu aplikacji. Z pamięci urządzenia pobierane są wszystkie zaległe treningi, a następnie po raz kolejny wysłane do części serwerowej aplikacji w metodzie wywoływanej w linii numer 6 listingu. W przypadku powodzenia tej operacji, trening jest usuwany z lokalnej bazy danych.
-\begin{lstlisting}[caption={Wyznaczenie poziomu terenu},label=listing:overdue-data]
+\begin{lstlisting}[caption={Obsługa zaległych danych},label=listing:overdue-data]
 public async Task ProcessOverdueData()
 {
     var dataToSend = _userLocalRepository.GetDataToSend();

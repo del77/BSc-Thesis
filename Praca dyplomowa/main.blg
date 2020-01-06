@@ -1,0 +1,78 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/W32TeX)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: main.aux
+The style file: plain.bst
+Database file #1: sample.bib
+Warning--to sort, need author or key in android
+Warning--to sort, need author or key in xamarin_docs_real
+Warning--to sort, need author or key in gpsgov
+Warning--to sort, need author or key in baidu1
+Warning--to sort, need author or key in haversine
+Warning--to sort, need author or key in googlemaps
+Warning--to sort, need author or key in fakegps
+Warning--to sort, need author or key in czujniki
+Warning--to sort, need author or key in googleplay
+Warning--to sort, need author or key in endomondo
+Warning--to sort, need author or key in strava
+Warning--to sort, need author or key in mapmyrun
+Warning--to sort, need author or key in osm
+Warning--to sort, need author or key in osm-docs-wiki
+Warning--to sort, need author or key in osm-surface
+Warning--to sort, need author or key in visual-studio
+Warning--to sort, need author or key in microsoft
+Warning--to sort, need author or key in csharp
+Warning--to sort, need author or key in xamarin_docs
+Warning--to sort, need author or key in xml
+Warning--to sort, need author or key in ios
+Warning--to sort, need author or key in xamarin-forms
+Warning--to sort, need author or key in xamarin-native
+Warning--to sort, need author or key in sql
+Warning--to sort, need author or key in google-maps
+Warning--to sort, need author or key in google-maps-pricing
+Warning--to sort, need author or key in osm-gather-data
+Warning--to sort, need author or key in geography-type
+Warning--to sort, need author or key in geography-type2
+Warning--to sort, need author or key in onmapready
+Warning--to sort, need author or key in resources
+You've used 35 entries,
+            2118 wiz_defined-function locations,
+            609 strings with 8031 characters,
+and the built_in function-call counts, 6088 in all, are:
+= -- 605
+> -- 59
+< -- 0
++ -- 43
+- -- 8
+* -- 186
+:= -- 750
+add.period$ -- 106
+call.type$ -- 35
+change.case$ -- 106
+chr.to.int$ -- 0
+cite$ -- 66
+duplicate$ -- 260
+empty$ -- 802
+format.name$ -- 8
+if$ -- 1488
+int.to.chr$ -- 0
+int.to.str$ -- 35
+missing$ -- 6
+newline$ -- 179
+num.names$ -- 8
+pop$ -- 344
+preamble$ -- 1
+purify$ -- 74
+quote$ -- 0
+skip$ -- 177
+stack$ -- 0
+substring$ -- 175
+swap$ -- 35
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 134
+warning$ -- 31
+while$ -- 8
+width$ -- 37
+write$ -- 322
+(There were 31 warnings)

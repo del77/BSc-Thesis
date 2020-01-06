@@ -10,8 +10,8 @@
 \contentsline {lstlisting}{\numberline {6.10}Przetworzenie pr\IeC {\'o}by u\IeC {\.z}ytkownika}{41}{lstlisting.6.10}%
 \contentsline {lstlisting}{\numberline {6.11}Wyznaczenie d\IeC {\l }ugo\IeC {\'s}ci trasy}{42}{lstlisting.6.11}%
 \contentsline {lstlisting}{\numberline {6.12}Wyznaczenie poziomu terenu}{43}{lstlisting.6.12}%
-\contentsline {lstlisting}{\numberline {6.13}Wyznaczenie poziomu terenu}{44}{lstlisting.6.13}%
-\contentsline {lstlisting}{\numberline {6.14}Wyznaczenie poziomu terenu}{45}{lstlisting.6.14}%
+\contentsline {lstlisting}{\numberline {6.13}Wyznaczenie twardo\IeC {\'s}ci nawierzchni}{44}{lstlisting.6.13}%
+\contentsline {lstlisting}{\numberline {6.14}Obs\IeC {\l }uga zaleg\IeC {\l }ych danych}{45}{lstlisting.6.14}%
 \contentsline {lstlisting}{\numberline {6.15}Przypisanie cech trasy do elementu listy}{46}{lstlisting.6.15}%
 \contentsline {lstlisting}{\numberline {6.16}Utworzenie obiektu zawieraj\IeC {\k a}cego logik\IeC {\k e} treningu}{46}{lstlisting.6.16}%
 \contentsline {lstlisting}{\numberline {6.17}Konfiguracja mapy}{47}{lstlisting.6.17}%

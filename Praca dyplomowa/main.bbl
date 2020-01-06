@@ -61,6 +61,11 @@ Język programowania {C\#}.
 \newblock \burl {https://docs.microsoft.com/en-us/dotnet/csharp/}.
 \newblock [dostęp: 06.01.2020].
 
+\bibitem{xml}
+Język {XML}.
+\newblock \burl {https://www.w3schools.com/xml/}.
+\newblock [dostęp: 06.01.2020].
+
 \bibitem{mapmyrun}
 {MapMyRun}, aplikacja wspierająca treningi.
 \newblock \burl {https://www.mapmyrun.com}.
@@ -83,7 +88,7 @@ Oficjalna dokumentacja {Xamarin}.
 
 \bibitem{gpsgov}
 Oficjalna strona systemu nawigacyjnego {GPS}, opis segmentu kosmicznego.
-\newblock \burl {https://www.gps.gov/systems/gps/space/#generations}.
+\newblock \burl {https://www.gps.gov/systems/gps/space/\#generations}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{osm-gather-data}
@@ -129,9 +134,19 @@ System operacyjny {Android}.
 \newblock \burl {https://www.android.com}.
 \newblock [dostęp: 06.01.2020].
 
+\bibitem{ios}
+System operacyjny {iOS}.
+\newblock \burl {https://www.apple.com/pl/ios/ios-13/}.
+\newblock [dostęp: 06.01.2020].
+
 \bibitem{visual-studio}
 Visual {Studio}, zintegrowane środowisko programistyczne.
 \newblock \burl {https://visualstudio.microsoft.com}.
+\newblock [dostęp: 06.01.2020].
+
+\bibitem{xamarin-forms}
+{Xamarin Forms}, budowanie między platformowych interfejsów.
+\newblock \burl {https://dotnet.microsoft.com/apps/xamarin/xamarin-forms}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{xamarin_docs}
@@ -143,6 +158,12 @@ Xamarin, technologia pozwalająca tworzyć aplikacje mobilne.
 {Xamarin.Android}, internacjonalizacja aplikacji.
 \newblock \burl
   {https://docs.microsoft.com/en-us/xamarin/android/app-fundamentals/localization}.
+\newblock [dostęp: 06.01.2020].
+
+\bibitem{xamarin-native}
+{Xamarin.Android}, tworzenie natywnych apikacji dla systemu android.
+\newblock \burl
+  {https://docs.microsoft.com/pl-pl/xamarin/android/index?WT.mc_id=docs-dotnet-xamarin}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{ksiazka-sql}
