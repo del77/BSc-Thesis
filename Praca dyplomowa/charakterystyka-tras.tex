@@ -1,10 +1,10 @@
 \chapter{Tworzenie i charakterystyka tras}\label{chap:charakterystyka-tras}
-Tworzenie trasy polega na zapisaniu w systemie pozycji, ustalonych przy użyciu nawigacji satelitarnej, na których użytkownik znajdował się w trakcie treningu tak jak zostało to pokazane na rysunku przedstawiającym fragment utworzonej trasy \ref{image:mapka_fragment_trasy}, na którym linią ciągłą zaznaczono rzeczywistą trasę pokonaną przez biegacza, a kropkami reprezentację trasy zapisaną w systemie. Zapamiętywane są tylko te punkty, które znajdują się w odległości nie mniejszej niż 10 metrów od swojego poprzednika. Zaproponowana minimalna odległość pomiędzy punktami, pozwoli na osiągnięcie dostatecznie dokładnego przebiegu trasy, przy jednoczesnym zapobiegnięciu wystąpienia problemu, opisanego w rozdziale \ref{chap:wahania-pozycji}.
+Tworzenie trasy polega na zapisaniu ustalonych przy użyciu nawigacji satelitarnej pozycji, na których użytkownik znajdował się w trakcie trwania treningu. Działanie to zostało pokazane na rysunku \ref{image:mapka_fragment_trasy}, przedstawiającym fragment utworzonej trasy. Linią ciągłą zaznaczono rzeczywistą trasę pokonaną przez biegacza, a kropkami reprezentację trasy zapisaną w systemie. Zapamiętywane są tylko te punkty, które znajdują się w odległości nie mniejszej niż 15 metrów od swojego poprzednika. Zaproponowana minimalna odległość pomiędzy punktami, pozwoli na osiągnięcie dostatecznie dokładnego przebiegu trasy, przy jednoczesnym zapobiegnięciu wystąpienia problemu, opisanego w rozdziale \ref{chap:wahania-pozycji}.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics{img/mapka_fragment_trasy.png}
-\caption{Fragment utworzonej trasy. [Opracowanie własne]}\label{image:mapka_fragment_trasy}
+\caption{Fragment utworzonej trasy [Opracowanie własne]}\label{image:mapka_fragment_trasy}
 \end{center}
 \end{figure}
 
@@ -19,7 +19,7 @@ Do każdej trasy mogą zostać przypisane 3 cechy.
 \item{Rosnący} - gdy wysokość nad poziomem morza wzrasta,
 \item{Malejący} - gdy wysokość nad poziomem morza maleje.
 \end{itemize}
-\item{\textbf{Twardość nawierzchni}} - Wyraża jaka część całej trasy przebiega przez nawierzchnię utwardzoną (na przykład asfalt lub kostka brukowa) w stosunku do nawierzchni nieutwardzonej (na przykład piasek lub trawa). Wartość wyrażona jest w procentach. Przykładowo wartość 60\% dla trasy o dystansie 10 kilometrów oznacza, że 6 kilometrów prowadzi przez nawierzchnię utwardzoną, a 4 kilometry przez nieutwardzoną.
+\item{\textbf{Twardość nawierzchni}} - Wyraża jaka część całej trasy przebiega przez nawierzchnię utwardzoną (na przykład asfalt lub kostkę brukową) w stosunku do nawierzchni nieutwardzonej (na przykład piasek lub trawę). Wartość wyrażona jest w procentach. Przykładowo wartość 60\% dla trasy o dystansie 10 kilometrów oznacza, że 6 kilometrów prowadzi przez nawierzchnię utwardzoną, a 4 kilometry przez nieutwardzoną.
 \end{itemize}
 \section{Przypisanie cech do trasy}\label{chap:przypisanie-cech}
 \subsection{Długość trasy}
@@ -29,13 +29,13 @@ Długość trasy przypisywana jest bezpośrednio po ukończeniu treningu. Jej wy
 Określenie poziomu terenu odbywa się poprzez obliczenie różnicy wysokości nad poziomem morza pomiędzy punktem rozpoczynającym oraz kończącym trasę i przypisanie odpowiednio poziomu:
 \begin{itemize}
 \item{\textbf{wyrównanego}} - gdy różnica nie przekracza 10\%,
-\item{\textbf{rosnącego}} - gdy wysokość punktu końcowego jest większa od wysokości punktu początkowego o więcej niż 10\%,
-\item{\textbf{malejącego}} - gdy wysokość punktu początkowego jest większa od wysokości punktu końcowego o więcej niż 10\%.
+\item{\textbf{rosnącego}} - gdy wysokość punktu końcowego przewyższa wysokość punktu początkowego o więcej niż 10\%,
+\item{\textbf{malejącego}} - gdy wysokość punktu początkowego przewyższa wysokość punktu końcowego o więcej niż 10\%.
 \end {itemize}
 Należy mieć na uwadze, że w przypadku wystąpienia problemu opisanego w rozdziale \ref{chap:problem-poziom-terenu}, cecha ta będzie musiała zostać ustalona przez użytkownika.
 
 \subsection{Twardość nawierzchni}\label{chapter:wyznaczenie-twardosc}
-W celu umożliwienia automatycznego przypisania twardość nawierzchni, posłużono się serwisem OpenStreetMap \cite{osm}. Narzędzie to pozwala scharakteryzować podłoże ustalonego przez klienta obszaru. Musi on być zdefiniowany w formie prostokąta, a odbywa się to poprzez dostarczenie serwisowi współrzędnych geograficznych jego lewej dolnej oraz prawej górnej krawędzi. Zdefiniowane przykładowego obszaru zostało pokazane na rysunku \ref{image:mapka_obszar}. Kropkami oznaczono podane współrzędne geograficzne, natomiast linia ciągła definiuje obszar, który zostanie poddany analizie. W odpowiedzi klient otrzymuje charakterystykę wszystkich dróg, które znalazły się w zdefiniowanym obszarze \cite{osm-docs-wiki}. Rodzaj nawierzchni nie jest zwracany w formie „utwardzona” bądź „nieutwardzona”, lecz w formie sprecyzowanej, na przykład „asfalt” lub „trawa”, dlatego pierwszym krokiem którego trzeba się podjąć po otrzymaniu odpowiedzi, jest przyporządkowanie etykiety  „utwardzona” bądź „nieutwardzona” dla każdego z otrzymanych obiektów. Przyporządkowanie wszystkich możliwych do otrzymania rodzajów nawierzchni zostało pokazane w tabeli \ref{table:rodzaje-nawierzchni} \cite{osm-surface}.
+W celu umożliwienia automatycznego przypisania twardości nawierzchni, posłużono się serwisem OpenStreetMap \cite{osm}. Narzędzie to pozwala scharakteryzować podłoże ustalonego przez klienta obszaru. Musi on być zdefiniowany w formie prostokąta, a odbywa się to poprzez dostarczenie serwisowi współrzędnych geograficznych jego lewej dolnej oraz prawej górnej krawędzi. Zdefiniowane przykładowego obszaru zostało pokazane na rysunku \ref{image:mapka_obszar}. Kropkami oznaczono podane współrzędne geograficzne, natomiast linia ciągła definiuje obszar, który zostanie poddany analizie. W odpowiedzi klient otrzymuje charakterystykę wszystkich dróg, które znalazły się w zdefiniowanym obszarze \cite{osm-docs-wiki}. Rodzaj nawierzchni nie jest zwracany w formie „utwardzona” bądź „nieutwardzona”, lecz w formie sprecyzowanej, na przykład „asfalt” lub „trawa”, dlatego pierwszym krokiem którego trzeba się podjąć po otrzymaniu odpowiedzi, jest przyporządkowanie etykiety  „utwardzona” bądź „nieutwardzona” dla każdego z otrzymanych obiektów. Przyporządkowanie wszystkich możliwych do otrzymania rodzajów nawierzchni zostało pokazane w tabeli \ref{table:rodzaje-nawierzchni} \cite{osm-surface}.
 
 \begin{figure}[h]\label{fig:miary}
 \begin{center}

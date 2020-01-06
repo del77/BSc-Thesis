@@ -15,33 +15,33 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Core.Model.RankingRecord">
-    <Position X="7.25" Y="3" Width="2.5" />
+    <Position X="8.5" Y="3" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAABAAgABAAAAAAAAQAAAAAAAAAAAAACAAAAAAAABAA=</HashCode>
       <FileName>Model\RankingRecord.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Core.Model.Route">
-    <Position X="6.25" Y="0.5" Width="2.5" />
+    <Position X="7.5" Y="0.5" Width="2.5" />
     <AssociationLine Name="Checkpoints" Type="Core.Model.Point">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-0.013" Y="0.067" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AgACAAAAgAAAAEAAAAAAAAAAAAAAAAAAAAAAABACAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAABACAAA=</HashCode>
       <FileName>Model\Route.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Properties" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Ranking" />
       <Property Name="Checkpoints" />
+      <Property Name="Ranking" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Core.Model.RouteProperties">
-    <Position X="10.75" Y="0.5" Width="2" />
+    <Position X="11" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgAAAAAAQAAAAAAABAAAAAAQAAAAA=</HashCode>
       <FileName>Model\RouteProperties.cs</FileName>
@@ -51,14 +51,21 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Core.Model.UserData">
-    <Position X="3.5" Y="4.25" Width="2" />
+    <Position X="3.25" Y="4.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
       <FileName>Model\UserData.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Core.Model.RoutesFilterQuery">
+    <Position X="5.75" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AABAACQAAAAAAAAAAAAAAAAQAAAAAAAAAAJACAAEAAA=</HashCode>
+      <FileName>Model\RoutesFilterQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="Core.Model.TerrainLevel">
-    <Position X="11" Y="3" Width="1.5" />
+    <Position X="11.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
       <FileName>Model\RouteProperties.cs</FileName>

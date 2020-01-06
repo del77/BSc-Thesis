@@ -31,6 +31,7 @@
 \documentclass[a4paper,onecolumn,twoside,12pt]{mwrep}
 
 \usepackage{algorithm}
+\usepackage{url}
 \usepackage{tikz}
 \usepackage{hhline}
 \usepackage{fixltx2e}
@@ -42,6 +43,8 @@
 \usepackage{times}
 \usepackage[utf8x]{inputenc}
 \usepackage[export]{adjustbox}
+\usepackage{hyperref}
+\usepackage{breakurl}
 \usepackage[T1]{fontenc}
 %\usepackage[polish]{babel}
 \usepackage{polski}
@@ -55,7 +58,7 @@
 \usepackage{array, makecell} %
 \usepackage{tabularx}
     \newcolumntype{L}{>{\raggedright\arraybackslash}X}
-
+\def\UrlBreaks{\do\/\do-}
 \definecolor{bluekeywords}{rgb}{0.13,0.13,1}
 \definecolor{greencomments}{rgb}{0,0.5,0}
 \definecolor{redstrings}{rgb}{0.9,0,0}

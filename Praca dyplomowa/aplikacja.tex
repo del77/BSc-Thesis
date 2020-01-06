@@ -1,12 +1,12 @@
 \chapter{Dokumentaja techniczna}\label{chap:dokumentacja-techniczna}
-Niniejszy rozdział stanowi objaśnienie, w jaki sposób system został stworzony. Zawiera opis wymagań oraz szczegóły implementacyjne dotyczące budowy poszczególnych warstw przy wykorzystaniu technologii opisanych w rozdziale \ref{chap:zastosowane-technologie}.
+Niniejszy rozdział stanowi objaśnienie, w jaki sposób został stworzony system. Zawiera opis wymagań oraz szczegóły implementacyjne dotyczące budowy poszczególnych warstw przy wykorzystaniu technologii opisanych w rozdziale \ref{chap:zastosowane-technologie}.
 \section{Projekt systemu}
 \subsection{Opis założeń}
-moja-aplikacja składa się z aplikacji przeznaczonej na urządzenia z systemem Android \cite{android} oraz wspierającej ją aplikacji webowej. Komunikacja pomiędzy nimi odbywa się poprzez protokół HTTP (\textit{Hypertext Transfer Protocol}), a sam interfejs aplikacji serwerowej został wykonany w stylu \textbf{REST} (\textit{Representational state transfer}). Oznacza to między innymi, że konkretny zasób na serwerze jest identyfikowany na podstawie przypisanego mu URI (\textit{Uniform Resource Identifier}), a użytkownik odpytujący serwer jest identyfikowany na podstawie parametru zawartego w nagłówkach żądania. Wymiana danych pomiędzy obiema aplikacjami odbywa się przy pomocy formatu JSON (\textit{JavaScript Object Notation}). \cite{ksiazka-asp-core}
+System składa się z aplikacji przeznaczonej na urządzenia z systemem Android \cite{android} oraz wspierającej ją aplikacji webowej. Komunikacja pomiędzy nimi odbywa się poprzez protokół HTTP (\textit{Hypertext Transfer Protocol}), a sam interfejs aplikacji serwerowej został wykonany w stylu \textbf{REST} (\textit{Representational state transfer}). Oznacza to między innymi, że konkretny zasób na serwerze jest identyfikowany na podstawie przypisanego mu URI (\textit{Uniform Resource Identifier}), a użytkownik odpytujący serwer jest identyfikowany na podstawie parametru zawartego w nagłówkach żądania. Wymiana danych pomiędzy obiema aplikacjami odbywa się przy pomocy formatu JSON (\textit{JavaScript Object Notation}). \cite{ksiazka-asp-core}
 
 \subsubsection{Aplikacja mobilna powinna:}
 \begin{itemize}
-\item{Wspierać wieloplatformość} - zastosowana architektura powinna oddzielać logikę biznesową aplikacji od interfejsu graficznego. W efekcie dzięki zastosowaniu technologii Xamarin, przeniesienie aplikacji na inny mobilny system operacyjny powinno ograniczać się do zbudowania jedynie widoku przeznaczonego pod ten system.
+\item{Wspierać wieloplatformość} - zastosowana architektura powinna oddzielać logikę biznesową aplikacji od interfejsu graficznego. W efekcie dzięki zastosowaniu technologii Xamarin, przeniesienie aplikacji na inny mobilny system operacyjny powinno ograniczać się do zbudowania jedynie widoku przeznaczonego dla tego systemu.
 \item{Pozwalać użytkownikom tworzyć trasy, a także umożliwiać manualne lub automatyczne określenie ich cech.}
 \item{Pozwalać przeglądać trasy na podstawie zdefiniowanych przez użytkownika kryteriów wyszukiwania.}
 \item{Pozwalać na przeprowadzenie treningu na wybranej trasie wraz z elementem wirtualnej rywalizacji.}
@@ -24,11 +24,11 @@ moja-aplikacja składa się z aplikacji przeznaczonej na urządzenia z systemem 
 \subsection{Podział projektu}
 Dzięki skorzystaniu z technologii umożliwiającej tworzenie aplikacji mobilnych, aplikacji serwerowych oraz zintegrowanego środowiska programistycznego pochodzącego od jednego producenta, możliwe było tworzenie obu aplikacji w ramach pojedynczego rozwiązania (ang. \textit{solution}). Pozwoliło to na pisanie kodu źródłowego, kompilowanie oraz uruchamianie w trybie debugowania obu aplikacji w jednym momencie. Nie było więc potrzeby korzystania z dwóch różnych środowisk programistycznych jednocześnie, co okazało się bardzo znaczącym udogodnieniem w kontekście wydajnościowym.
 
-Stworzona solucja zawiera następujące projekty:
+Stworzona solucja składa się z następujących projektów:
 \begin{itemize}
 \item{Api} - zawiera część serwerową systemu.
-\item{Core} - zawiera logikę biznesową oraz model danych części aplikacji mobilnej systemu.
-\item{MobileAndroid} - zawiera kod interfejs użytkownika aplikacji przeznaczonej na system operacyjny Android.
+\item{Core} - zawiera logikę biznesową oraz model danych aplikacji mobilnej.
+\item{MobileAndroid} - zawiera interfejs użytkownika aplikacji przeznaczonej na system operacyjny Android.
 \end{itemize}
 Rozdzielenie logiki biznesowej oraz modelu danych od widoku aplikacji mobilnej sprawia, że dodanie wsparcia dla dodatkowych mobilnych systemów operacyjnych ogranicza się do stworzenia w solucji nowego projektu zawierającego jedynie interfejs użytkownika oraz wykorzystanie projektu Core do jego obsługi.
 
@@ -48,7 +48,7 @@ Przed zbudowaniem aplikacji serwerowej należy ustawić w pliku konfiguracyjnym 
 Następnie należy wykonać polecenie \textit{dotnet build}. Spowoduje ono pobranie potrzebnych zależności oraz zbudowanie projektu. Ostatnim krokiem jest wywołanie polecenia \textit{dotnet ef database update} w celu stworzenia bazy danych i potrzebnych tabel.
 
 \subsubsection{Aplikacja mobilna}
-Przed zbudowaniem aplikacji mobilnej należy ustawić wartość zmiennej \textit{ApiBaseAddress} w klasie \textit{WebRepositoryBase} znajdującej się w projekcie \textit{Core} w przestrzeni nazw \textit{Repositories.Web}. Przechowuje ona adres pod jakim znajduje się uruchomiona instancja części serwerowej systemu. Pod zdefiniowany adres będą więc kierowane wszystkie zapytania HTTP wychodzące z aplikacji mobilnej. Przykładowo zdefiniowany adres przedstawiono na listingu \ref{listing:webrepobase}.
+Przed zbudowaniem aplikacji mobilnej należy ustawić wartość zmiennej \textit{ApiBaseAddress} w klasie \textit{WebRepositoryBase} znajdującej się w projekcie \textit{Core} w przestrzeni nazw \textit{Repositories.Web}. Przechowuje ona adres pod jakim znajduje się uruchomiona instancja części serwerowej systemu. Pod zdefiniowany adres będą kierowane dane o zakończonych treningach oraz zapytania o wyszukanie tras. Przykładowo zdefiniowany adres przedstawiono na listingu \ref{listing:webrepobase}.
 
 \begin{lstlisting}[caption={Klasa zawierająca adres aplikacji serwerowej},label=listing:webrepobase]
 public abstract class WebRepositoryBase
@@ -98,7 +98,7 @@ Z racji podobieństwa do modelu danych zawartego w aplikacji mobilnej, który op
 \end{center}
 \end{figure}
 
-Jak widać na diagramie \ref{image:api_model} w modelu aplikacji serwerowej istnieje klasa \textit{User}. Reprezentuje ona konto użytkownika w systemie. Powiązanie tej klasy z klasą reprezentującą próbę na trasie, pozwala określić do którego z użytkowników należy konkretny wynik.
+Jak widać na diagramie \ref{image:api_model} w modelu aplikacji serwerowej istnieje klasa \textit{User}. Reprezentuje ona konto użytkownika w systemie. Powiązanie tej klasy z klasą reprezentującą próbę na trasie pozwala określić, do którego z użytkowników należy konkretny wynik.
 
 Współrzędne punktów trasy zapisywane przy użyciu typu danych \textit{Point}. Należy zaznaczyć, że nie jest to typ stworzony w ramach modelu danych, lecz należącą do przestrzeni nazw \textit{NetTopologySuite.Geometries}, występującą w środowisku .NET reprezentacją typu \textit{geography} istniejącego w systemie zarządzania bazą danych SQL Server. \textit{Geography} pozwala na przechowywanie współrzędnych geograficznych punktu (wraz z wysokością nad poziomem morza) w jednej kolumnie tabeli bazodanowej. \cite{geography-type}
 
@@ -138,7 +138,7 @@ Konfiguracja pozwoliła na utworzenie następujących relacji:
 \end{itemize}
 Dzięki instrukcji z linii numer 7 dane z klas \textit{Route} oraz \textit{RouteProperties} zostały umieszczone w jednej tabeli. Pozwoliło to na uniknięcie łączenia tabel podczas pobierania danych. Typy wyliczeniowe nie wymagają osobnej tabeli i są przechowywane w postaci liczb, dlatego nie było potrzeby tworzenia dodatkowej struktury dla cechy \textit{poziom terenu}.
 
-Warto zauważyć, że czasy osiągane na punktach kontrolnych są przechowywane jako łańcuch znaków (\textit{string}). Pozwoliło to uniknąć tworzenia dodatkowej tabeli i relacji jeden do wielu z tabelą reprezentującą klasę \textit{RankingRecord}. Mapowanie pomiędzy kolekcją a łańcuchem znaków odbywa się w klasie \textit{AutomapperConfig} znajdującej się w przestrzeni nazw \textit{Api.Mappers} i zostało przedstawione na listingu \ref{listing:collection-string-mapping}.
+Warto zauważyć, że czasy osiągane na punktach kontrolnych są przechowywane jako łańcuch znaków (\textit{string}). Pozwoliło to uniknąć tworzenia dodatkowej tabeli i relacji \textit{jeden do wielu} z tabelą reprezentującą klasę \textit{RankingRecord}. Mapowanie pomiędzy kolekcją a łańcuchem znaków odbywa się w klasie \textit{AutomapperConfig} znajdującej się w przestrzeni nazw \textit{Api.Mappers} i zostało przedstawione na listingu \ref{listing:collection-string-mapping}.
 \begin{lstlisting}[caption={Mapowanie pomiedzy kolekcją a łańcuchem znaków},label=collection-string-mapping]
 public static IMapper Initialize()
     => new MapperConfiguration(cfg =>
@@ -181,7 +181,7 @@ if (query.SurfaceLevel > 0)
 \caption{Diagram sekwencji procesu wyszukiwania tras [Opracowanie własne]}\label{image:sekwencja_wyszukiwanie}
 \end{center}
 \end{figure}
-Po pobraniu danych z bazy danych, w klasie \textit{RoutesService} z przestrzeni nazw \textit{Api.Services} aplikacji serwerowej punkty kontrolne każdej trasy są sortowane według własciwości \textit{Number}, tak aby ich kolejność w kolekcji odpowiadała kolejności, którą powinny zajmować na trasie. Oprócz tego pozycje rankingowe są sortowane według właściwości \textit{FinalResult}, dzięki czemu w momencie przejścia do szczegółów trasy, użytkownik widzi jej końcowy ranking. Po przesłaniu danych o trasach z aplikacji serwerowej do aplikacji mobilnej, w klasie \textit{RoutesService} znajdującej się przestrzeni nazw \textit{Core.Services}, odbywa się aktualizacja właściwości \textit{IsMine}. Proces ten został pokazany na listingu \ref{listing:ismine}. Dzięki temu w interfejsie użytkownika możliwe jest wyróżnienie wyniku, który należy do biegacza.
+Po pobraniu danych z bazy danych, w klasie \textit{RoutesService} z przestrzeni nazw \textit{Api.Services} aplikacji serwerowej, punkty kontrolne każdej trasy są sortowane według właściwości \textit{Number}, tak aby ich kolejność w kolekcji odpowiadała kolejności, którą powinny zajmować na trasie. Oprócz tego pozycje rankingowe są sortowane według właściwości \textit{FinalResult}, dzięki czemu w momencie przejścia do szczegółów trasy, użytkownik widzi jej końcowy ranking. Po przesłaniu danych o trasach z aplikacji serwerowej do aplikacji mobilnej, w klasie \textit{RoutesService} znajdującej się przestrzeni nazw \textit{Core.Services}, odbywa się aktualizacja właściwości \textit{IsMine}. Proces ten został pokazany na listingu \ref{listing:ismine}. Dzięki temu w interfejsie użytkownika możliwe jest wyróżnienie wyniku, który należy do biegacza korzystającego z aplikacji.
 \begin{lstlisting}[caption={Aktualizacja właściwości IsMine klasy Route},label=listing:ismine]
 private void MarkUserRoute(Route route)
 {
@@ -193,7 +193,7 @@ private void MarkUserRoute(Route route)
 \end{lstlisting}
 
 \subsection{Odbywanie treningu}\label{chap:trening}
-Implementacje treningu, który tworzy nową trasę jak i trening przeprowadzany w ramach istniejącej trasy, który zawiera w sobie dodatkowo element wirtualnej rywalizacji zawierają wspólną logikę, dlatego tak jak widać na rysunku \ref{image:trening-diagram}, skorzystano z mechanizmu dziedziczenia. Należy zwrócić uwagę, że klasy te zawierają kilka pól typu \textit{Action}. Dzięki nim możliwe jest aktualizowanie interfejsu użytkownika z poziomu metody klasy należącej do logiki biznesowej. W przypadku stworzenia aplikacji mobilnej przeznaczonej na inny system operacyjny, wystarczy przekazać odpowiednie implementacje metod odpowiedzialnych za aktualizację interfejsu użytkownika, a zostaną one wywołane. 
+Zarówno implementacja treningu który tworzy nową trasę, jak i treningu przeprowadzanego w ramach istniejącej trasy, który zawiera w sobie dodatkowo element wirtualnej rywalizacji, posiadają wspólną logikę, dlatego tak jak widać na rysunku \ref{image:trening-diagram}, skorzystano z mechanizmu dziedziczenia. Należy zwrócić uwagę, że klasy te zawierają kilka pól typu \textit{Action}. Dzięki nim możliwe jest aktualizowanie interfejsu użytkownika z poziomu metody klasy należącej do logiki biznesowej. W przypadku stworzenia aplikacji mobilnej przeznaczonej na inny system operacyjny, wystarczy przekazać odpowiednie implementacje metod odpowiedzialnych za aktualizację interfejsu użytkownika, a zostaną one wywołane. 
 
 Metody \textit{Start} oraz \textit{Stop} służą do odpowiednio do rozpoczęcia i zakończenia treningu. Zawierają one logikę odpowiedzialną za dodanie obecnej próby użytkownika do rankingu oraz uruchomienie i zatrzymanie stopera. Dzięki stoperowi za każdym razem gdy upłynie jedna sekunda, aktualizowany jest interfejs użytkownika oraz wywoływana jest metoda \textit{ProcessUserLocation}, której implementacja zależna jest od typu treningu.
 \begin{figure}[h]\label{fig:asdl}
@@ -203,7 +203,7 @@ Metody \textit{Start} oraz \textit{Stop} służą do odpowiednio do rozpoczęcia
 \end{center}
 \end{figure}
 \subsubsection{Trening tworzący trasę}
-Za logikę obsługującą trening na nowej trasie odpowiada klasa \textit{InitialTraining}. Za każdym razem gdy wywołana zostanie metoda \textit{ProcessUserLocation}, podejmowana jest próba dodania do tworzonej trasy nowego punktu kontrolnego na podstawie obecnej pozycji biegacza. Aby punkt mógł zostać dodany, użytkownik musi znajdować się w pozycji nie mniejszej niż 10 metrów od ostatnio utworzonego punktu kontrolnego. Prawdziwość tego warunku jest sprawdzana w linii numer 6, 7 i 8 na listingu \ref{listing:add-point-initial}. Działanie ma to na celu uniknięcie problemu opisanego w rozdziale \ref{chap:wahania-pozycji}, którego wystąpienie spowodowałoby utworzenie skupiska punktów kontrolnych oddalonych od siebie o kilka metrów. Wyznaczenie odległości pomiędzy aktualną pozycją użytkownika, a ostatnio utworzonym punktem kontrolnym obliczana jest za pomocą formuły Haversine przytoczonej w rozdziale \ref{chap:haversine}. Jej implementacja została pokazana na listingu \ref{listing:haversine}. Współrzędne odczytywane są w stopniach, dlatego przed obliczeniem odległości, konieczne było wyznaczenie ich wartości w radianach.
+Za logikę obsługującą trening na nowej trasie odpowiada klasa \textit{InitialTraining}. Za każdym razem gdy wywołana zostanie metoda \textit{ProcessUserLocation}, podejmowana jest próba dodania do tworzonej trasy nowego na podstawie obecnej pozycji biegacza. Aby punkt mógł zostać dodany, użytkownik musi znajdować się w pozycji nie mniejszej niż 15 metrów od ostatnio utworzonego punktu kontrolnego. Prawdziwość tego warunku jest sprawdzana w liniach numer 6, 7 i 8 na listingu \ref{listing:add-point-initial}. Działanie ma to na celu uniknięcie problemu opisanego w rozdziale \ref{chap:wahania-pozycji}, którego wystąpienie spowodowałoby utworzenie skupiska punktów oddalonych od siebie o kilka metrów. Wyznaczenie odległości pomiędzy aktualną pozycją użytkownika, a ostatnio utworzonym punktem kontrolnym obliczana jest za pomocą \textit{formuły haversine} przytoczonej w rozdziale \ref{chap:haversine}. Jej implementacja została pokazana na listingu \ref{listing:haversine}. Współrzędne odczytywane są w stopniach, dlatego przed obliczeniem odległości, konieczne było wyznaczenie ich wartości w radianach.
 \begin{lstlisting}[caption={Wyznaczenie odległości pomiędzy dwoma punktami},label=listing:haversine]
 public static double HaversineKilometersDistance(Point point1,
 	Point point2)
@@ -246,7 +246,7 @@ protected override async void ProcessUserLocation()
 \end{lstlisting}
 Wraz z utworzeniem punktu kontrolnego, zapisywany jest także czas, który upłynął od rozpoczęcia treningu. Oznacza to, że biegacz tworzący trasę, zostaje jednocześnie pierwszym użytkownikiem dodanym do rankingu.
 
-W momencie gdy użytkownik postanawia zakończyć trening, wywołana zostaje metoda \textit{Stop}. Oprócz bazowej implementacji tej metody, zostaje także wykonany kod odpowiedzialny za utworzenie ostatniego punktu kontrolnego. Jest on tworzony niezależnie od odległości do przedostatniego punktu kontrolnego, a jego pozycja odpowiada pozycji użytkownika z momentu zakończenia treningu.
+W momencie gdy użytkownik postanawia zakończyć trening, wywołana zostaje metoda \textit{Stop}. Oprócz bazowej implementacji tej metody, zostaje także wykonany kod odpowiedzialny za utworzenie ostatniego punktu kontrolnego. Dzieje się to niezależnie od odległości do przedostatniego punktu kontrolnego, a jego pozycja odpowiada pozycji użytkownika z momentu zakończenia treningu.
 
 \subsubsection{Trening na zapisanej trasie oraz wirtualna rywalizacja}
 Proces wirtualnej rywalizacji odbywa się wraz z rozpoczęciem treningu na stworzonej wcześniej trasie. Za obsługę obu tych elementów odpowiada klasa \textit{RaceTraining}. Metoda \textit{ProcessUserLocation} służy do zapisywania czasów, które biegacz osiągnął na każdym z punktów kontrolnych. Jej kod źródłowy został przedstawiony na listingu \ref{listing:add-point-race}.
@@ -306,7 +306,7 @@ protected override async void ProcessUserLocation()
   }
 }
 \end{lstlisting}
-Biegacz musi znajdować się w odległości nie większej niż 10 metrów od następnego w kolejności punktu kontrolnego. Gdy ten warunek zostanie spełniony, bieżący czas od rozpoczęcia treningu zostaje zapisany. Odległość pomiędzy użytkownikiem a punktem kontrolnym wyznaczana jest za pomocą formuły haversine, której implementacja znajduje się na listingu \ref{listing:haversine}. Za każdym razem gdy punkt kontrolny zostanie osiągnięty, aktualizowany jest ranking. Odbywa się to poprzez posortowanie kolekcji \textit{Ranking} znajdującej się w instancji klasy \textit{Route} względem wartości, która reprezentuje czas osiągnięty przez wszystkich użytkowników na punkcie kontrolnym. Oprócz faktu, że pozycje w rankingu wyświetlonym na ekranie urządzenia zmieniają się wraz z trwaniem biegu, odtwarzane są komunikaty głosowe. Logika odpowiadająca za ten proces znajduje się w liniach 32-47 listingu \ref{listing:add-point-race} i jest implementacją warunków opisanych w rozdziale \ref{chap:zasada-tts}.
+Biegacz musi znajdować się w odległości nie większej niż 10 metrów od następnego w kolejności punktu kontrolnego. Gdy ten warunek zostanie spełniony, bieżący czas od rozpoczęcia treningu zostaje zapisany. Odległość pomiędzy użytkownikiem a punktem kontrolnym wyznaczana jest za pomocą \textit{formuły haversine}, której implementacja znajduje się na listingu \ref{listing:haversine}. Za każdym razem gdy punkt kontrolny zostanie osiągnięty, aktualizowany jest ranking. Odbywa się to poprzez posortowanie kolekcji \textit{Ranking} znajdującej się w instancji klasy \textit{Route} względem wartości, która reprezentuje czas osiągnięty przez wszystkich użytkowników na punkcie kontrolnym. Oprócz faktu, że pozycje w rankingu wyświetlonym na ekranie urządzenia zmieniają się wraz z trwaniem biegu, odtwarzane są komunikaty głosowe. Logika odpowiadająca za ten proces znajduje się w liniach 32-47 listingu \ref{listing:add-point-race} i jest implementacją warunków opisanych w rozdziale \ref{chap:zasada-tts}.
 
 W momencie gdy zostaną osiągnięte wszystkie punkty kontrolne, trening jest automatycznie zakańczany, a próba użytkownika jest poddawana przetworzeniu. Scenariusz ten realizują linie 15-26 listingu \ref{listing:add-point-race}. Proces przetworzenia próby jest implementacją warunków opisanych w rozdziale \ref{chapter:sposob-rywalizacji} i został przedstawiony na listingu \ref{listing:przetworzenie-proby}.
 \begin{lstlisting}[caption={Przetworzenie próby użytkownika},label=listing:przetworzenie-proby]
@@ -327,12 +327,12 @@ public void ProcessCurrentTry(Route route, RankingRecord currentTry)
         route.Ranking.Remove(currentTry);
 }
 \end{lstlisting}
-Logika ta jest wykonywana na urządzeniu mobilnym, dzięki czemu użytkownik ma możliwość sprawdzenia końcowego rankingu wirtualnej rywalizacji. Warto zaznaczyć, że próba jest także wysyłana do aplikacji serwerowej, gdzie przetwarzana jest w ten sam sposób. Ma to miejsce nawet w przypadku, gdy końcowa lokata użytkownika w rankingu na urządzeniu mobilnym nie zmieniła się. Jest to spowodowane brakiem gwarancji, że ranking zapisany w bazie danych, jest nadal w tym samym stanie, co w momencie pobrania go na urządzenie mobilne przed rozpoczęciem treningu.
+Logika ta jest wykonywana na urządzeniu mobilnym, dzięki czemu użytkownik ma możliwość sprawdzenia końcowego rankingu wirtualnej rywalizacji bezpośrednio po zakończeniu treningu. Warto zaznaczyć, że próba jest także wysyłana do aplikacji serwerowej, gdzie przetwarzana jest w ten sam sposób. Ma to miejsce nawet w przypadku, gdy końcowa lokata użytkownika w rankingu na urządzeniu mobilnym nie zmieniła się. Jest to spowodowane brakiem gwarancji, że ranking zapisany w bazie danych, jest nadal w tym samym stanie, co w momencie pobrania go na urządzenie mobilne przed rozpoczęciem treningu.
 
 \subsection{Automatyczne przypisywanie cech do trasy}
 Logikę odpowiedzialną za automatyczne przypisywanie cech umieszczono w klasie \textit{RoutesService}, która znajduje się w przestrzeni nazw \textit{Core.Services}. Została zaimplementowana zgodnie z opisem zawartym w rozdziale \ref{chap:przypisanie-cech}.
 \subsubsection{Długość trasy}
-Wyznaczenie długości polega na zsumowaniu odległości pomiędzy wszystkimi punktami trasy przy pomocy formuły haversine, której implementację pokazano na listingu \ref{listing:haversine}.
+Wyznaczenie długości polega na zsumowaniu odległości pomiędzy wszystkimi punktami trasy przy pomocy \textit{formuły haversine}, której implementację pokazano na listingu \ref{listing:haversine}.
 \begin{lstlisting}[caption={Wyznaczenie długości trasy},label=listing:dlugosc-trasy]
 public void CalculateRouteDistance(Route route)
 {
@@ -348,7 +348,7 @@ public void CalculateRouteDistance(Route route)
 \subsubsection{Poziom terenu}
 Wyznaczenie poziomu terenu zostało pokazane na listingu \ref{listing:poziom-terenu}. Wartość zmiennej \textit{terrainLevelDifferenceThresholdInPercentage} wyraża maksymalną procentową różnicę pomiędzy wysokością początkową a końcową dla której poziom terenu będzie uznany jako wyrównany. W tym przypadku wynosi ona 10\%.
 
-Ponadto poziom terenu zostanie wyznaczony jako „wyrównany”, gdy nie udało się wyznaczyć wysokości któregokolwiek z punktów.
+Ponadto poziom terenu zostanie wyznaczony jako „wyrównany”, gdy nie udało się wyznaczyć wysokości któregokolwiek z dwóch punktów.
 \begin{lstlisting}[caption={Wyznaczenie poziomu terenu},label=listing:poziom-terenu]
 private void ResolveTerrainLevel(Route route)
 {
@@ -376,7 +376,7 @@ private void ResolveTerrainLevel(Route route)
 \end{lstlisting}
 \subsubsection{Twardość nawierzchni}
 Za wyznaczenie tej cechy odpowiada klasa \textit{OsmService}. Główna metoda odpowiedzialna za to działanie została przedstawiona na listingu \ref{listing:twardosc-nawierzchni}. Metoda wywoływana w linii numer 3 listingu zajmuje się zbudowaniem odpowiedniego zapytania zgodnie z zasadami opisanymi w \cite{overpass-wiki}, wysłaniem go do serwisu OpenStreetMap \cite{osm} oraz zwróceniem otrzymanej odpowiedzi. W efekcie do zmiennej \textit{tags} zostają przypisane rodzaje nawierzchni dla każdego punktu trasy, natomiast zmienne \textit{PavedSurfaces} oraz \textit{UnpavedSurfaces} zawierają wszystkie możliwe utwardzone oraz nieutwardzone rodzaje nawierzchni zgodnie z tabelą \ref{table:rodzaje-nawierzchni} z rozdziału \ref{chapter:wyznaczenie-twardosc}. Na tej podstawie w liniach 4-7 wyznaczana jest procentowa twardość nawierzchni utworzonej trasy. 
-W przypadku gdy nie uda się ustalić twardość nawierzchni (na przykład gdy z zewnętrznego serwisu nie uda się otrzymać żadnych informacji) twardość trasy zostaje ustalona jako wartość zmiennej \textit{DefaultSurfacePavement} wynosząca 50\%.
+W przypadku gdy nie uda się ustalić twardość nawierzchni (na przykład gdy połączenie z zewnętrznym serwisem zakończy się niepowodzeniem) twardość trasy zostaje ustalona jako wartość zmiennej \textit{DefaultSurfacePavement} wynosząca 50\%.
 \begin{lstlisting}[caption={Wyznaczenie poziomu terenu},label=listing:twardosc-nawierzchni]
 public async Task<int> ResolveRouteSurfaceTypeAsync(Route route)
 {
@@ -393,7 +393,7 @@ public async Task<int> ResolveRouteSurfaceTypeAsync(Route route)
 \end{lstlisting}
 
 \subsection{Brak połączenia z serwerem po zakończonym treningu}
-Może zdarzyć się, że nie uda się zapisać treningu użytkownika, ponieważ urządzenie nie miało dostępu do internetu lub nastąpiła awaria serwera. W takim wypadku użytkownik utraciłby swoją próbę. Aby tego uniknąć, w momencie gdy nie uda się nawiązać połączenia z serwerem, dane o treningu w formacie JSON oraz adres pod który miały być wysłane zapisywane są w lokalnej bazie danych urządzenia. Następnie możliwe jest podjęcie ponownej próby wysłania zaległych danych. Proces ten został przedstawiony na listingu \ref{listing:overdue-data}. Metoda \textit{ProcessOverdueData} wywoływana jest przy każdym uruchomieniu aplikacji. Z lokalnej bazy danych pobierane są wszystkie zaległe treningi, a następnie po raz kolejny wysłane do części serwerowej aplikacji w metodzie wywoływanej w linii numer 6 listingu. W przypadku powodzenia tej operacji trening jest usuwany z lokalnej bazy danych.
+Może zdarzyć się, że nie uda się zapisać treningu użytkownika, ponieważ urządzenie nie miało dostępu do internetu lub nastąpiła awaria serwera. W takim wypadku użytkownik utraciłby swoją próbę. Aby tego uniknąć, w momencie gdy nie uda się nawiązać połączenia z serwerem, dane o treningu w formacie JSON oraz adres pod który miały być wysłane zapisywane są w pamięci urządzenia. Dzięki temu możliwe jest podjęcie ponownej próby wysłania zaległych danych. Proces ten został przedstawiony na listingu \ref{listing:overdue-data}. Metoda \textit{ProcessOverdueData} wywoływana jest przy każdym uruchomieniu aplikacji. Z pamięci urządzenia pobierane są wszystkie zaległe treningi, a następnie po raz kolejny wysłane do części serwerowej aplikacji w metodzie wywoływanej w linii numer 6 listingu. W przypadku powodzenia tej operacji, trening jest usuwany z lokalnej bazy danych.
 \begin{lstlisting}[caption={Wyznaczenie poziomu terenu},label=listing:overdue-data]
 public async Task ProcessOverdueData()
 {
@@ -410,11 +410,11 @@ public async Task ProcessOverdueData()
 \end{lstlisting}
 
 \section{Warstwa interfejsu użytkownika}
-Za warstwę interfejsu użytkownika odpowiada aplikacja przeznaczona dla systemu operacyjnego Android \cite{Android}. Aby możliwe było korzystanie z aplikacji, użytkownik musi udzielić jej pozwolenia na wykorzystanie nawigacji satelitarnej. 
+Za warstwę interfejsu użytkownika odpowiada aplikacja przeznaczona dla systemu operacyjnego Android \cite{android}. Aby możliwe było korzystanie z aplikacji, użytkownik musi udzielić jej pozwolenia na wykorzystanie nawigacji satelitarnej. 
 \subsection{Wyszukiwanie tras}
-Widok wyszukiwania tras składa się z części odpowiedzialnej za umożliwienie użytkownikowi wybranie omówionych w rozdziale \ref{chap:kryteria} kryteriów wyszukiwania oraz części która wyświetla znalezione trasy w formie listy.
+Widok wyszukiwania tras składa się z części umożliwiającej użytkownikowi wybranie omówionych w rozdziale \ref{chap:kryteria} kryteriów wyszukiwania oraz części która wyświetla znalezione trasy w formie listy.
 
-Ustalone kryteria wyszukiwania przypisywane są do instancji klasy \textit{RoutesFilterQuery}, której właściwości zostały pokazane na rysunku \ref{image:xamarin_model}, a następnie przesyłane do części serwerowej systemu. Po otrzymaniu odpowiedzi zawierającej odpowiednie trasy, następuję ich wyświetlenie. Odpowiada za to metoda z klasy \textit{RoutesAdapter}. Jej fragment został pokazany na listingu \ref{listing:adapter-trasy}.
+Ustalone kryteria wyszukiwania przypisywane są do instancji klasy \textit{RoutesFilterQuery}, której właściwości zostały pokazane na rysunku \ref{image:xamarin_model} w rozdziale \ref{chap:model-mobilna}, a następnie przesyłane do części serwerowej systemu. Po otrzymaniu odpowiedzi zawierającej odpowiednie trasy, następuję ich wyświetlenie. Odpowiada za to metoda z klasy \textit{RoutesAdapter}. Jej fragment został pokazany na listingu \ref{listing:adapter-trasy}.
 \begin{lstlisting}[caption={Przypisanie cech trasy do elementu listy},label=listing:adapter-trasy]
 var routeProperties = _routes[position].Properties;
 routeViewHolder.RouteName.Text = routeProperties.Name;
@@ -448,7 +448,7 @@ private void RemoveNextCheckpoint()
 }
 \end{lstlisting}
 \subsubsection{Obsługa mapy}
-W momencie gdy mapa zostanie załadowana, wywoływana jest metoda \textit{OnMapReady}, która pozwala programiście dokonać dodatkowej konfiguracji. Proces ten został pokazany na listingu \ref{listing:konf-mapy}. 
+W momencie gdy mapa zostanie załadowana, wywoływana jest metoda \textit{OnMapReady}, która pozwala programiście dokonać dodatkowej konfiguracji \cite{onmapready}. Proces ten został pokazany na listingu \ref{listing:konf-mapy}. 
 
 \begin{lstlisting}[caption={Konfiguracja mapy},label=listing:konf-mapy]
 _googleMap = googleMap;
@@ -463,11 +463,11 @@ MoveCameraToCurrentUserPosition();
 W tym przypadku:
 \begin{itemize}
 \item{w linii numer 3. i 4. włączono pokazywanie lokalizacji użytkownika na mapie},
-\item{w linii 6. i 7. dodano obiekt, który reprezentuje w formie narysowanej na mapie linii trasę przebytą przez użytkownika w czasie treningu},
+\item{w linii 6. i 7. dodano obiekt, który reprezentuje w formie narysowanej na mapie linii, trasę przebytą przez użytkownika w czasie treningu},
 \item{w linii 8. wykonano kod odpowiedzialny za przesunięcie i przybliżenie mapy do bieżącej lokalizacji użytkownika}.
 \end{itemize}
 \subsubsection{Wyświetlanie rankingu}
-Wraz z osiąganiem punktów kontrolnych, ranking aktualizowany jest w warstwie logiki biznesowej, dlatego w warstwie widoku wystarczy ograniczyć się do wyświetlenia tych danych w formie listy. Proces ten ma miejsce w klasie \textit{RankingAdapter}, fragment metody która tego dokonuje został przedstawiony na listingu \ref{listing:adapter}.
+Wraz z osiąganiem punktów kontrolnych, pozycje rankingu aktualizowana są w warstwie logiki biznesowej, dlatego w warstwie widoku wystarczy ograniczyć się do wyświetlenia tych danych w formie listy. Proces ten ma miejsce w klasie \textit{RankingAdapter}. Fragment metody która tego dokonuje, został przedstawiony na listingu \ref{listing:adapter}.
 
 \begin{lstlisting}[caption={Wyświetlanie rankingu},label=listing:adapter]
 var rankingRecord = _route.Ranking.ElementAt(position);
@@ -494,10 +494,10 @@ var currentTime = rankingRecord
 	.SecondsToStopwatchTimeString();
 rankingViewHolder.Time.Text = currentTime;
 \end{lstlisting}
-W tym miejscu skorzystano z właściwości \textit{IsMine} oraz \textit{IsCurrentTry} zawartych w klasie \textit{RankingRecord}. Dzięki temu możliwe było:
+Przy tej okazji skorzystano z właściwości \textit{IsMine} oraz \textit{IsCurrentTry} zawartych w klasie \textit{RankingRecord}. Dzięki temu możliwe było:
 \begin{itemize}
 \item{Wyświetlenie pseudonimu użytkownika w kolorze zielonym gdy właściwość \textit{IsMine} zawierała wartość \textit{true}. Pozycja ta reprezentowała poprzednią próbę użytkownika na trasie.}
-\item{Wyświetlenie tekstu  „bieżąca próba” w kolorze niebieskim gdy właściwość \textit{IsCurrentTry} zawierała wartość \textit{true}. Pozycja ta reprezentowała bieżącą próbe użytkownika na trasie.} 
+\item{Wyświetlenie tekstu  „bieżąca próba” w kolorze niebieskim gdy właściwość \textit{IsCurrentTry} zawierała wartość \textit{true}. Pozycja ta reprezentowała bieżącą próbę użytkownika na trasie.} 
 \item{Wyświetlenie pseudonimów innych użytkowników w kolorze czarnym w pozostałych przypadkach}.
 \end{itemize}
 
@@ -510,10 +510,10 @@ private void PlayCurrentPosition(int position)
     	.GetString(Resource.String.your_position, position)}");
 }
 \end{lstlisting}
-Jako argument metody \textit{SpeakAsync} należy podać tekst, który ma zostać odtworzony. W tym wypadku odpowiedni tekst pobierany jest z zasobu \textit{Resources}. Pozwoliło to odtworzyć wiadomość w wersji językowej zgodnej z językiem ustawionym w systemie operacyjnym.
+Jako argument metody \textit{SpeakAsync} należy podać tekst, który ma zostać odtworzony. W tym wypadku odpowiedni tekst pobierany jest z zasobu \textit{Resources}. Pozwoliło to odtworzyć wiadomość w wersji językowej zgodnej z językiem ustawionym w systemie operacyjnym \cite{resources}.
 
 \subsection{Przypisywanie cech do trasy}
-Wraz zakończeniem treningu kończącego trasę, użytkownik przenoszony jest do widoku przypisania cech do trasy. Jego układ określa plik \textit{route\textunderscore details\textunderscore filling\textunderscore view.axml}. Za automatyczne określenie cech trasy odpowiada metoda \textit{ResolveParametersButtonOnClick} klasy \textit{RouteDetailsFillingActivitiy}. Jej implementacja została pokazana na listingu \ref{listing:filling}.
+Wraz zakończeniem treningu tworzącego trasę, użytkownik przenoszony jest do widoku przypisania cech. Jego układ określa plik \textit{route\textunderscore details\textunderscore filling\textunderscore view.axml}. Za automatyczne określenie cech trasy odpowiada metoda \textit{ResolveParametersButtonOnClick} klasy \textit{RouteDetailsFillingActivitiy}. Jej implementacja została pokazana na listingu \ref{listing:filling}.
 \begin{lstlisting}[caption={Wywołanie procesu automatycznego przypisania cech trasy},label=listing:filling]
 private async void ResolveParametersButtonOnClick(object sender,
 	EventArgs e)
