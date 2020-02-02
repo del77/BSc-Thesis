@@ -8,7 +8,7 @@ Tworzenie trasy polega na zapisaniu ustalonych przy użyciu nawigacji satelitarn
 \end{center}
 \end{figure}
 
-Zawody biegowe w których biegacze biorą udział, różnią się trasami, na jakich są przeprowadzane. Ich dystans może wynosić od kilku do kilkudziesięciu kilometrów. Zawody odbywające się w mieście zwykle odbywają się na płaskiej nawierzchni asfaltowej, podczas gdy biegi organizowane w górach wymagają często od zawodników podbiegania pod jakiś szczyt górski lub zbiegania z niego. Nie inaczej jest z przygotowaniem do konkretnych zawodów. Chcąc jak najefektywniej przygotować się do startu, biegacz powinien trenować w warunkach zbliżonych do tych, które może spotkać na zawodach. Z tego względu aplikacja tworzona w ramach niniejszej pracy umożliwia użytkownikom wyszukiwanie tras treningowych, które spełnią ich preferencje. Niniejszy rozdział jest realizacją części pierwszego celu przedstawionego w rozdziale \ref{chap:cele-pracy}. Omówiono w nim cechy, które mogą zostać przypisane do trasy, sposób ich wyznaczenia na podstawie danych lokalizacyjnych oraz kryteria wyszukiwania używane podczas przeglądania tras. 
+Zawody biegowe w których biegacze biorą udział, różnią się trasami, na jakich są przeprowadzane. Ich dystans może wynosić od kilku do kilkudziesięciu kilometrów. Zawody odbywające się w mieście zwykle odbywają się na płaskiej nawierzchni asfaltowej, podczas gdy biegi organizowane w górach wymagają często od zawodników podbiegania pod jakiś szczyt górski lub zbiegania z niego. Nie inaczej jest z~przygotowaniem do konkretnych zawodów. Chcąc jak najefektywniej przygotować się do startu, biegacz powinien trenować w warunkach zbliżonych do tych, które może spotkać na zawodach. Z tego względu aplikacja tworzona w ramach niniejszej pracy umożliwia użytkownikom wyszukiwanie tras treningowych, które spełnią ich preferencje. Niniejszy rozdział jest realizacją części pierwszego celu przedstawionego w~rozdziale \ref{chap:cele-pracy}. Omówiono w nim cechy, które mogą zostać przypisane do trasy, sposób ich wyznaczenia na podstawie danych lokalizacyjnych oraz kryteria wyszukiwania używane podczas przeglądania tras. 
 \section{Możliwe cechy trasy}\label{chap:opis-cech}
 Do każdej trasy mogą zostać przypisane 3 cechy.
 \begin{itemize}
@@ -26,7 +26,7 @@ Do każdej trasy mogą zostać przypisane 3 cechy.
 Długość trasy przypisywana jest bezpośrednio po ukończeniu treningu. Jej wyznaczenie polega na zsumowaniu odległości pomiędzy wszystkimi następującymi po sobie punktami przy użyciu wzorów \ref{eq:haversine11},  \ref{eq:haversine2} i \ref{eq:haversine3}.
 
 \subsection{Poziom terenu}
-Określenie poziomu terenu odbywa się poprzez obliczenie różnicy wysokości nad poziomem morza pomiędzy punktem rozpoczynającym oraz kończącym trasę i przypisanie odpowiednio poziomu:
+Określenie poziomu terenu odbywa się poprzez obliczenie różnicy wysokości nad poziomem morza pomiędzy punktem rozpoczynającym oraz kończącym trasę i~przypisanie odpowiednio poziomu:
 \begin{itemize}
 \item{\textbf{wyrównanego}} - gdy różnica nie przekracza 10\%,
 \item{\textbf{rosnącego}} - gdy wysokość punktu końcowego przewyższa wysokość punktu początkowego o więcej niż 10\%,
@@ -45,7 +45,8 @@ W celu umożliwienia automatycznego przypisania twardości nawierzchni, posłuż
 \end{figure}
 
 \begin{table}[thb]
-\caption{Przyporządkowanie konkretnego rodzaju nawierzchni do jej reprezentacji w tworzonym systemie \cite{osm-surface}}.\label{table:rodzaje-nawierzchni}
+\captionsetup{justification=centering}
+\caption{Przyporządkowanie konkretnego rodzaju nawierzchni do jej reprezentacji w~tworzonym systemie \cite{osm-surface}}.\label{table:rodzaje-nawierzchni}
 \centering\renewcommand\cellalign{lc}
 \setcellgapes{3pt}\makegapedcells
 \begin{tabular}{|c|c|} \hline
@@ -54,7 +55,7 @@ W celu umożliwienia automatycznego przypisania twardości nawierzchni, posłuż
 \end{tabular}
 \end{table}
 
-Tworzone przez użytkowników trasy zapisywane są w formie punktów, dlatego przed skorzystaniem z serwisu OpenStreetMap, należy zdefiniować wspomniany prostokątny obszar poszukiwań. Korzystając ze wzoru \ref{eq:haversine_generowanie_punktu} wyznaczane są więc 2 nowe punkty: oddalony o 10 metrów i 225 stopni względem północy oraz oddalony o 10 metrów i 45 stopni względem północy. Po ustaleniu rodzaju nawierzchni dla każdego z punktów trasy, możliwe jest wyliczenie wartości procentowej, a tym samym określenie cechy według wzoru:
+Tworzone przez użytkowników trasy zapisywane są w formie punktów, dlatego przed skorzystaniem z serwisu OpenStreetMap, należy zdefiniować wspomniany prostokątny obszar poszukiwań. Korzystając ze wzoru \ref{eq:haversine_generowanie_punktu} wyznaczane są więc 2 nowe punkty: oddalony o 10 metrów i 225 stopni względem północy oraz oddalony o 10 metrów i~45~stopni względem północy. Po ustaleniu rodzaju nawierzchni dla każdego z punktów trasy, możliwe jest wyliczenie wartości procentowej, a tym samym określenie cechy według wzoru:
 \begin{equation}\label{eq:haversine1}
 {Twardosc\hspace{0.15cm} nawierzchni} = \frac{u}{u + n} \cdot 100,
 \end{equation}
@@ -69,4 +70,4 @@ Kryteria wyszukiwania są ściśle powiązane z cechami opisanymi w rozdziale \r
 \item{Przy filtrowaniu ze względu na \textbf{poziom terenu} oprócz konkretnych wartości cechy możliwe jest także wybranie opcji „każdy”. Oznacza to, że trasy nie będą filtrowane według tej cechy.}
 \item{\textbf{Twardość nawierzchni} podobnie jak w przypadku długości trasy określana jest jako zakres  „od, do”. Wartość maksymalna wynosi 100\%.}
 \end{itemize}
-Oprócz tego użytkownik musi określić maksymalny promień wyszukiwania względem jego obecnej lokalizacji. Dzięki temu jest on świadomy, że zostały mu pokazane wszystkie trasy z interesującego go obszaru. Nie bez znaczenia jest także fakt, że zapobiegnie to pobieraniu z bazy danych wszystkich istniejących tras, co miałoby znaczący wpływ na wykorzystanie łącza oraz wydajność zarówno aplikacji serwerowej jak i aplikacji mobilnej.
+Oprócz tego użytkownik musi określić maksymalny promień wyszukiwania względem jego obecnej lokalizacji. Dzięki temu jest on świadomy, że zostały mu pokazane wszystkie trasy z~interesującego go obszaru. Nie bez znaczenia jest także fakt, że zapobiegnie to pobieraniu z~bazy danych wszystkich istniejących tras, co miałoby znaczący wpływ na wykorzystanie łącza oraz wydajność zarówno aplikacji serwerowej jak i aplikacji mobilnej.

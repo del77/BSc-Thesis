@@ -1,64 +1,64 @@
-\contentsline {chapter}{\numberline {1\relax .\enspace }Wst\IeC {\k e}p}{4}{chapter.1}%
+\contentsline {chapter}{\numberline {1\relax .\enspace }Wstęp}{4}{chapter.1}%
 \contentsline {section}{\numberline {1.1\relax .\enspace }Problematyka i zakres pracy}{4}{section.1.1}%
 \contentsline {section}{\numberline {1.2\relax .\enspace }Cele pracy}{6}{section.1.2}%
-\contentsline {section}{\numberline {1.3\relax .\enspace }Przegl\IeC {\k a}d literatury}{6}{section.1.3}%
+\contentsline {section}{\numberline {1.3\relax .\enspace }Przegląd literatury}{7}{section.1.3}%
 \contentsline {subsection}{\numberline {1.3.1\relax .\enspace }Wykorzystywanie nawigacji satelitarnej}{7}{subsection.1.3.1}%
 \contentsline {subsection}{\numberline {1.3.2\relax .\enspace }Budowanie aplikacji mobilnych}{7}{subsection.1.3.2}%
 \contentsline {subsection}{\numberline {1.3.3\relax .\enspace }Budowanie aplikacji serwerowych}{7}{subsection.1.3.3}%
-\contentsline {section}{\numberline {1.4\relax .\enspace }Uk\IeC {\l }ad pracy}{7}{section.1.4}%
-\contentsline {chapter}{\numberline {2\relax .\enspace }Wykorzystanie urz\IeC {\k a}dze\IeC {\'n} mobilnych i nawigacji satelitarnej do trening\IeC {\'o}w biegowych}{9}{chapter.2}%
+\contentsline {section}{\numberline {1.4\relax .\enspace }Układ pracy}{7}{section.1.4}%
+\contentsline {chapter}{\numberline {2\relax .\enspace }Wykorzystanie urządzeń mobilnych i nawigacji satelitarnej do treningów biegowych}{9}{chapter.2}%
 \contentsline {section}{\numberline {2.1\relax .\enspace }Nawigacja satelitarna}{9}{section.2.1}%
-\contentsline {section}{\numberline {2.2\relax .\enspace }Dzia\IeC {\l }ania na danych pochodz\IeC {\k a}cych z nawigacji satelitarnej}{10}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1\relax .\enspace }Obliczanie odleg\IeC {\l }o\IeC {\'s}ci pomi\IeC {\k e}dzy dwoma punktami geograficznymi}{10}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2\relax .\enspace }Wyznaczanie punktu oddalonego o podany dystans i k\IeC {\k a}t od punktu pocz\IeC {\k a}tkowego}{11}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3\relax .\enspace }Mo\IeC {\.z}liwe problemy i sposoby ich rozwi\IeC {\k a}zania}{11}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1\relax .\enspace }Automatyczne okre\IeC {\'s}lenie poziomu terenu w przypadku dost\IeC {\k e}pu do jedynie trzech satelit\IeC {\'o}w}{11}{subsection.2.3.1}%
+\contentsline {section}{\numberline {2.2\relax .\enspace }Działania na danych pochodzących z nawigacji satelitarnej}{10}{section.2.2}%
+\contentsline {section}{\numberline {2.3\relax .\enspace }Możliwe problemy i sposoby ich rozwiązania}{11}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1\relax .\enspace }Automatyczne określenie poziomu terenu w przypadku dostępu do jedynie trzech satelitów}{11}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2\relax .\enspace }Wahania pozycji przy braku ruchu}{12}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3\relax .\enspace }Zapobieganie oszustwom}{13}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4\relax .\enspace }Istniej\IeC {\k a}ce rozwi\IeC {\k a}zania w dziedzinie aplikacji treningowych}{14}{section.2.4}%
+\contentsline {section}{\numberline {2.4\relax .\enspace }Istniejące rozwiązania w dziedzinie aplikacji treningowych}{14}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1\relax .\enspace }Endomondo}{14}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2\relax .\enspace }Strava}{15}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3\relax .\enspace }MapMyRun}{15}{subsection.2.4.3}%
-\contentsline {chapter}{\numberline {3\relax .\enspace }Tworzenie i charakterystyka tras}{16}{chapter.3}%
-\contentsline {section}{\numberline {3.1\relax .\enspace }Mo\IeC {\.z}liwe cechy trasy}{17}{section.3.1}%
-\contentsline {section}{\numberline {3.2\relax .\enspace }Przypisanie cech do trasy}{17}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1\relax .\enspace }D\IeC {\l }ugo\IeC {\'s}\IeC {\'c} trasy}{17}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2\relax .\enspace }Poziom terenu}{17}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3\relax .\enspace }Twardo\IeC {\'s}\IeC {\'c} nawierzchni}{18}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3\relax .\enspace }Kryteria wyszukiwania tras}{19}{section.3.3}%
-\contentsline {chapter}{\numberline {4\relax .\enspace }Symulacja rywalizacji na podstawie zgromadzonych danych}{21}{chapter.4}%
-\contentsline {section}{\numberline {4.1\relax .\enspace }Spos\IeC {\'o}b przeprowadzenia procesu wirtualnej rywalizacji}{21}{section.4.1}%
-\contentsline {section}{\numberline {4.2\relax .\enspace }Informowanie u\IeC {\.z}ytkownika o rezultatach}{23}{section.4.2}%
-\contentsline {chapter}{\numberline {5\relax .\enspace }Zastosowane technologie}{24}{chapter.5}%
-\contentsline {section}{\numberline {5.1\relax .\enspace }Oprogramowanie}{24}{section.5.1}%
-\contentsline {section}{\numberline {5.2\relax .\enspace }Aplikacja mobilna}{24}{section.5.2}%
-\contentsline {section}{\numberline {5.3\relax .\enspace }Aplikacja webowa}{25}{section.5.3}%
-\contentsline {section}{\numberline {5.4\relax .\enspace }System zarz\IeC {\k a}dzania baz\IeC {\k a} danych}{26}{section.5.4}%
-\contentsline {section}{\numberline {5.5\relax .\enspace }Obs\IeC {\l }uga map}{26}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1\relax .\enspace }Wy\IeC {\'s}wietlanie mapy w aplikacji mobilnej}{26}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2\relax .\enspace }Automatyczne ustalanie twardo\IeC {\'s}ci nawierzchni}{26}{subsection.5.5.2}%
-\contentsline {chapter}{\numberline {6\relax .\enspace }Dokumentaja techniczna}{28}{chapter.6}%
-\contentsline {section}{\numberline {6.1\relax .\enspace }Projekt systemu}{28}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1\relax .\enspace }Opis za\IeC {\l }o\IeC {\.z}e\IeC {\'n}}{28}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2\relax .\enspace }Podzia\IeC {\l } projektu}{29}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3\relax .\enspace }Przygotowanie aplikacji do dzia\IeC {\l }ania}{29}{subsection.6.1.3}%
-\contentsline {section}{\numberline {6.2\relax .\enspace }Warstwa modelu danych}{31}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1\relax .\enspace }Aplikacja mobilna}{31}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2\relax .\enspace }Aplikacja serwerowa}{32}{subsection.6.2.2}%
-\contentsline {section}{\numberline {6.3\relax .\enspace }Warstwa logiki biznesowej}{35}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1\relax .\enspace }Wyszukiwanie tras}{35}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2\relax .\enspace }Odbywanie treningu}{37}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3\relax .\enspace }Automatyczne przypisywanie cech do trasy}{42}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4\relax .\enspace }Brak po\IeC {\l }\IeC {\k a}czenia z serwerem po zako\IeC {\'n}czonym treningu}{44}{subsection.6.3.4}%
-\contentsline {section}{\numberline {6.4\relax .\enspace }Warstwa interfejsu u\IeC {\.z}ytkownika}{45}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1\relax .\enspace }Wyszukiwanie tras}{45}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2\relax .\enspace }Widok treningu}{46}{subsection.6.4.2}%
-\contentsline {subsection}{\numberline {6.4.3\relax .\enspace }Przypisywanie cech do trasy}{49}{subsection.6.4.3}%
-\contentsline {chapter}{\numberline {7\relax .\enspace }Dokumentacja u\IeC {\.z}ytkownika}{50}{chapter.7}%
-\contentsline {section}{\numberline {7.1\relax .\enspace }Trening tworz\IeC {\k a}cy tras\IeC {\k e}}{50}{section.7.1}%
-\contentsline {section}{\numberline {7.2\relax .\enspace }Trening na zapisanej trasie}{51}{section.7.2}%
-\contentsline {chapter}{\numberline {8\relax .\enspace }Podsumowanie}{54}{chapter.8}%
-\contentsline {chapter}{Bibliografia}{55}{chapter*.29}%
-\contentsline {chapter}{Spis rysunk\'ow}{58}{chapter*.30}%
-\contentsline {chapter}{Spis tabel}{59}{chapter*.31}%
-\contentsline {chapter}{Spis listing\IeC {\'o}w}{60}{chapter*.32}%
+\contentsline {chapter}{\numberline {3\relax .\enspace }Tworzenie i charakterystyka tras}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1\relax .\enspace }Możliwe cechy trasy}{18}{section.3.1}%
+\contentsline {section}{\numberline {3.2\relax .\enspace }Przypisanie cech do trasy}{18}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1\relax .\enspace }Długość trasy}{18}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2\relax .\enspace }Poziom terenu}{19}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3\relax .\enspace }Twardość nawierzchni}{19}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3\relax .\enspace }Kryteria wyszukiwania tras}{20}{section.3.3}%
+\contentsline {chapter}{\numberline {4\relax .\enspace }Symulacja rywalizacji na podstawie zgromadzonych danych}{22}{chapter.4}%
+\contentsline {section}{\numberline {4.1\relax .\enspace }Sposób przeprowadzenia procesu wirtualnej rywalizacji}{22}{section.4.1}%
+\contentsline {section}{\numberline {4.2\relax .\enspace }Informowanie użytkownika o rezultatach}{24}{section.4.2}%
+\contentsline {chapter}{\numberline {5\relax .\enspace }Zastosowane technologie}{25}{chapter.5}%
+\contentsline {section}{\numberline {5.1\relax .\enspace }Oprogramowanie}{25}{section.5.1}%
+\contentsline {section}{\numberline {5.2\relax .\enspace }Aplikacja mobilna}{25}{section.5.2}%
+\contentsline {section}{\numberline {5.3\relax .\enspace }Aplikacja webowa}{26}{section.5.3}%
+\contentsline {section}{\numberline {5.4\relax .\enspace }System zarządzania bazą danych}{27}{section.5.4}%
+\contentsline {section}{\numberline {5.5\relax .\enspace }Obsługa map}{27}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1\relax .\enspace }Wyświetlanie mapy w aplikacji mobilnej}{27}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2\relax .\enspace }Automatyczne ustalanie twardości nawierzchni}{28}{subsection.5.5.2}%
+\contentsline {chapter}{\numberline {6\relax .\enspace }Dokumentaja techniczna}{29}{chapter.6}%
+\contentsline {section}{\numberline {6.1\relax .\enspace }Projekt systemu}{29}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1\relax .\enspace }Opis założeń}{29}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2\relax .\enspace }Podział projektu}{30}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3\relax .\enspace }Przygotowanie aplikacji do działania}{31}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2\relax .\enspace }Warstwa modelu danych}{32}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1\relax .\enspace }Aplikacja mobilna}{32}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2\relax .\enspace }Aplikacja serwerowa}{33}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3\relax .\enspace }Warstwa logiki biznesowej}{36}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1\relax .\enspace }Wyszukiwanie tras}{36}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2\relax .\enspace }Odbywanie treningu}{38}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3\relax .\enspace }Automatyczne przypisywanie cech do trasy}{43}{subsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.3.4\relax .\enspace }Brak połączenia z serwerem po zakończonym treningu}{46}{subsection.6.3.4}%
+\contentsline {section}{\numberline {6.4\relax .\enspace }Warstwa interfejsu użytkownika}{47}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1\relax .\enspace }Wyszukiwanie tras}{47}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2\relax .\enspace }Widok treningu}{47}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3\relax .\enspace }Przypisywanie cech do trasy}{50}{subsection.6.4.3}%
+\contentsline {chapter}{\numberline {7\relax .\enspace }Dokumentacja użytkownika}{52}{chapter.7}%
+\contentsline {section}{\numberline {7.1\relax .\enspace }Trening tworzący trasę}{53}{section.7.1}%
+\contentsline {section}{\numberline {7.2\relax .\enspace }Trening na zapisanej trasie}{54}{section.7.2}%
+\contentsline {chapter}{\numberline {8\relax .\enspace }Podsumowanie}{57}{chapter.8}%
+\contentsline {section}{\numberline {8.1\relax .\enspace }Wnioski}{57}{section.8.1}%
+\contentsline {section}{\numberline {8.2\relax .\enspace }Perspektywy rozwoju}{57}{section.8.2}%
+\contentsline {chapter}{Bibliografia}{59}{chapter*.29}%
+\contentsline {chapter}{Spis rysunk\'ow}{62}{chapter*.30}%
+\contentsline {chapter}{Spis tabel}{63}{chapter*.31}%
+\contentsline {chapter}{Spis listingów}{64}{chapter*.32}%

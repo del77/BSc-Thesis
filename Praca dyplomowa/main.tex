@@ -1,4 +1,4 @@
-% Szablon pracy dyplomowej. W razie potrzeby można oczywiście dodawać nowe pakiety.
+% Szablon pracy dyplomowej. W razie potrzeby mo?na oczywi?cie dodawa? nowe pakiety.
 %DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
 %DIF UNDERLINE PREAMBLE
 \RequirePackage[normalem]{ulem}
@@ -19,33 +19,37 @@
 \providecommand{\DIFdelendFL}{}
 %DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
-\pdfoutput=1
-\pdfcompresslevel=9
-\pdfinfo
-{
-    /Author ()
-    /Title ()
-    /Subject ()
-    /Keywords ()
-}
+
+%\pdfoutput=1
+%\pdfcompresslevel=9
+%\pdfinfo
+%{
+%    /Author ({Jakub Przybylski})
+%    /Title ({Aplikacja wspomagajaca treningi biegowe})
+%    /Subject ()
+%    /Keywords ()
+%}
 \documentclass[a4paper,onecolumn,twoside,12pt]{mwrep}
+
 
 \usepackage{algorithm}
 \usepackage{url}
+\usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{hhline}
-\usepackage{fixltx2e}
+%\usepackage{fixltx2e}
 \usepackage{caption}
 \usetikzlibrary{arrows,shapes}
-
+\usepackage{pdfpages}
 \usepackage{color, colortbl}
 \usepackage{algpseudocode}
-\usepackage{times}
-\usepackage[utf8x]{inputenc}
+%\usepackage{times}
+%\usepackage[utf8x]{inputenc}
 \usepackage[export]{adjustbox}
 \usepackage{hyperref}
-\usepackage{breakurl}
-\usepackage[T1]{fontenc}
+\usepackage{geometry}
+%%\usepackage{breakurl}
+%\usepackage[T1]{fontenc}
 %\usepackage[polish]{babel}
 \usepackage{polski}
 \usepackage{setspace}
@@ -95,6 +99,7 @@ framexleftmargin=1.6em,
 %\newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
 
+
 \hyphenpenalty=10000
 \clubpenalty=10000	
 \widowpenalty=10000	
@@ -110,7 +115,8 @@ framexleftmargin=1.6em,
 \pretolerance=250
 \hfuzz=1.5pt
 \hbadness=1450
-
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
 \renewcommand{\labelitemi}{$\bullet$}
 \makeatletter
 \newcommand{\newalgname}[1]{%
@@ -134,16 +140,31 @@ framexleftmargin=1.6em,
 \addtolength{\textwidth}{-5cm}
 \setlength{\textheight}{\paperheight}
 \addtolength{\textheight}{-5cm}
-\setlength{\oddsidemargin}{0.0cm}
-\setlength{\evensidemargin}{0.0cm}
-\topmargin -1.25cm
+\newgeometry{tmargin=2.5cm, bmargin=2.5cm, lmargin=3.5cm, rmargin=2.5cm}
+%etlength{\oddsidemargin}{0.0cm}
+%setlength{\evensidemargin}{0.0cm}
+%\topmargin -1.25cm
 \footskip 1.4cm
 
 \linespread{1.5}
 
 \begin{document}
 
+\includepdf[pages=-]{img/strona_tytulowa.pdf}
+\newcommand\blankpage{\null\thispagestyle{empty}\addtocounter{page}{-1}\newpage}
+% potem
+\afterpage{\blankpage}
+
 \setcounter{page}{1}
+\makeatletter
+\def\ps@plain{%
+  \let\@mkboth\@gobbletwo
+  \let\ps@normal\hf@plain
+  \let\ps@opening\hf@plain
+  \let\ps@closing\hf@plain
+  \let\ps@blank\hf@empty
+  \ps@normal}
+\makeatother
 \pagestyle{plain}
 \tableofcontents
 \input{wstep.tex}

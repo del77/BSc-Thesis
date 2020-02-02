@@ -1,64 +1,64 @@
-\BOOKMARK [0][-]{chapter.1}{Wstep}{}% 1
-\BOOKMARK [1][-]{section.1.1}{Problematyka i zakres pracy}{chapter.1}% 2
-\BOOKMARK [1][-]{section.1.2}{Cele pracy}{chapter.1}% 3
-\BOOKMARK [1][-]{section.1.3}{Przeglad literatury}{chapter.1}% 4
-\BOOKMARK [2][-]{subsection.1.3.1}{Wykorzystywanie nawigacji satelitarnej}{section.1.3}% 5
-\BOOKMARK [2][-]{subsection.1.3.2}{Budowanie aplikacji mobilnych}{section.1.3}% 6
-\BOOKMARK [2][-]{subsection.1.3.3}{Budowanie aplikacji serwerowych}{section.1.3}% 7
-\BOOKMARK [1][-]{section.1.4}{Uk\233ad pracy}{chapter.1}% 8
-\BOOKMARK [0][-]{chapter.2}{Wykorzystanie urzadzen mobilnych i nawigacji satelitarnej do trening\363w biegowych}{}% 9
-\BOOKMARK [1][-]{section.2.1}{Nawigacja satelitarna}{chapter.2}% 10
-\BOOKMARK [1][-]{section.2.2}{Dzia\233ania na danych pochodzacych z nawigacji satelitarnej}{chapter.2}% 11
-\BOOKMARK [2][-]{subsection.2.2.1}{Obliczanie odleg\233osci pomiedzy dwoma punktami geograficznymi}{section.2.2}% 12
-\BOOKMARK [2][-]{subsection.2.2.2}{Wyznaczanie punktu oddalonego o podany dystans i kat od punktu poczatkowego}{section.2.2}% 13
-\BOOKMARK [1][-]{section.2.3}{Mozliwe problemy i sposoby ich rozwiazania}{chapter.2}% 14
-\BOOKMARK [2][-]{subsection.2.3.1}{Automatyczne okreslenie poziomu terenu w przypadku dostepu do jedynie trzech satelit\363w}{section.2.3}% 15
-\BOOKMARK [2][-]{subsection.2.3.2}{Wahania pozycji przy braku ruchu}{section.2.3}% 16
-\BOOKMARK [2][-]{subsection.2.3.3}{Zapobieganie oszustwom}{section.2.3}% 17
-\BOOKMARK [1][-]{section.2.4}{Istniejace rozwiazania w dziedzinie aplikacji treningowych}{chapter.2}% 18
-\BOOKMARK [2][-]{subsection.2.4.1}{Endomondo}{section.2.4}% 19
-\BOOKMARK [2][-]{subsection.2.4.2}{Strava}{section.2.4}% 20
-\BOOKMARK [2][-]{subsection.2.4.3}{MapMyRun}{section.2.4}% 21
-\BOOKMARK [0][-]{chapter.3}{Tworzenie i charakterystyka tras}{}% 22
-\BOOKMARK [1][-]{section.3.1}{Mozliwe cechy trasy}{chapter.3}% 23
-\BOOKMARK [1][-]{section.3.2}{Przypisanie cech do trasy}{chapter.3}% 24
-\BOOKMARK [2][-]{subsection.3.2.1}{D\233ugosc trasy}{section.3.2}% 25
-\BOOKMARK [2][-]{subsection.3.2.2}{Poziom terenu}{section.3.2}% 26
-\BOOKMARK [2][-]{subsection.3.2.3}{Twardosc nawierzchni}{section.3.2}% 27
-\BOOKMARK [1][-]{section.3.3}{Kryteria wyszukiwania tras}{chapter.3}% 28
-\BOOKMARK [0][-]{chapter.4}{Symulacja rywalizacji na podstawie zgromadzonych danych}{}% 29
-\BOOKMARK [1][-]{section.4.1}{Spos\363b przeprowadzenia procesu wirtualnej rywalizacji}{chapter.4}% 30
-\BOOKMARK [1][-]{section.4.2}{Informowanie uzytkownika o rezultatach}{chapter.4}% 31
-\BOOKMARK [0][-]{chapter.5}{Zastosowane technologie}{}% 32
-\BOOKMARK [1][-]{section.5.1}{Oprogramowanie}{chapter.5}% 33
-\BOOKMARK [1][-]{section.5.2}{Aplikacja mobilna}{chapter.5}% 34
-\BOOKMARK [1][-]{section.5.3}{Aplikacja webowa}{chapter.5}% 35
-\BOOKMARK [1][-]{section.5.4}{System zarzadzania baza danych}{chapter.5}% 36
-\BOOKMARK [1][-]{section.5.5}{Obs\233uga map}{chapter.5}% 37
-\BOOKMARK [2][-]{subsection.5.5.1}{Wyswietlanie mapy w aplikacji mobilnej}{section.5.5}% 38
-\BOOKMARK [2][-]{subsection.5.5.2}{Automatyczne ustalanie twardosci nawierzchni}{section.5.5}% 39
-\BOOKMARK [0][-]{chapter.6}{Dokumentaja techniczna}{}% 40
-\BOOKMARK [1][-]{section.6.1}{Projekt systemu}{chapter.6}% 41
-\BOOKMARK [2][-]{subsection.6.1.1}{Opis za\233ozen}{section.6.1}% 42
-\BOOKMARK [2][-]{subsection.6.1.2}{Podzia\233 projektu}{section.6.1}% 43
-\BOOKMARK [2][-]{subsection.6.1.3}{Przygotowanie aplikacji do dzia\233ania}{section.6.1}% 44
-\BOOKMARK [1][-]{section.6.2}{Warstwa modelu danych}{chapter.6}% 45
-\BOOKMARK [2][-]{subsection.6.2.1}{Aplikacja mobilna}{section.6.2}% 46
-\BOOKMARK [2][-]{subsection.6.2.2}{Aplikacja serwerowa}{section.6.2}% 47
-\BOOKMARK [1][-]{section.6.3}{Warstwa logiki biznesowej}{chapter.6}% 48
-\BOOKMARK [2][-]{subsection.6.3.1}{Wyszukiwanie tras}{section.6.3}% 49
-\BOOKMARK [2][-]{subsection.6.3.2}{Odbywanie treningu}{section.6.3}% 50
-\BOOKMARK [2][-]{subsection.6.3.3}{Automatyczne przypisywanie cech do trasy}{section.6.3}% 51
-\BOOKMARK [2][-]{subsection.6.3.4}{Brak po\233aczenia z serwerem po zakonczonym treningu}{section.6.3}% 52
-\BOOKMARK [1][-]{section.6.4}{Warstwa interfejsu uzytkownika}{chapter.6}% 53
-\BOOKMARK [2][-]{subsection.6.4.1}{Wyszukiwanie tras}{section.6.4}% 54
-\BOOKMARK [2][-]{subsection.6.4.2}{Widok treningu}{section.6.4}% 55
-\BOOKMARK [2][-]{subsection.6.4.3}{Przypisywanie cech do trasy}{section.6.4}% 56
-\BOOKMARK [0][-]{chapter.7}{Dokumentacja uzytkownika}{}% 57
-\BOOKMARK [1][-]{section.7.1}{Trening tworzacy trase}{chapter.7}% 58
-\BOOKMARK [1][-]{section.7.2}{Trening na zapisanej trasie}{chapter.7}% 59
-\BOOKMARK [0][-]{chapter.8}{Podsumowanie}{}% 60
+\BOOKMARK [0][-]{chapter.1}{Wstęp}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Problematyka\040i\040zakres\040pracy}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Cele\040pracy}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Przegląd literatury}{chapter.1}% 4
+\BOOKMARK [2][-]{subsection.1.3.1}{Wykorzystywanie\040nawigacji\040satelitarnej}{section.1.3}% 5
+\BOOKMARK [2][-]{subsection.1.3.2}{Budowanie\040aplikacji\040mobilnych}{section.1.3}% 6
+\BOOKMARK [2][-]{subsection.1.3.3}{Budowanie\040aplikacji\040serwerowych}{section.1.3}% 7
+\BOOKMARK [1][-]{section.1.4}{Układ pracy}{chapter.1}% 8
+\BOOKMARK [0][-]{chapter.2}{Wykorzystanie urządzeń mobilnych i nawigacji satelitarnej do treningów biegowych}{}% 9
+\BOOKMARK [1][-]{section.2.1}{Nawigacja\040satelitarna}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.2}{Działania na danych pochodzących z nawigacji satelitarnej}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Możliwe problemy i sposoby ich rozwiązania}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.3.1}{Automatyczne określenie poziomu terenu w przypadku dostępu do jedynie trzech satelitów}{section.2.3}% 13
+\BOOKMARK [2][-]{subsection.2.3.2}{Wahania\040pozycji\040przy\040braku\040ruchu}{section.2.3}% 14
+\BOOKMARK [2][-]{subsection.2.3.3}{Zapobieganie\040oszustwom}{section.2.3}% 15
+\BOOKMARK [1][-]{section.2.4}{Istniejące rozwiązania w dziedzinie aplikacji treningowych}{chapter.2}% 16
+\BOOKMARK [2][-]{subsection.2.4.1}{Endomondo}{section.2.4}% 17
+\BOOKMARK [2][-]{subsection.2.4.2}{Strava}{section.2.4}% 18
+\BOOKMARK [2][-]{subsection.2.4.3}{MapMyRun}{section.2.4}% 19
+\BOOKMARK [0][-]{chapter.3}{Tworzenie\040i\040charakterystyka\040tras}{}% 20
+\BOOKMARK [1][-]{section.3.1}{Możliwe cechy trasy}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.2}{Przypisanie\040cech\040do\040trasy}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.2.1}{Długość trasy}{section.3.2}% 23
+\BOOKMARK [2][-]{subsection.3.2.2}{Poziom\040terenu}{section.3.2}% 24
+\BOOKMARK [2][-]{subsection.3.2.3}{Twardość nawierzchni}{section.3.2}% 25
+\BOOKMARK [1][-]{section.3.3}{Kryteria\040wyszukiwania\040tras}{chapter.3}% 26
+\BOOKMARK [0][-]{chapter.4}{Symulacja\040rywalizacji\040na\040podstawie\040zgromadzonych\040danych}{}% 27
+\BOOKMARK [1][-]{section.4.1}{Sposób przeprowadzenia procesu wirtualnej rywalizacji}{chapter.4}% 28
+\BOOKMARK [1][-]{section.4.2}{Informowanie użytkownika o rezultatach}{chapter.4}% 29
+\BOOKMARK [0][-]{chapter.5}{Zastosowane\040technologie}{}% 30
+\BOOKMARK [1][-]{section.5.1}{Oprogramowanie}{chapter.5}% 31
+\BOOKMARK [1][-]{section.5.2}{Aplikacja\040mobilna}{chapter.5}% 32
+\BOOKMARK [1][-]{section.5.3}{Aplikacja\040webowa}{chapter.5}% 33
+\BOOKMARK [1][-]{section.5.4}{System zarządzania bazą danych}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.5}{Obsługa map}{chapter.5}% 35
+\BOOKMARK [2][-]{subsection.5.5.1}{Wyświetlanie mapy w aplikacji mobilnej}{section.5.5}% 36
+\BOOKMARK [2][-]{subsection.5.5.2}{Automatyczne ustalanie twardości nawierzchni}{section.5.5}% 37
+\BOOKMARK [0][-]{chapter.6}{Dokumentaja\040techniczna}{}% 38
+\BOOKMARK [1][-]{section.6.1}{Projekt\040systemu}{chapter.6}% 39
+\BOOKMARK [2][-]{subsection.6.1.1}{Opis założeń}{section.6.1}% 40
+\BOOKMARK [2][-]{subsection.6.1.2}{Podział projektu}{section.6.1}% 41
+\BOOKMARK [2][-]{subsection.6.1.3}{Przygotowanie aplikacji do działania}{section.6.1}% 42
+\BOOKMARK [1][-]{section.6.2}{Warstwa\040modelu\040danych}{chapter.6}% 43
+\BOOKMARK [2][-]{subsection.6.2.1}{Aplikacja\040mobilna}{section.6.2}% 44
+\BOOKMARK [2][-]{subsection.6.2.2}{Aplikacja\040serwerowa}{section.6.2}% 45
+\BOOKMARK [1][-]{section.6.3}{Warstwa\040logiki\040biznesowej}{chapter.6}% 46
+\BOOKMARK [2][-]{subsection.6.3.1}{Wyszukiwanie\040tras}{section.6.3}% 47
+\BOOKMARK [2][-]{subsection.6.3.2}{Odbywanie\040treningu}{section.6.3}% 48
+\BOOKMARK [2][-]{subsection.6.3.3}{Automatyczne\040przypisywanie\040cech\040do\040trasy}{section.6.3}% 49
+\BOOKMARK [2][-]{subsection.6.3.4}{Brak połączenia z serwerem po zakończonym treningu}{section.6.3}% 50
+\BOOKMARK [1][-]{section.6.4}{Warstwa interfejsu użytkownika}{chapter.6}% 51
+\BOOKMARK [2][-]{subsection.6.4.1}{Wyszukiwanie\040tras}{section.6.4}% 52
+\BOOKMARK [2][-]{subsection.6.4.2}{Widok\040treningu}{section.6.4}% 53
+\BOOKMARK [2][-]{subsection.6.4.3}{Przypisywanie\040cech\040do\040trasy}{section.6.4}% 54
+\BOOKMARK [0][-]{chapter.7}{Dokumentacja użytkownika}{}% 55
+\BOOKMARK [1][-]{section.7.1}{Trening tworzący trasę}{chapter.7}% 56
+\BOOKMARK [1][-]{section.7.2}{Trening\040na\040zapisanej\040trasie}{chapter.7}% 57
+\BOOKMARK [0][-]{chapter.8}{Podsumowanie}{}% 58
+\BOOKMARK [1][-]{section.8.1}{Wnioski}{chapter.8}% 59
+\BOOKMARK [1][-]{section.8.2}{Perspektywy\040rozwoju}{chapter.8}% 60
 \BOOKMARK [0][-]{chapter*.29}{Bibliografia}{}% 61
-\BOOKMARK [0][-]{chapter*.30}{Spis rysunk\363w}{}% 62
-\BOOKMARK [0][-]{chapter*.31}{Spis tabel}{}% 63
-\BOOKMARK [0][-]{chapter*.32}{Spis listing\363w}{}% 64
+\BOOKMARK [0][-]{chapter*.30}{Spis rysunków}{}% 62
+\BOOKMARK [0][-]{chapter*.31}{Spis\040tabel}{}% 63
+\BOOKMARK [0][-]{chapter*.32}{Spis listingów}{}% 64

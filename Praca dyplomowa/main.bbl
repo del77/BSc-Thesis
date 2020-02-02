@@ -2,167 +2,167 @@
 
 \bibitem{onmapready}
 Biblioteka {Google Maps}, interfejs {OnMapReadyCallback}.
-\newblock \burl
+\newblock \url
   {https://developers.google.com/android/reference/com/google/android/gms/maps/OnMapReadyCallback}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{geography-type2}
 {Biblioteka NTS TopologySuite}.
-\newblock \burl
-  {https://nettopologysuite.github.io/html/class_net_topology_suite_1_1_geometries_1_1_geometry.html}.
+\newblock \url
+  {https://nettopologysuite.github.io/html/class\_net\_topology\_suite\_1\_1\_geometries\_1\_1\_geometry.html}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{baidu1}
 Chiński system nawigacji satelitarnej {Beidou}.
 \newblock
-  \burl{http://www.spacesafetymagazine.com/news/chinas-bediou-satellite-navigation-system-offer-regional-service/}.
+  \url{http://www.spacesafetymagazine.com/news/chinas-bediou-satellite-navigation-system-offer-regional-service/}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{googlemaps}
 Dokumentacja techniczna {Eleveation API serwisu Google Maps}.
-\newblock \burl
+\newblock \url
   {https://developers.google.com/maps/documentation/elevation/start}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{osm-docs-wiki}
 Dokumentacja techniczna serwisu {OpenStreetMap}.
-\newblock \burl {https://wiki.openstreetmap.org/wiki/Overpass_API}.
+\newblock \url {https://wiki.openstreetmap.org/wiki/Overpass\_API}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{endomondo}
 Endomondo, aplikacja wspierająca aktywności sportowe.
-\newblock \burl {https://www.endomondo.com}.
+\newblock \url {https://www.endomondo.com}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{google-maps-pricing}
 {Google Maps}, biblioteka - opłaty za korzystanie.
-\newblock \burl{ https://cloud.google.com/maps-platform/pricing }.
+\newblock \url{ https://cloud.google.com/maps-platform/pricing }.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{google-maps}
 {Google Maps}, dokumentacja techniczna biblioteki.
-\newblock \burl
+\newblock \url
   {https://developers.google.com/maps/documentation/android-sdk/intro}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{czujniki}
 Jak działają czujniki w smartfonach?
-\newblock \burl {https://fossbytes.com/which-smartphone-sensors-how-work/}.
+\newblock \url {https://fossbytes.com/which-smartphone-sensors-how-work/}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{fakegps}
 Jak sfałszować lokalizację {GPS}.
-\newblock \burl
+\newblock \url
   {https://thetechhacker.com/2018/03/08/how-change-fake-gps-location-android/}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{csharp}
 Język programowania {C\#}.
-\newblock \burl {https://docs.microsoft.com/en-us/dotnet/csharp/}.
+\newblock \url {https://docs.microsoft.com/en-us/dotnet/csharp/}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{xml}
 Język {XML}.
-\newblock \burl {https://www.w3schools.com/xml/}.
+\newblock \url {https://www.w3schools.com/xml/}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{mapmyrun}
 {MapMyRun}, aplikacja wspierająca treningi.
-\newblock \burl {https://www.mapmyrun.com}.
+\newblock \url {https://www.mapmyrun.com}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{microsoft}
 Microsoft, firma produkująca oprogramowanie komputerowe.
-\newblock \burl {https://www.microsoft.com}.
+\newblock \url {https://www.microsoft.com}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{haversine}
 Obliczanie dystansu, kierunku i więcej pomiędzy punktami.
-\newblock \burl {https://www.movable-type.co.uk/scripts/latlong.html}.
+\newblock \url {https://www.movable-type.co.uk/scripts/latlong.html}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{xamarin_docs_real}
 Oficjalna dokumentacja {Xamarin}.
-\newblock \burl {https://docs.microsoft.com/en-us/xamarin/}.
+\newblock \url {https://docs.microsoft.com/en-us/xamarin/}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{gpsgov}
 Oficjalna strona systemu nawigacyjnego {GPS}, opis segmentu kosmicznego.
-\newblock \burl {https://www.gps.gov/systems/gps/space/\#generations}.
+\newblock \url {https://www.gps.gov/systems/gps/space/\#generations}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{osm-gather-data}
 {OpenStreetMap}, przewodnik dla początkujących.
-\newblock \burl
-  {https://wiki.openstreetmap.org/wiki/Pl:Przewodnik_dla_początkujących_1.1}.
+\newblock \url
+  {https://wiki.openstreetmap.org/wiki/Pl:Przewodnik\_dla\_początkujących_1.1}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{osm-surface}
 {OpenStreetMap}, rodzaje nawierzchni.
-\newblock \burl {https://wiki.openstreetmap.org/wiki/Pl:Key:surface}.
+\newblock \url {https://wiki.openstreetmap.org/wiki/Pl:Key:surface}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{osm}
 {OpenStreetMap}, społecznościowy projekt udostępniający mapę świata.
-\newblock \burl {https://www.openstreetmap.org}.
+\newblock \url {https://www.openstreetmap.org}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{googleplay}
 Sklep z aplikacjami {Google Play}.
-\newblock \burl {https://play.google.com/store}.
+\newblock \url {https://play.google.com/store}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{geography-type}
 {SQL}, typy przestrzenne.
-\newblock \burl
+\newblock \url
   {https://docs.microsoft.com/en-us/sql/t-sql/spatial-geography/spatial-types-geography}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{strava}
 Strava, aplikacja przeznaczona do wspierania treningów biegowych oraz
   rowerowych.
-\newblock \burl {https://www.strava.com}.
+\newblock \url {https://www.strava.com}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{sql}
 {Structured Query Language}, język obsługi bazy danych.
-\newblock \burl {https://www.w3schools.com/sql/}.
+\newblock \url {https://www.w3schools.com/sql/}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{android}
 System operacyjny {Android}.
-\newblock \burl {https://www.android.com}.
+\newblock \url {https://www.android.com}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{ios}
 System operacyjny {iOS}.
-\newblock \burl {https://www.apple.com/pl/ios/ios-13/}.
+\newblock \url {https://www.apple.com/pl/ios/ios-13/}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{visual-studio}
 Visual {Studio}, zintegrowane środowisko programistyczne.
-\newblock \burl {https://visualstudio.microsoft.com}.
+\newblock \url {https://visualstudio.microsoft.com}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{xamarin-forms}
 {Xamarin Forms}, budowanie między platformowych interfejsów.
-\newblock \burl {https://dotnet.microsoft.com/apps/xamarin/xamarin-forms}.
+\newblock \url {https://dotnet.microsoft.com/apps/xamarin/xamarin-forms}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{xamarin_docs}
 Xamarin, technologia pozwalająca tworzyć aplikacje mobilne.
-\newblock \burl {https://dotnet.microsoft.com/apps/xamarin}.
+\newblock \url {https://dotnet.microsoft.com/apps/xamarin}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{resources}
 {Xamarin.Android}, internacjonalizacja aplikacji.
-\newblock \burl
+\newblock \url
   {https://docs.microsoft.com/en-us/xamarin/android/app-fundamentals/localization}.
 \newblock [dostęp: 06.01.2020].
 
 \bibitem{xamarin-native}
-{Xamarin.Android}, tworzenie natywnych apikacji dla systemu android.
-\newblock \burl
+{Xamarin.Android}, tworzenie natywnych aplikacji dla systemu android.
+\newblock \url
   {https://docs.microsoft.com/pl-pl/xamarin/android/index?WT.mc_id=docs-dotnet-xamarin}.
 \newblock [dostęp: 06.01.2020].
 
@@ -184,7 +184,7 @@ Janusz Narkiewicz.
 \bibitem{stronkagps1}
 Krystian Wójcik.
 \newblock Nawigacja {Galileo} - informacje o systemie.
-\newblock \burl {https://technologiagps.org.pl/systemy/galileo.html}.
+\newblock \url {https://technologiagps.org.pl/systemy/galileo.html}.
 \newblock [dostęp: 06.01.2020].
 
 \end{thebibliography}
